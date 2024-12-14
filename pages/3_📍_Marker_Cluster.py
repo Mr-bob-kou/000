@@ -18,7 +18,7 @@ st.title("Marker Cluster")
 with st.expander("See source code"):
     with st.echo():
 
-        m = leafmap.Map(center=[40, -100], zoom=12)
+        m = leafmap.Map(center=[40, -100], zoom=4)
         cities = 'https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_cities.csv'
         regions = 'https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_regions.geojson'
 
