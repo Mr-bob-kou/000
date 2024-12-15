@@ -1,79 +1,33 @@
-import ast
 import streamlit as st
 import leafmap.foliumap as leafmap
+import geopandas as gpd
+import altair as alt
 
 st.set_page_config(layout="wide")
 
-markdown = """
-Web App URL: <https://geotemplate.streamlit.app>
-GitHub Repository: <https://github.com/giswqs/streamlit-multipage-template>
-"""
 
-st.sidebar.title("About")
-st.sidebar.info(markdown)
-logo = "https://i.imgur.com/UbOXYAU.png"
-st.sidebar.image(logo)
-
-
-@st.cache
-def get_layers(url):
-    options = leafmap.get_wms_layers(url)
-    return options
-
-
-st.title("Web Map Service (WMS)")
-st.markdown(
-    """
-This app is a demonstration of loading Web Map Service (WMS) layers. Simply enter the URL of the WMS service 
-in the text box below and press Enter to retrieve the layers. Go to https://apps.nationalmap.gov/services to find 
-some WMS URLs if needed.
-"""
-)
-
-row1_col1, row1_col2 = st.columns([3, 1.3])
-width = None
-height = 600
-layers = None
-
-with row1_col2:
-
-    esa_landcover = "https://services.terrascope.be/wms/v2"
-    url = st.text_input(
-        "Enter a WMS URL:", value="https://services.terrascope.be/wms/v2"
-    )
-    empty = st.empty()
-
-    if url:
-        options = get_layers(url)
-
-        default = None
-        if url == esa_landcover:
-            default = "WORLDCOVER_2020_MAP"
-        layers = empty.multiselect(
-            "Select WMS layers to add to the map:", options, default=default
-        )
-        add_legend = st.checkbox("Add a legend to the map", value=True)
-        if default == "WORLDCOVER_2020_MAP":
-            legend = str(leafmap.builtin_legends["ESA_WorldCover"])
-        else:
-            legend = ""
-        if add_legend:
-            legend_text = st.text_area(
-                "Enter a legend as a dictionary {label: color}",
-                value=legend,
-                height=200,
-            )
-
-    with row1_col1:
-        m = leafmap.Map(center=(36.3, 0), zoom=2)
-
-        if layers is not None:
-            for layer in layers:
-                m.add_wms_layer(
-                    url, layers=layer, name=layer, attribution=" ", transparent=True
-                )
-        if add_legend and legend_text:
-            legend_dict = ast.literal_eval(legend_text)
-            m.add_legend(legend_dict=legend_dict)
-
-        m.to_streamlit(width, height)
+st.title("Adding!!")
+yr_range=list(range(1900,2100))
+tp=["Natural","Cultural","Mixed"] 
+with st.form("my_form"):
+    st.write("Inside the form")
+    name = st.text_input("Name")
+    country= st.text_input("Country")
+    year=st.selectbox("Inscribed Year",yr_range)
+    description=st.text_area("Description","NA")
+    co1,co2=st.columns([1,1])
+    with co1:
+        x_cord=st.text_input("Longitude") 
+        y_cord=st.text_input("Latitude")
+        type=st.selectbox("Type",tp) 
+        danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"])
+    with co2:
+        m=leafmap.Map()
+        m.to_streamlit(width=500, height=500)
+    
+    submitted = st.form_submit_button("Submit")
+if submitted:
+    st.write("Name", name, "Country", country)
+    st.write("Year",year)
+    st.write("description",description)
+    st.write(x_cord)
