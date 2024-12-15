@@ -19,8 +19,8 @@ with tab1:
         description=st.text_area("Description","NA")
         co1,co2=st.columns([1,1])
         with co1:
-            x_cord=st.text_input("Longitude") 
-            y_cord=st.text_input("Latitude")
+            x_cord=st.text_input("Longitude",0) 
+            y_cord=st.text_input("Latitude",0)
             type=st.selectbox("Type",tp) 
             danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"])
         with co2:
