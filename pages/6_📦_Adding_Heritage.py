@@ -2,6 +2,7 @@ import streamlit as st
 import leafmap.foliumap as leafmap
 import geopandas as gpd
 import altair as alt
+import ipyleaflet
 
 st.set_page_config(layout="wide")
 
