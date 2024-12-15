@@ -24,7 +24,7 @@ with tab1:
             type=st.selectbox("Type",tp) 
             danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"])
         with co2:
-            t=m.marker_cluster(event='click', add_marker=True)
+            m.marker_cluster(event='click', add_marker=True)
             m.to_streamlit(width=500, height=500)
         submitted = st.form_submit_button("Submit")
     if submitted:
@@ -32,4 +32,3 @@ with tab1:
         st.write("Year",year)
         st.write("description",description)
         st.write(x_cord)
-        st.write(t)
