@@ -25,6 +25,7 @@ with tab1:
             loct=[y_cord,x_cord]
             type=st.selectbox("Type",tp) 
             danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"])
+            areha=st.text_input("Area(ha)")
         with co2:
             m=leafmap.Map(center=loct,zoom=15)
             m.add_marker(loct)
