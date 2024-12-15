@@ -133,7 +133,7 @@ with col1:
         
     elif mode=='Default':
         if place=='See All':
-            m1 = leafmap.Map(center=[40, -100], zoom=4,locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
+            m1 = leafmap.Map(center=[0,0], zoom=1,locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
             pop=["NAME","DATEINSCRI","COUNTRY","DESCRIPTIO","AREAHA","DANGER","LONGITUDE","LATITUDE"]
             Default(heritage,m1, "LONGITUDE","LATITUDE",pop)
         else:
