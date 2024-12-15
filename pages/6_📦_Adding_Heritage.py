@@ -22,10 +22,12 @@ with tab1:
         with co1:
             x_cord=st.text_input("Longitude",0) 
             y_cord=st.text_input("Latitude",0)
+            loct=[y_cord,x_cord]
             type=st.selectbox("Type",tp) 
             danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"])
         with co2:
-            m.add_marker([y_cord,x_cord])
+            m=leafmap.Map(center=loct,zoom=15)
+            m.add_marker(loct)
             m.to_streamlit(width=500, height=500)
         submitted = st.form_submit_button("Submit")
     if submitted:
