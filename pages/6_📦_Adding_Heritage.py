@@ -5,7 +5,7 @@ import altair as alt
 
 st.set_page_config(layout="wide")
 
-
+m=leafmap.Map()
 st.title("Adding!!")
 yr_range=list(range(1900,2100))
 tp=["Natural","Cultural","Mixed"]
@@ -24,7 +24,7 @@ with tab1:
             type=st.selectbox("Type",tp) 
             danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"])
         with co2:
-            m=leafmap.Map()
+            m.add_marker([x_cord,y_cord])
             m.to_streamlit(width=500, height=500)
         submitted = st.form_submit_button("Submit")
     if submitted:
