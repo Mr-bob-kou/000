@@ -130,8 +130,8 @@ with col1:
             st.altair_chart(charts,use_container_width=True)
         with col4:
             st.write("#### Heritage Count Pie Chart")
-            alt.Chart(Count).mark_arc().encode(theta="count",color="name")
-            st.altair_chart(charts,use_container_width=True)
+            pie=alt.Chart(Count).mark_arc().encode(theta="count",color="name")
+            st.altair_chart(pie,use_container_width=True)
             
     elif mode=='Heat Map':
        heatmap(heritage2,m,"LATITUDE","LONGITUDE","AREAHA")
