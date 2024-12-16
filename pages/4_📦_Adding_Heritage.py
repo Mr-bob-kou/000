@@ -27,7 +27,7 @@ with tab1:
             type=st.selectbox("Type",tp) 
             danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"],key="danger")
             if st.session_state.danger=="Yes":
-                st.wrute("a")
+                st.write("a")
             else:
                 st.write("b")
             areha=st.text_input("Area(ha)")
