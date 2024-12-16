@@ -6,6 +6,7 @@ import altair as alt
 st.set_page_config(layout="wide")
 
 st.title("Main")
+st.session_state
 data="https://raw.githubusercontent.com/Mr-bob-kou/My_Respository/main/point.geojson"
 heritage=gpd.read_file(data)
 regions = "https://raw.githubusercontent.com/Mr-bob-kou/My_Respository/main/world-administrative-boundaries.geojson"
