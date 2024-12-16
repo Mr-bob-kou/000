@@ -30,7 +30,7 @@ with tab1:
         with co2:
             m=leafmap.Map(center=loct,zoom=15)
             m.add_marker(loct)
-            m.to_streamlit(width=500, height=500)
+            m.to_streamlit(width=500, height=500,key="map")
         submitted = st.form_submit_button("Submit")
     if submitted:
         st.write("Name", name, "Country", country)
