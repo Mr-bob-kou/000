@@ -10,7 +10,7 @@ selected = st.feedback("stars")
 but=st.button("Send Feedback")
 if but:
     @st.dialog("Thank You~", width="small")
-    st.write("Thanks~~~")
+      st.write("Thanks~~~")
 if selected is not None:
     st.markdown(f"You selected {sentiment_mapping[selected]} star(s).")
 
