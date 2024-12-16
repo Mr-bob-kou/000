@@ -34,9 +34,12 @@ with tab1:
             m.to_streamlit(width=500, height=500)
         submitted = st.form_submit_button("Submit")
     if submitted:
-        st.write("Name", name, "Country", country)
-        st.write("Year",year)
-        st.write("description",description)
-        st.write(x_cord)
+        if danger=="yes":
+            st.write("Name", name, "Country", country)
+            st.write("Year",year)
+            st.write("description",description)
+            st.write(x_cord)
+        else:
+            st.write("hello")
 with tab2:
     st.dataframe(data=st.session_state.heritage1, use_container_width=True)
