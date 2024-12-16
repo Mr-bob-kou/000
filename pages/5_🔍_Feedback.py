@@ -9,7 +9,7 @@ sentiment_mapping = ["one", "two", "three", "four", "five"]
 selected = st.feedback("stars",key='star')
 but=st.button("Send Feedback")
 if but:
-    st.markdown("Your Suggestion:{sug}")
+    st.write("Your Suggestion:",sug)
     st.markdown(f"You selected {sentiment_mapping[selected]} star(s).")
     st.write("Thank you~")
 
