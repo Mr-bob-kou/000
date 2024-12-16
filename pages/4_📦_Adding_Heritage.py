@@ -11,6 +11,7 @@ st.title("Adding!!")
 yr_range=list(range(1900,2100))
 tp=["Natural","Cultural","Mixed"]
 tab1, tab2=st.tabs(["Add Heritage", "Delete Heritage"])
+st.session_state
 with tab1:
     with st.form("my_form"):
         st.write("Inside the form")
