@@ -9,5 +9,5 @@ sentiment_mapping = ["one", "two", "three", "four", "five"]
 selected = st.feedback("stars")
 but=st.button("Send Feedback")
 if but:
-    @st.dialog("Thank You~", width="small")
+    st.write("Thank you~")
 
