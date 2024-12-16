@@ -38,3 +38,5 @@ with tab1:
         st.write("Year",year)
         st.write("description",description)
         st.write(x_cord)
+with tab2:
+    st.dataframe(data=st.session_state.heritage1, use_container_width=True)
