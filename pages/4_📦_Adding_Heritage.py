@@ -12,11 +12,10 @@ yr_range=list(range(1900,2100))
 tp=["Natural","Cultural","Mixed"]
 tab1, tab2=st.tabs(["Add Heritage", "Delete Heritage"])
 st.session_state
-danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"],key="danger")
+danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"],key="danger1")
 with tab1:
     with st.form("my_form"):
         st.write("Inside the form")
-        st.session_state
         name = st.text_input("Name")
         country= st.text_input("Country")
         year=st.selectbox("Inscribed Year",yr_range)
