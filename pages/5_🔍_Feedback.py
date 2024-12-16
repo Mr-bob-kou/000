@@ -10,5 +10,7 @@ selected = st.feedback("stars",key='star')
 but=st.button("Send Feedback")
 st.session_state
 if but:
+    for key in st.session_state.key():
+        del st.session_state[key]
     st.write("Thank you~")
 
