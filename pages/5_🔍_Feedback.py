@@ -7,7 +7,7 @@ st.title("Feedback")
 sug=st.text_input("Suggestion:")
 sentiment_mapping = ["one", "two", "three", "four", "five"]
 selected = st.feedback("stars")
-but=st.buttom("Send Feedback")
+but=st.button("Send Feedback")
 if but:
     st.dialog("Thank You~", width="small")
 if selected is not None:
