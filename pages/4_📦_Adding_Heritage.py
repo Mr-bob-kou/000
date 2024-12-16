@@ -12,6 +12,8 @@ yr_range=list(range(1900,2100))
 tp=["Natural","Cultural","Mixed"]
 tab1, tab2=st.tabs(["Add Heritage", "Delete Heritage"])
 st.session_state
+m1=leafmap.Map(center=loct,zoom=15)
+m1.to_streamlit(width=500, height=500,key="map")
 with tab1:
     with st.form("my_form"):
         st.write("Inside the form")
@@ -30,7 +32,7 @@ with tab1:
         with co2:
             m=leafmap.Map(center=loct,zoom=15)
             m.add_marker(loct)
-            m.to_streamlit(width=500, height=500,key="map")
+            m.to_streamlit(width=500, height=500)
         submitted = st.form_submit_button("Submit")
     if submitted:
         st.write("Name", name, "Country", country)
