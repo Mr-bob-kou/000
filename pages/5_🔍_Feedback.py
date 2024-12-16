@@ -8,7 +8,8 @@ sug=st.text_input("Suggestion:",key="sug")
 sentiment_mapping = ["one", "two", "three", "four", "five"]
 selected = st.feedback("stars",key='star')
 but=st.button("Send Feedback")
-st.session_state
 if but:
+    st.markdown("Your Suggestion:",sug)
+    st.markdown(f"You selected {sentiment_mapping[selected]} star(s).")
     st.write("Thank you~")
 
