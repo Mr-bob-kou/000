@@ -17,7 +17,7 @@ count10=Count.sort_values(by='count', ascending=False).head(10)
 heritage_sort=heritage.sort_values(by='NAME', ascending=True)
 
 options = list(leafmap.basemaps.keys())
-index = options.index("FWS NWI Wetlands")
+index = options.index("OpenStreetMap")
 modes=["Default","Heat Map","Choropleth Map(Heritage Count)","Inscribed Date","Classification"]
 modes1="Default"
 opt=["See All"]+list(heritage_sort['NAME'])
@@ -171,7 +171,7 @@ with col1:
         with col3:
             cuml(years, 'count')
             cond=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.value('steelblue'))
-            charts1 = alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("count",type="quantitative"))
+            charts1 = alt.Chart(years).mark_line(point=alt.OverlayMarkDef(filled=False, fill=cond)).encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("count",type="quantitative"))
             charts2 = alt.Chart(years).mark_bar(size=10).encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("count",type="quantitative"),color=cond)
             charts3= alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("aggr",type="quantitative"))
             if Chart_mode=='Line Chart':
