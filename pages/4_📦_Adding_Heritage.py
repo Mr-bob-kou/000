@@ -10,6 +10,7 @@ m=leafmap.Map()
 st.title("Adding!!")
 yr_range=list(range(1900,2100))
 tp=["Natural","Cultural","Mixed"]
+rg=list(set(st.session_state.heritage1["REGION"]))
 tab1, tab2=st.tabs(["Add Heritage", "Delete Heritage"])
 st.session_state
 with tab1:
@@ -24,7 +25,8 @@ with tab1:
             x_cord=st.text_input("Longitude",0) 
             y_cord=st.text_input("Latitude",0)
             loct=[y_cord,x_cord]
-            type=st.selectbox("Type",tp) 
+            type=st.selectbox("Type",tp)
+            region=st.selectbox("Region",rg)
             danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"],key="danger")
             if st.session_state.danger=="Yes":
                 st.write("a")
@@ -41,6 +43,7 @@ with tab1:
             'COUNTRY':country,
             'INSCRIBDATE':year,
             'Description':description,
+            'REGION':region,
             'LONGITUDE':x_cord,
             'LATITUDE':y_cord}
         st.dataframe(data=df1,use_container_width=True)
