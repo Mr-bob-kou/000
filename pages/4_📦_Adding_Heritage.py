@@ -49,7 +49,7 @@ with tab1:
             'Description':description,
             'REGION':region,
             'LONGITUDE':x_cord,
-            'LATITUDE':y_cord
+            'LATITUDE':y_cord,
             "Transbound":num}
         st.dataframe(data=df1,use_container_width=True)
 with tab2:
