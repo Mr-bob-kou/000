@@ -56,8 +56,7 @@ with tab1:
             "TRANSBOUND":[num]}
         gdf = gpd.GeoDataFrame(df1, geometry=gpd.points_from_xy(df1['LONGITUDE'], df1['LATITUDE']))
         st.dataframe(data=gdf,use_container_width=True)
-        if st.button("Confirm"):
-            st.session_state.heritage1=pd.concat([gdf,st.session_state.heritage1], axis=0, join='outer')
+        st.session_state.heritage1=pd.concat([gdf,st.session_state.heritage1], axis=0, join='outer')
             
 with tab2:
     st.dataframe(data=st.session_state.heritage1, use_container_width=True)
