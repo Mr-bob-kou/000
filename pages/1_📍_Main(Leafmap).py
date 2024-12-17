@@ -3,7 +3,7 @@ import leafmap.foliumap as leafmap
 import geopandas as gpd
 import altair as alt
 
-st.set_page_config(layout="wide",page_title="Main", page_icon=":ballon:")
+st.set_page_config(layout="wide",page_title="Main", page_icon="📍")
 st.title("Main")
 st.session_state
 data="https://raw.githubusercontent.com/Mr-bob-kou/My_Respository/main/point.geojson"
