@@ -21,7 +21,6 @@ def bol_to_num(bol):
 st.session_state
 with tab1:
     with st.form("my_form"):
-        st.write("Inside the form")
         name = st.text_input("Name")
         country= st.text_input("Country")
         region=st.selectbox("Region",rg)
@@ -54,5 +53,7 @@ with tab1:
             "TRANSBOUND ":[num]}
         gdf = gpd.GeoDataFrame(df1, geometry=gpd.points_from_xy(df1['LONGITUDE'], df1['LATITUDE']))
         st.dataframe(data=gdf,use_container_width=True)
+        st.session_state.heritage1=pd.concat([gdf,st.session_state.heritage1], axis=0, join='outer')
+            
 with tab2:
     st.dataframe(data=st.session_state.heritage1, use_container_width=True)
