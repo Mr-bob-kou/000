@@ -18,6 +18,7 @@ with tab1:
         st.write("Inside the form")
         name = st.text_input("Name")
         country= st.text_input("Country")
+        region=st.selectbox("Region",rg)
         year=st.selectbox("Inscribed Year",yr_range)
         description=st.text_area("Description","NA")
         co1,co2=st.columns([1,1])
@@ -26,13 +27,9 @@ with tab1:
             y_cord=st.text_input("Latitude",0)
             loct=[y_cord,x_cord]
             type=st.selectbox("Type",tp)
-            region=st.selectbox("Region",rg)
             danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"],key="danger")
-            if st.session_state.danger=="Yes":
-                st.write("a")
-            else:
-                st.write("b")
             areha=st.text_input("Area(ha)")
+            transbound=st.checkbox("Transboundary?",key="TB")
         with co2:
             m=leafmap.Map(center=loct,zoom=15)
             m.add_marker(loct)
