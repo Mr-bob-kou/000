@@ -6,13 +6,14 @@ import altair as alt
 import ipyleaflet
 
 st.set_page_config(layout="wide")
-
+ct_sort=st.session_state.heritage1.sort_values(by='COUNTRY', ascending=True)
+rg_sort=st.session_state.heritage1.sort_values(by='COUNTRY', ascending=True)
 m=leafmap.Map()
 st.title("Adding!!")
 yr_range=list(range(1900,2100))
 tp=["Natural","Cultural","Mixed"]
-rg=list(set(st.session_state.heritage1["REGION"]))
-cout=list(set(st.session_state.heritage1["COUNTRY"]))
+rg=list(set(rg_sort["REGION"]))
+cout=list(set(ct_sort["COUNTRY"]))
 tab1, tab2=st.tabs(["Add Heritage", "Delete Heritage"])
 def bol_to_num(bol):
     if bol==True:
