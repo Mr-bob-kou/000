@@ -104,14 +104,15 @@ def map(data, lat, lon, zoom):
             },
             layers=[
                 pdk.Layer(
-                    "HexagonLayer",
-                    data=data,
-                    get_position=["lon", "lat"],
-                    radius=100,
-                    elevation_scale=4,
-                    elevation_range=[0, 1000],
-                    pickable=True,
+                    "PolygonLayer",
+                    data,
+                    id="geojson",
+                    opacity=0.8,
+                    stroked=False,
+                    get_polygon="coordinates",
+                    filled=True,
                     extruded=True,
+                    wireframe=True,
                 ),
             ],
         )
@@ -150,7 +151,8 @@ with col1:
     m = leafmap.Map(center=[40, -100], zoom=4)
     if mode=='Choropleth Map(Heritage Count)':
         chromap(data2,m)
-        
+        if chbox:
+            map(Count,0,0,0)
         col3,col4=st.columns([2,2])
         with col3:
             st.write("#### Heritage Count Statistics(Top 10)")
