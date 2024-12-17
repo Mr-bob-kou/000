@@ -49,8 +49,8 @@ with tab1:
             'INSCRIBDATE':year,
             'DESCRIPTIO':description,
             'REGION':region,
-            'LONGITUDE':x_cord,
-            'LATITUDE':y_cord,
+            'LONGITUDE':float(x_cord),
+            'LATITUDE':float(y_cord),
             "TRANSBOUND ":num}
         gdf = gpd.GeoDataFrame(df1, geometry=gpd.points_from_xy(df1['LONGITUDE'], df1['LATITUDE']), crs="EPSG:4326")
         st.dataframe(data=gdf,use_container_width=True)
