@@ -129,8 +129,6 @@ with col2:
     mode=st.selectbox("Select a Mode",modes)
     if mode=='Choropleth Map(Heritage Count)':
         chbox=st.checkbox("3-D Presentation")
-        if chbox:
-            st.write("Coming Soon")
     if mode=="Inscribed Date":
         Dateint=heritage['DATEINSCRI'].min()
         Dateend=heritage['DATEINSCRI'].max()
