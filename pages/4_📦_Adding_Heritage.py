@@ -47,11 +47,12 @@ with tab1:
         df1={'NAME':name,
             'COUNTRY':country,
             'INSCRIBDATE':year,
-            'Description':description,
+            'DESCRIPTIO':description,
             'REGION':region,
             'LONGITUDE':x_cord,
             'LATITUDE':y_cord,
-            "Transbound":num}
-        st.dataframe(data=df1,use_container_width=True)
+            "TRANSBOUND ":num}
+        gdf = geopandas.GeoDataFrame(df1, geometry=geopandas.points_from_xy(df.LONGITUDE, df.LATITUDE), crs="EPSG:4326")
+        st.dataframe(data=gdf,use_container_width=True)
 with tab2:
     st.dataframe(data=st.session_state.heritage1, use_container_width=True)
