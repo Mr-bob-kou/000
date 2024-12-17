@@ -14,9 +14,10 @@ rg=list(set(st.session_state.heritage1["REGION"]))
 tab1, tab2=st.tabs(["Add Heritage", "Delete Heritage"])
 def bol_to_num(bol):
     if bol==True:
-        return num=1
+        num=1
     else:
-        return num=0
+        num=0
+    return num
 st.session_state
 with tab1:
     with st.form("my_form"):
@@ -42,7 +43,7 @@ with tab1:
             m.to_streamlit(width=500, height=500)
         submitted = st.form_submit_button("Submit")
     if submitted:
-        bol_to_num(tb)
+        num=bol_to_num(tb)
         df1={'NAME':name,
             'COUNTRY':country,
             'INSCRIBDATE':year,
