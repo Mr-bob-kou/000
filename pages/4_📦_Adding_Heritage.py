@@ -12,6 +12,7 @@ yr_range=list(range(1900,2100))
 tp=["Natural","Cultural","Mixed"]
 rg=list(set(st.session_state.heritage1["REGION"]))
 tab1, tab2=st.tabs(["Add Heritage", "Delete Heritage"])
+if 
 st.session_state
 with tab1:
     with st.form("my_form"):
@@ -29,20 +30,23 @@ with tab1:
             type=st.selectbox("Type",tp)
             danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"],key="danger")
             areha=st.text_input("Area(ha)")
-            transbound=st.checkbox("Transboundary?",key="TB")
+            tb=st.checkbox("Transboundary?",key="TB")
+            
         with co2:
             m=leafmap.Map(center=loct,zoom=15)
             m.add_marker(loct)
             m.to_streamlit(width=500, height=500)
         submitted = st.form_submit_button("Submit")
     if submitted:
+        
         df1={'NAME':name,
             'COUNTRY':country,
             'INSCRIBDATE':year,
             'Description':description,
             'REGION':region,
             'LONGITUDE':x_cord,
-            'LATITUDE':y_cord}
+            'LATITUDE':y_cord
+            "Transbound":tb}
         st.dataframe(data=df1,use_container_width=True)
 with tab2:
     st.dataframe(data=st.session_state.heritage1, use_container_width=True)
