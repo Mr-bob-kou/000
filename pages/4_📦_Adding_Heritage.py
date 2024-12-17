@@ -49,10 +49,10 @@ with tab1:
             'INSCRIBDATE':year,
             'DESCRIPTIO':description,
             'REGION':region,
-            'LONGITUDE':float(x_cord),
-            'LATITUDE':float(y_cord),
+            'Longitude':float(x_cord),
+            'Latitude':float(y_cord),
             "TRANSBOUND ":num}
-        gdf = gpd.GeoDataFrame(df1, geometry=gpd.points_from_xy(df1['LONGITUDE'], df1['LATITUDE']))
+        gdf = gpd.GeoDataFrame(df1, geometry=gpd.points_from_xy(df1['Longitude'], df1['Latitude']))
         st.dataframe(data=gdf,use_container_width=True)
 with tab2:
     st.dataframe(data=st.session_state.heritage1, use_container_width=True)
