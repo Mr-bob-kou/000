@@ -145,7 +145,6 @@ with col2:
 with col1:
     m = leafmap.Map(center=[40, -100], zoom=4)
     if mode=='Choropleth Map(Heritage Count)':
-        chromap(data2,m)
         if chbox:
             deck=pdk.Deck(map_style="light",
             initial_view_state={
@@ -172,6 +171,8 @@ with col1:
             ],
         )
             st.write(deck)
+        else:
+           chromap(data2,m) 
         col3,col4=st.columns([2,2])
         with col3:
             st.write("#### Heritage Count Statistics(Top 10)")
