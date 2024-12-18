@@ -5,6 +5,7 @@ import time
 st.set_page_config(layout="wide")
 
 st.title("Feedback")
+st.snow()
 sug=st.text_input("Suggestion:",key="sug")
 sentiment_mapping = ["one", "two", "three", "four", "five"]
 selected = st.feedback("stars",key='star')
