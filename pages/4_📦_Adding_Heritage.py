@@ -62,7 +62,7 @@ with tab1:
         st.rerun()
             
 with tab2:
-    edit_df=st.data_editor(st.session_state.heritage1, use_container_width=True)
+    edit_df=st.data_editor(st.session_state.heritage1, use_container_width=True,num_rows="dynamic")
     but2=st.button("Update")
     if but2==True:
         if not edit_df.equals(st.session_state.heritage1):
@@ -72,4 +72,6 @@ with tab2:
             st.rerun()
 with tab3:
     st.dataframe(data=st.session_state.heritage1, use_container_width=True)
+    row_index = st.selectbox("Select a row to delete:", st.session_state.heritage1.index)
+
     
