@@ -60,8 +60,9 @@ with tab1:
             
 with tab2:
     edit_df=st.data_editor(st.session_state.heritage1, use_container_width=True)
-    if edit_df!=st.session_state.heritage1:
+    if not edit_df.equals(st.session_state.heritage1):
         st.session_state.heritage1=edit_df
+        st.write(Upload_Sucessfully)
 with tab3:
     st.dataframe(data=st.session_state.heritage1, use_container_width=True)
     
