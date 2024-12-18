@@ -5,7 +5,7 @@ import altair as alt
 import pydeck as pdk
 import math
 
-st.set_page_config(layout="wide",page_title="Main", page_icon="📍")
+st.set_page_config(layout="wide",page_title="My World Herritage Website", page_icon="☘️")
 st.title("Main")
 st.session_state
 data="https://raw.githubusercontent.com/Mr-bob-kou/My_Respository/main/point.geojson"
