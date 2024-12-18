@@ -58,10 +58,10 @@ with tab1:
         gdf = gpd.GeoDataFrame(df1, geometry=gpd.points_from_xy(df1['LONGITUDE'], df1['LATITUDE']))
         st.dataframe(data=gdf,use_container_width=True)
         but1=st.button("Confirm",key='button')
-        if session_state.button==True:
+        if st.session_state.button==True:
             st.session_state.heritage1=pd.concat([gdf,st.session_state.heritage1], axis=0, join='outer')
-            #time.sleep(5)
-            #st.rerun()
+            time.sleep(5)
+            st.rerun()
             
 with tab2:
     edit_df=st.data_editor(st.session_state.heritage1, use_container_width=True)
