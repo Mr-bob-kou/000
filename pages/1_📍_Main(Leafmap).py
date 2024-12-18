@@ -2,6 +2,7 @@ import streamlit as st
 import leafmap.foliumap as leafmap
 import geopandas as gpd
 import altair as alt
+import pydeck as pdk
 
 st.set_page_config(layout="wide",page_title="Main", page_icon="📍")
 st.title("Main")
@@ -32,6 +33,16 @@ legend_dict = {
     "30-40": '#0066CC',
     "40+": '#003060',
 }
+COLOR_RANGE = [
+    [255, 255, 255],
+    [210, 233, 255],
+    [172, 214, 255],
+    [70, 163, 255],
+    [0, 102, 204],
+    [0, 48, 96]
+]
+
+BREAKS = [0,10,20,30,40,50]
 
 def style_function(feature):
     count = feature['properties']['count']
@@ -117,7 +128,13 @@ def map(data, lat, lon, zoom):
             ],
         )
     )
-
+def color_scale(val):
+    for i, b in enumerate(BREAKS):
+        if val <= b:
+            return COLOR_RANGE[i]
+    return COLOR_RANGE[i]
+def calculate_elevation(val):
+    return math.sqrt(val) * 20000
 
 
 with st.expander("See All Heritage Data"):
