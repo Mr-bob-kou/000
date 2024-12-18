@@ -12,4 +12,5 @@ if but:
     st.write("Your Suggestion:",sug)
     st.markdown(f"You selected {sentiment_mapping[selected]} star(s).")
     st.write("Thank you~")
+    st.balloons()
 
