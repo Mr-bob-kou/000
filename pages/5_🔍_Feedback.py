@@ -1,5 +1,6 @@
 import streamlit as st
 import leafmap.foliumap as leafmap
+import time 
 
 st.set_page_config(layout="wide")
 
@@ -13,4 +14,6 @@ if but:
     st.markdown(f"You selected {sentiment_mapping[selected]} star(s).")
     st.write("Thank you~")
     st.balloons()
+    st.timesleep(2)
+    st.rerun
 
