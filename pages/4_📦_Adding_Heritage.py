@@ -73,7 +73,7 @@ with tab2:
 with tab3:
     st.dataframe(data=st.session_state.heritage1, use_container_width=True)
     row_name = st.selectbox("Select a row to delete:", st.session_state.heritage1['NAME'])
-    id= df[df['NAME'] == row_name].index
+    id= st.session_state.heritage1[st.session_state.heritage1['NAME'] == row_name].index
     st.write(id)
     
 
