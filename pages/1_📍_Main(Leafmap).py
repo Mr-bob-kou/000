@@ -116,7 +116,6 @@ def calculate_elevation(val):
 Count["elevation"] = Count['count'].apply(calculate_elevation)
 Count["filled_color"]=Count['count'].apply(color_scale)
 
-st.dataframe(data=Count,use_container_width=True)
 with st.expander("See All Heritage Data"):
     st.dataframe(data=heritage, use_container_width=True)
 col1, col2 = st.columns([4, 1])
