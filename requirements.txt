@@ -7,3 +7,4 @@ nbserverproxy
 owslib
 streamlit
 ipyleaflet
+pydeck
