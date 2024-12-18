@@ -59,7 +59,7 @@ with tab1:
         st.session_state.heritage1=pd.concat([gdf,st.session_state.heritage1], axis=0, join='outer')
             
 with tab2:
-    st.dataframe(data=st.session_state.heritage1, use_container_width=True)
+    st.data_editor(st.session_state.heritage1, use_container_width=True)
 with tab3:
     st.dataframe(data=st.session_state.heritage1, use_container_width=True)
     
