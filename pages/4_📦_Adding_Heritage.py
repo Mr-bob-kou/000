@@ -4,6 +4,7 @@ import pandas as pd
 import geopandas as gpd
 import altair as alt
 import ipyleaflet
+import time
 
 st.set_page_config(layout="wide")
 ct_sort=st.session_state.heritage1.sort_values(by='COUNTRY', ascending=True)
@@ -65,6 +66,7 @@ with tab2:
         if not edit_df.equals(st.session_state.heritage1):
             st.session_state.heritage1=edit_df
             st.write("Updated_Sucessfully")
+            time.sleep(3)
             st.rerun()
 with tab3:
     st.dataframe(data=st.session_state.heritage1, use_container_width=True)
