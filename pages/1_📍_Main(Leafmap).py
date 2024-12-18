@@ -104,31 +104,7 @@ def Info(NAME,COUNTRY,DESC):
     st.write("Heritage Name:",NAME)
     st.write("Country:",COUNTRY)
     st.write("Description:",DESC)
-def map(data, lat, lon, zoom):
-    st.write(
-        pdk.Deck(
-            map_style="mapbox://styles/mapbox/light-v9",
-            initial_view_state={
-                "latitude": lat,
-                "longitude": lon,
-                "zoom": zoom,
-                "pitch": 50,
-            },
-            layers=[
-                pdk.Layer(
-                    "PolygonLayer",
-                    data,
-                    id="geojson",
-                    opacity=0.8,
-                    stroked=False,
-                    get_polygon="coordinates",
-                    filled=True,
-                    extruded=True,
-                    wireframe=True,
-                ),
-            ],
-        )
-    )
+
 def color_scale(val):
     for i, b in enumerate(BREAKS):
         if val <= b:
@@ -171,7 +147,31 @@ with col1:
     if mode=='Choropleth Map(Heritage Count)':
         chromap(data2,m)
         if chbox:
-            map(Count,0,0,0)
+            deck=pdk.Deck(map_style="light",
+            initial_view_state={
+                "latitude": 0,
+                "longitude": 0,
+                "zoom":0,
+                "pitch": 50,
+            },
+            layers=[
+                pdk.Layer(
+                    "GeoJsonLayer",
+                    Count,
+                    id="geojson",
+                    opacity=0.8,
+                    stroked=True,
+                    get_fill_color="filled_color",
+                    get_polygon="geometry",
+                    get_elevation='elevation',
+                    filled=True,
+                    extruded=True,
+                    wireframe=True,
+                    pickable=True
+                ),
+            ],
+        )
+            st.write(deck)
         col3,col4=st.columns([2,2])
         with col3:
             st.write("#### Heritage Count Statistics(Top 10)")
