@@ -78,6 +78,7 @@ with tab3:
     button3=st.button("Delete the Row")
     if button3:
         st.session_state.heritage1.drop(id)
+        st.rerun()
     
 
     
