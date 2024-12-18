@@ -14,6 +14,6 @@ if but:
     st.markdown(f"You selected {sentiment_mapping[selected]} star(s).")
     st.write("Thank you~")
     st.balloons()
-    st.timesleep(2)
-    st.rerun
+    time.sleep(3)
+    st.rerun()
 
