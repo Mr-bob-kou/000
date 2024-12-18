@@ -75,6 +75,6 @@ with tab3:
     row_name = st.selectbox("Select a row to delete:", st.session_state.heritage1['NAME'])
     id=pd.Index(st.session_state.heritage1)
     row_index=id.get_loc(row_name)
-    st.write(row_index)
+    st.write(id)
 
     
