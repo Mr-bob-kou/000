@@ -61,7 +61,7 @@ with tab1:
 with tab2:
     edit_df=st.data_editor(st.session_state.heritage1, use_container_width=True)
     but2=st.button("Update",key="button2")
-    if st.session_state.button2==True:
+    if but2==True:
         if not edit_df.equals(st.session_state.heritage1):
             st.session_state.heritage1=edit_df
             st.write("Updated_Sucessfully")
