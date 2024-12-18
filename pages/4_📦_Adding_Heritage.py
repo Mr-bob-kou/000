@@ -14,7 +14,7 @@ yr_range=list(range(1900,2100))
 tp=["Natural","Cultural","Mixed"]
 rg=list(set(rg_sort["REGION"]))
 cout=list(set(ct_sort["COUNTRY"]))
-tab1, tab2=st.tabs(["Add Heritage", "Delete Heritage"])
+tab1, tab2,tab3=st.tabs(["Add Heritage", "Edit Heritage","Delete Heritage"])
 def bol_to_num(bol):
     if bol==True:
         num=1
@@ -60,3 +60,6 @@ with tab1:
             
 with tab2:
     st.dataframe(data=st.session_state.heritage1, use_container_width=True)
+with tab3:
+    st.dataframe(data=st.session_state.heritage1, use_container_width=True)
+    
