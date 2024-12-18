@@ -7,6 +7,7 @@ import ipyleaflet
 import time
 
 st.set_page_config(layout="wide")
+
 ct_sort=st.session_state.heritage1.sort_values(by='COUNTRY', ascending=True)
 rg_sort=st.session_state.heritage1.sort_values(by='COUNTRY', ascending=True)
 m=leafmap.Map()
@@ -57,7 +58,7 @@ with tab1:
             "TRANSBOUND":[num]}
         gdf = gpd.GeoDataFrame(df1, geometry=gpd.points_from_xy(df1['LONGITUDE'], df1['LATITUDE']))
         st.dataframe(data=gdf,use_container_width=True)
-        st.session_state.heritage1=pd.concat([gdf,st.session_state.heritage1], axis=0, join='outer')
+        st.session_state.heritage1=pd.concat([st.session_state.heritage1,gdf], axis=0, join='outer',ignore_index=True)
         time.sleep(5)
         st.rerun()
             
@@ -74,7 +75,9 @@ with tab3:
     st.dataframe(data=st.session_state.heritage1, use_container_width=True)
     row_name = st.selectbox("Select a row to delete:", st.session_state.heritage1['NAME'])
     id= st.session_state.heritage1[st.session_state.heritage1['NAME'] == row_name].index
-    st.write(id)
+    button3=st.button("Delete the Row")
+    if button3:
+        st.session_state.heritage1.drop(id)
     
 
     
