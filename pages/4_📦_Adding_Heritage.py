@@ -81,6 +81,7 @@ with tab3:
     if button3:
         st.session_state.heritage1=st.session_state.heritage1.drop(id)
         st.write("Complete")
+        st.rerun()
     
 
     
