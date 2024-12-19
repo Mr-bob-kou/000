@@ -22,6 +22,7 @@ with col1:
     with col6:
         y_cord=st.text_input("Latitude")
     with col7:
+        st.write("")
         button=st.button("Searching")
 with col4:
 
