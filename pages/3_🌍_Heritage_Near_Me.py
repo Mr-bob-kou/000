@@ -43,6 +43,9 @@ with col3:
         mini_dis=miun["distance_from_home"].to_string(index=False)
         st.write("The Nearest Heritage is:",name )
         st.write("The Minimum Distance is:",mini_dis,"km" )
+        button2=st.button("Rerun")
+        if button2:
+            st.rerun()
     else:
         m = leafmap.Map(locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
         m.add_points_from_xy(datum,x=lon,y=lat,popup=['NAME','COUNTRY','REGION','DATEINSCRI'])
