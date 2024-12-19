@@ -27,8 +27,7 @@ with col4:
 
 
 with col3:
-    if st.session_state.search==True:
-        
+    #if st.session_state.search==True:
     m = leafmap.Map(locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
     m.add_points_from_xy(datum,x=lon,y=lat,popup=['NAME','COUNTRY','REGION','DATEINSCRI'])
     m.add_basemap(basemap)
