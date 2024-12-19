@@ -5,7 +5,9 @@ markdown = """
 Web App URL: <https://geotemplate.streamlit.app>
 GitHub Repository: <https://github.com/giswqs/streamlit-multipage-template>
 """
-
+datum=st.session_state.heritage1
+lon=datum["LONGITUDE"]
+lat=datum["LATITUDE"]
 
 
 st.title("Heritage Near Me")
@@ -22,5 +24,6 @@ with col2:
 with col1:
 
     m = leafmap.Map(locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
+    m.add_points_from_xy(datum,x=lon,y=lat)
     m.add_basemap(basemap)
     m.to_streamlit(height=700)
