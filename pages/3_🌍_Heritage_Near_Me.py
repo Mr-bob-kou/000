@@ -1,10 +1,7 @@
 import streamlit as st
 import leafmap.foliumap as leafmap
 
-markdown = """
-Web App URL: <https://geotemplate.streamlit.app>
-GitHub Repository: <https://github.com/giswqs/streamlit-multipage-template>
-"""
+
 datum=st.session_state.heritage1
 lon="LONGITUDE"
 lat="LATITUDE"
@@ -22,7 +19,7 @@ with col1:
     with col6:
         y_cord=st.text_input("Latitude")
     with col7:
-        button=st.button("Searching")
+        button=st.button("Searching",key='search')
 with col4:
 
     basemap = st.selectbox("Select a basemap:", options, index)
@@ -30,7 +27,8 @@ with col4:
 
 
 with col3:
-
+    if st.session_state.search==True:
+        
     m = leafmap.Map(locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
     m.add_points_from_xy(datum,x=lon,y=lat,popup=['NAME','COUNTRY','REGION','DATEINSCRI'])
     m.add_basemap(basemap)
