@@ -1,6 +1,6 @@
 import streamlit as st
 import leafmap.foliumap as leafmap
-from geopy import distance
+import geopy.distance
 
 
 datum=st.session_state.heritage1
