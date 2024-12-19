@@ -31,13 +31,16 @@ with col4:
 
 with col3:
     if st.session_state.search==True:
-        home_city_coordinates =[x_cord,y_cord]
+        home_city_coordinates =[y_cord,x_cord]
         result= datum.apply(calculate_distance, axis=1)
         datum['distance_from_home'] = result
         miun=datum[datum['distance_from_home']==datum['distance_from_home'].min()]
         name=miun["NAME"]
+        mini_dis=miun["distance_from_home"]
         st.write("The Nearest Heritage is:",name )
-    m = leafmap.Map(locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
-    m.add_points_from_xy(datum,x=lon,y=lat,popup=['NAME','COUNTRY','REGION','DATEINSCRI'])
-    m.add_basemap(basemap)
-    m.to_streamlit(height=700)
+        st.write("The Minimum Distance is:",mini_dis )
+    else:
+        m = leafmap.Map(locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
+        m.add_points_from_xy(datum,x=lon,y=lat,popup=['NAME','COUNTRY','REGION','DATEINSCRI'])
+        m.add_basemap(basemap)
+        m.to_streamlit(height=700)
