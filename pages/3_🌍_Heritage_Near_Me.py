@@ -24,6 +24,6 @@ with col2:
 with col1:
 
     m = leafmap.Map(locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
-    m.add_points_from_xy(datum,x=lon,y=lat)
+    m.add_points_from_xy(datum,x=lon,y=lat,popup=['NAME','COUNTRY','REGION','DATEINSCRI'])
     m.add_basemap(basemap)
     m.to_streamlit(height=700)
