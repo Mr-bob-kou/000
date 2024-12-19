@@ -8,3 +8,4 @@ owslib
 streamlit
 ipyleaflet
 pydeck
+geopy
