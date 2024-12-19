@@ -16,7 +16,7 @@ col3, col4 = st.columns([4, 1])
 options = list(leafmap.basemaps.keys())
 index = options.index("OpenTopoMap")
 with col1:
-    col5,col6,col7= st.columns([1,1,1],vertical_alignment="bottom")
+    col5,col6,col7= st.columns([2,2,1],vertical_alignment="bottom")
     with col5:
         x_cord=st.text_input("Longitude")
     with col6:
