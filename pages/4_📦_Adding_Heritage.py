@@ -75,7 +75,8 @@ with tab3:
     st.dataframe(data=st.session_state.heritage1, use_container_width=True)
     row_name = st.selectbox("Select a row to delete:", st.session_state.heritage1['NAME'])
     id= st.session_state.heritage1[st.session_state.heritage1['NAME'] == row_name].index
-    index=id.to_string(index=False)
+    #index=id.to_string(index=False)
+    st.write(id)
     button3=st.button("Delete the Row")
     if button3:
         st.session_state.heritage1=st.session_state.heritage1.drop(index)
