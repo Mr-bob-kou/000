@@ -6,8 +6,8 @@ Web App URL: <https://geotemplate.streamlit.app>
 GitHub Repository: <https://github.com/giswqs/streamlit-multipage-template>
 """
 datum=st.session_state.heritage1
-lon=datum["LONGITUDE"]
-lat=datum["LATITUDE"]
+lon="LONGITUDE"
+lat="LATITUDE"
 
 
 st.title("Heritage Near Me")
