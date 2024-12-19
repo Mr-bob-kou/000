@@ -4,15 +4,16 @@ import leafmap.foliumap as leafmap
 st.set_page_config(layout="wide")
 
 # Customize page title
-st.title("歡迎來到文化遺產導覽網站(現階段只有英文喔~~)")
+st.title("歡迎來到世界遺產導覽網站(現階段只有英文喔~~)")
 
 st.markdown(
     """
-    This multipage app template demonstrates various interactive web apps created using [streamlit](https://streamlit.io) and [leafmap](https://leafmap.org). It is an open-source project and you are very welcome to contribute to the [GitHub repository](https://github.com/giswqs/streamlit-multipage-template).
+    世界遺產介紹(維基百科):[點我前往](https://zh.wikipedia.org/zh-tw/%E4%B8%96%E7%95%8C%E9%81%97%E4%BA%A7)
+    聯合國文教科組織世界遺產中心:[點我前往](https://whc.unesco.org/)
     """
 )
 
-st.header("Instructions")
+st.header("介紹")
 
 markdown = """
 1. For the [GitHub repository](https://github.com/giswqs/streamlit-multipage-template) or [use it as a template](https://github.com/giswqs/streamlit-multipage-template/generate) for your own project.
