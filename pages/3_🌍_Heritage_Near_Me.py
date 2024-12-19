@@ -16,13 +16,13 @@ col3, col4 = st.columns([4, 1])
 options = list(leafmap.basemaps.keys())
 index = options.index("OpenTopoMap")
 with col1:
-    col5,col6= st.columns([1,1])
+    col5,col6,col7= st.columns([1,1,1])
     with col5:
         x_cord=st.text_input("Longitude")
     with col6:
         y_cord=st.text_input("Latitude")
-with col2:
-    button=st.button("Searching")
+    with col7:
+        button=st.button("Searching")
 with col4:
 
     basemap = st.selectbox("Select a basemap:", options, index)
