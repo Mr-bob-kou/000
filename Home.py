@@ -4,7 +4,7 @@ import leafmap.foliumap as leafmap
 st.set_page_config(layout="wide")
 
 # Customize page title
-st.title("Streamlit for Geospatial Applications")
+st.title("歡迎來到文化遺產導覽網站(現階段只有英文喔~~)")
 
 st.markdown(
     """
