@@ -92,7 +92,7 @@ with col3:
             miun=datum[datum['distance_from_home']==datum['distance_from_home'].min()]
             name=miun["NAME"].to_string(index=False)
             mini_dis=miun["distance_from_home"].to_string(index=False)
-            st.segmented_control(" ",muti_options)
+            #st.segmented_control(" ",muti_options)
             st.write("The Nearest Heritage is:",name )
             st.write("The Minimum Distance is:",mini_dis,"km" )
             button2=st.button("Rerun")
