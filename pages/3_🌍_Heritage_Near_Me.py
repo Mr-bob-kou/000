@@ -10,10 +10,15 @@ from folium.plugins import MarkerCluster
 datum=st.session_state.heritage1
 lon="LONGITUDE"
 lat="LATITUDE"
+options = list(leafmap.basemaps.keys())
+option1=["OpenStreetMap","Cartodb Positron","Cartodb dark_matter"]
+index = options.index("OpenTopoMap")
+muti_options=["The Nearest","Top 5","Top 10","See All"]
 
 def calculate_distance(row):
     city_coordinates = (row['LATITUDE'], row['LONGITUDE'])
     return distance.geodesic(city_coordinates, home_city_coordinates).km
+
 tooltip2 = GeoJsonTooltip(
     fields=["NAME", "COUNTRY", "DATEINSCRI"],
     aliases=["name:", "country:", "Inscribed Time"],
@@ -38,12 +43,10 @@ if 'chx' not in st.session_state:
 
 
 st.title("Heritage Near Me")
+st.session_state
 col1,col2=st.columns([4,1])
 col3, col4 = st.columns([4, 1])
-options = list(leafmap.basemaps.keys())
-option1=["OpenStreetMap","Cartodb Positron","Cartodb dark_matter"]
-index = options.index("OpenTopoMap")
-st.session_state
+
 with col1:
     col5,col6,col7= st.columns([2,2,1],vertical_alignment="bottom")
     with col5:
@@ -89,6 +92,7 @@ with col3:
             miun=datum[datum['distance_from_home']==datum['distance_from_home'].min()]
             name=miun["NAME"].to_string(index=False)
             mini_dis=miun["distance_from_home"].to_string(index=False)
+            st.segmented_control(" ",muti_options)
             st.write("The Nearest Heritage is:",name )
             st.write("The Minimum Distance is:",mini_dis,"km" )
             button2=st.button("Rerun")
@@ -99,7 +103,6 @@ with col3:
         m.add_points_from_xy(datum,x=lon,y=lat,popup=['NAME','COUNTRY','REGION','DATEINSCRI'])
         m.add_basemap(basemap)
         m.to_streamlit(height=700)
-        st.write(m)
         if st.session_state.search==True:
             home_city_coordinates =[y_cord,x_cord]
             result= datum.apply(calculate_distance, axis=1)
