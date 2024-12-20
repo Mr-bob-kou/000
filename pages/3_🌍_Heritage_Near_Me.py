@@ -46,7 +46,7 @@ with col3:
         Draw(export=True).add_to(m1)
         output=st_folium(m1, width=700, height=500)
         if output["last_clicked"] is None:
-            st.write("click the map")
+            st.write("Click the map and get latitude and longitude!!")
         else:
             fol_lat=output["last_clicked"]['lat']
             fol_long=output["last_clicked"]['lng']
