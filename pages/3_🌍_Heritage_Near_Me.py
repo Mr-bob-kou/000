@@ -5,6 +5,7 @@ import folium
 from streamlit_folium import st_folium
 from folium.plugins import Draw
 from folium.features import GeoJsonPopup, GeoJsonTooltip
+from folium.plugins import MarkerCluster
 
 datum=st.session_state.heritage1
 lon="LONGITUDE"
