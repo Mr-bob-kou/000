@@ -20,6 +20,7 @@ st.title("Heritage Near Me")
 col1,col2=st.columns([4,1])
 col3, col4 = st.columns([4, 1])
 options = list(leafmap.basemaps.keys())
+option1=list(folium.basemaps.keys())
 index = options.index("OpenTopoMap")
 st.session_state
 with col1:
@@ -33,12 +34,14 @@ with col1:
 with col4:
 
     basemap = st.selectbox("Select a basemap:", options, index)
-    chx=st.toggle("Activate function A ?(Premium Member Only)")
+    if st.session_state.chx==True:
+        basemap_fol=st.selectbox("Select a basemap:", option1)
+    chx=st.toggle("Activate function A ?(Premium Member Only)",key="chx")
 
 
 with col3:
     if chx:
-        m1 = folium.Map(location=[39.949610, -75.150282], zoom_start=5,tile=basemap)
+        m1 = folium.Map(location=[39.949610, -75.150282], zoom_start=5,tile=basemap_fol)
         Draw(export=True).add_to(m1)
         output=st_folium(m1, width=700, height=500)
         if output["last_clicked"] is None:
