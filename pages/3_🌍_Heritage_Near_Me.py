@@ -52,8 +52,8 @@ with col3:
             fol_long=output["last_clicked"]['lng']
             if fol_long != st.session_state.cordx:
                 st.session_state.cordx=fol_long
-                if fol_lat!= st.session_state.cordx:
-                    st.session_state.cordy=fol_lat
+            if fol_lat!= st.session_state.cordx:
+                st.session_state.cordy=fol_lat
         if st.session_state.search==True:
             home_city_coordinates =[y_cord,x_cord]
             result= datum.apply(calculate_distance, axis=1)
