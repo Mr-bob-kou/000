@@ -42,12 +42,15 @@ with col3:
         m1 = folium.Map(location=[39.949610, -75.150282], zoom_start=5,tile=basemap)
         Draw(export=True).add_to(m1)
         output=st_folium(m1, width=700, height=500)
-        fol_lat=output["last_clicked"]['lat']
-        fol_long=output["last_clicked"]['lng']
-        if fol_long != st.session_state.cordx:
-            st.session_state.cordx=fol_long
-        if fol_lat!= st.session_state.cordx:
-            st.session_state.cordy=fol_lat
+        if output["last_clisk"] is None:
+            st.write("click the map")
+        else:
+            fol_lat=output["last_clicked"]['lat']
+            fol_long=output["last_clicked"]['lng']
+            if fol_long != st.session_state.cordx:
+                st.session_state.cordx=fol_long
+                if fol_lat!= st.session_state.cordx:
+                    st.session_state.cordy=fol_lat
         if st.session_state.search==True:
             home_city_coordinates =[y_cord,x_cord]
             result= datum.apply(calculate_distance, axis=1)
