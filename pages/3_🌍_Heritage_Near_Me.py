@@ -39,7 +39,7 @@ with col3:
         Draw(export=True).add_to(m1)
         output=st_folium(m1, width=700, height=500)
         st.write(output)
-        st.write(output["last_clicked"])
+        st.write(output["last_clicked"]['lat'])
     else:
         m = leafmap.Map(locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
         m.add_points_from_xy(datum,x=lon,y=lat,popup=['NAME','COUNTRY','REGION','DATEINSCRI'])
