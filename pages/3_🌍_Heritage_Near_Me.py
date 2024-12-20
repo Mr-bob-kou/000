@@ -44,9 +44,9 @@ with col3:
         output=st_folium(m1, width=700, height=500)
         fol_lat=output["last_clicked"]['lat']
         fol_long=output["last_clicked"]['lng']
-        if x_cord != st.session_state.cordx:
+        if fol_long != st.session_state.cordx:
             st.session_state.cordx=fol_long
-        if y_cord != st.session_state.cordx:
+        if fol_lat!= st.session_state.cordx:
             st.session_state.cordy=fol_lat
     else:
         m = leafmap.Map(locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
