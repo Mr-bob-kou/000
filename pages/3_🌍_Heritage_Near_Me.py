@@ -38,11 +38,10 @@ with col4:
 
 with col3:
     if chx:
-        st.write("waiter")
         m1 = folium.Map(location=[39.949610, -75.150282], zoom_start=5,tile=basemap)
         Draw(export=True).add_to(m1)
         output=st_folium(m1, width=700, height=500)
-        if output["last_clisk"]=="Null":
+        if output["last_clisk"]==Null:
             st.write("click the map")
         else:
             fol_lat=output["last_clicked"]['lat']
