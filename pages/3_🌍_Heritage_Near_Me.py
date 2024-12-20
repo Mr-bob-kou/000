@@ -38,9 +38,8 @@ with col4:
         basemap_fol=st.selectbox("Select a basemap:", option1)
     else:
         basemap = st.selectbox("Select a basemap:", options, index)
-   chx=st.toggle("Activate function A ?(Premium Member Only)",key="chx")
-
-
+    chx=st.toggle("Activate function A ?(Premium Member Only)",key="chx")
+    
 with col3:
     if chx:
         m1 = folium.Map(location=[39.949610, -75.150282], zoom_start=5,tile=basemap_fol)
