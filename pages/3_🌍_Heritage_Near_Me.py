@@ -65,6 +65,7 @@ with col3:
         folium.GeoJson(
             datum.to_json(),
             name="Heritage",
+            marker=folium.Marker(icon=folium.Icon(icon='info-sign'))
             tooltip=tooltip2).add_to(m1)
         output=st_folium(m1, width=700, height=500)
         if output["last_clicked"] is None:
