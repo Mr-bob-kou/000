@@ -42,7 +42,7 @@ with col4:
     
 with col3:
     if chx:
-        m1 = folium.Map(location=[39.949610, -75.150282], zoom_start=5,tile=basemap_fol)
+        m1 = folium.Map(location=[39.949610, -75.150282], zoom_start=5,tile="Cartodb Positron")
         Draw(export=True).add_to(m1)
         output=st_folium(m1, width=700, height=500)
         if output["last_clicked"] is None:
