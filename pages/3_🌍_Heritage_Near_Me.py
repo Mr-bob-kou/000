@@ -42,7 +42,7 @@ with col4:
     
 with col3:
     if chx:
-        m1 = folium.Map(location=[0,0], zoom_start=0,tile=basemap_fol)
+        m1 = folium.Map(location=[0,0], zoom_start=2,tile=basemap_fol)
         Draw(export=True).add_to(m1)
         output=st_folium(m1, width=700, height=500)
         if output["last_clicked"] is None:
