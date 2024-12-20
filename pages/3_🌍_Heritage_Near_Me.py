@@ -62,11 +62,12 @@ with col3:
     if chx:
         m1 = folium.Map(location=[0,0], zoom_start=1,tile=basemap_fol)
         Draw(export=True).add_to(m1)
+        marker_cluster = MarkerCluster().add_to(m1)
         folium.GeoJson(
             datum.to_json(),
             name="Heritage",
             marker=folium.Marker(icon=folium.Icon(icon='info-sign')),
-            tooltip=tooltip2).add_to(m1)
+            tooltip=tooltip2).add_to(marker_cluster)
         output=st_folium(m1, width=700, height=500)
         if output["last_clicked"] is None:
             st.write("Click the map and get latitude and longitude!!")
