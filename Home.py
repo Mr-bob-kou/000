@@ -5,11 +5,11 @@ st.set_page_config(layout="wide")
 
 # Customize page title
 st.title("歡迎來到世界遺產導覽網站(現階段只有英文喔~~)")
-
-st.markdown(
+st.header("網站資源")
+st.write(
     """
-    世界遺產介紹(維基百科):[點我前往](https://zh.wikipedia.org/zh-tw/%E4%B8%96%E7%95%8C%E9%81%97%E4%BA%A7)
-    聯合國文教科組織世界遺產中心:[點我前往](https://whc.unesco.org/)
+    1. 世界遺產介紹(維基百科):[點我前往](https://zh.wikipedia.org/zh-tw/%E4%B8%96%E7%95%8C%E9%81%97%E4%BA%A7)
+    2. 聯合國文教科組織世界遺產中心:[點我前往](https://whc.unesco.org/)
     """
 )
 
