@@ -41,7 +41,7 @@ with col3:
         st.write("waiter")
         m1 = folium.Map(location=[39.949610, -75.150282], zoom_start=5,tile=basemap)
         Draw(export=True).add_to(m1)
-        folium.GeoJson(datum.to_json(),name="xxxx").add_to(m)
+        folium.GeoJson(datum.to_json(),name="xxxx").add_to(m1)
         output=st_folium(m1, width=700, height=500)
         fol_lat=output["last_clicked"]['lat']
         fol_long=output["last_clicked"]['lng']
