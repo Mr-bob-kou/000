@@ -1,6 +1,8 @@
 import streamlit as st
 import leafmap.foliumap as leafmap
 import geopy.distance as distance
+import folium
+from streamlit_folium import st_folium
 
 
 datum=st.session_state.heritage1
@@ -26,28 +28,29 @@ with col1:
 with col4:
 
     basemap = st.selectbox("Select a basemap:", options, index)
-    chx=st.toggle("Activate function A ?(Premium Member Only)")
+    chx=st.toggle("Activate function A ?(Premium Member Only)",)
 
 
 with col3:
-    if st.session_state.search==True:
-        m = leafmap.Map(locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
-        m.add_points_from_xy(datum,x=lon,y=lat,popup=['NAME','COUNTRY','REGION','DATEINSCRI'])
-        m.add_basemap(basemap)
-        m.to_streamlit(height=700)
-        home_city_coordinates =[y_cord,x_cord]
-        result= datum.apply(calculate_distance, axis=1)
-        datum['distance_from_home'] = result
-        miun=datum[datum['distance_from_home']==datum['distance_from_home'].min()]
-        name=miun["NAME"].to_string(index=False)
-        mini_dis=miun["distance_from_home"].to_string(index=False)
-        st.write("The Nearest Heritage is:",name )
-        st.write("The Minimum Distance is:",mini_dis,"km" )
-        button2=st.button("Rerun")
-        if button2:
-            st.rerun()
+    if chx:
+        st.write("waiter")
+        #m1 = folium.Map(location=[39.949610, -75.150282], zoom_start=5,tile=basemap)
+        #output=st_folium(m, width=700, height=500)
     else:
         m = leafmap.Map(locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
         m.add_points_from_xy(datum,x=lon,y=lat,popup=['NAME','COUNTRY','REGION','DATEINSCRI'])
         m.add_basemap(basemap)
         m.to_streamlit(height=700)
+        st.write(m)
+        if st.session_state.search==True:
+            home_city_coordinates =[y_cord,x_cord]
+            result= datum.apply(calculate_distance, axis=1)
+            datum['distance_from_home'] = result
+            miun=datum[datum['distance_from_home']==datum['distance_from_home'].min()]
+            name=miun["NAME"].to_string(index=False)
+            mini_dis=miun["distance_from_home"].to_string(index=False)
+            st.write("The Nearest Heritage is:",name )
+            st.write("The Minimum Distance is:",mini_dis,"km" )
+            button2=st.button("Rerun")
+            if button2:
+                st.rerun()
