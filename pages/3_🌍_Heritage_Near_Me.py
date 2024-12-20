@@ -16,6 +16,8 @@ if 'cordx' not in st.session_state:
     st.session_state.cordx=""
 if 'cordy' not in st.session_state:
     st.session_state.cordy=""
+if 'chx' not in st.session_state:
+    st.session_state.chx=False
 st.title("Heritage Near Me")
 col1,col2=st.columns([4,1])
 col3, col4 = st.columns([4, 1])
@@ -32,11 +34,11 @@ with col1:
     with col7:
         button=st.button("Searching",key='search')
 with col4:
-
-    basemap = st.selectbox("Select a basemap:", options, index)
     if st.session_state.chx==True:
         basemap_fol=st.selectbox("Select a basemap:", option1)
-    chx=st.toggle("Activate function A ?(Premium Member Only)",key="chx")
+    else:
+        basemap = st.selectbox("Select a basemap:", options, index)
+   chx=st.toggle("Activate function A ?(Premium Member Only)",key="chx")
 
 
 with col3:
