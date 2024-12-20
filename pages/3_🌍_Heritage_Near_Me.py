@@ -54,7 +54,7 @@ with col3:
                 st.session_state.cordx=fol_long
             if fol_lat!= st.session_state.cordy:
                 st.session_state.cordy=fol_lat
-            st.rerun()
+            #st.rerun()
         if st.session_state.search==True:
             home_city_coordinates =[y_cord,x_cord]
             result= datum.apply(calculate_distance, axis=1)
