@@ -34,8 +34,8 @@ with col4:
 with col3:
     if chx:
         st.write("waiter")
-        #m1 = folium.Map(location=[39.949610, -75.150282], zoom_start=5,tile=basemap)
-        #output=st_folium(m, width=700, height=500)
+        m1 = folium.Map(location=[39.949610, -75.150282], zoom_start=5,tile=basemap)
+        output=st_folium(m, width=700, height=500)
     else:
         m = leafmap.Map(locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
         m.add_points_from_xy(datum,x=lon,y=lat,popup=['NAME','COUNTRY','REGION','DATEINSCRI'])
