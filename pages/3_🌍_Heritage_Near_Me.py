@@ -63,7 +63,7 @@ with col3:
         m1 = folium.Map(location=[0,0], zoom_start=1,tile=basemap_fol)
         Draw(export=True).add_to(m1)
         folium.GeoJson(
-            heritage.to_json(),
+            datum.to_json(),
             name="Heritage",
             tooltip=tooltip2).add_to(m1)
         output=st_folium(m1, width=700, height=500)
