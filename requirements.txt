@@ -9,3 +9,4 @@ streamlit
 ipyleaflet
 pydeck
 geopy
+streamlit-folium
