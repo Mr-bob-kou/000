@@ -9,15 +9,33 @@ from folium.features import GeoJsonPopup, GeoJsonTooltip
 datum=st.session_state.heritage1
 lon="LONGITUDE"
 lat="LATITUDE"
+
 def calculate_distance(row):
     city_coordinates = (row['LATITUDE'], row['LONGITUDE'])
     return distance.geodesic(city_coordinates, home_city_coordinates).km
+tooltip2 = GeoJsonTooltip(
+    fields=["NAME", "COUNTRY", "DATEINSCRI"],
+    aliases=["name:", "country:", "Inscribed Time"],
+    localize=True,
+    sticky=False,
+    labels=True,
+    style="""
+        background-color: #F0EFEF;
+        border: 2px solid black;
+        border-radius: 3px;
+        box-shadow: 3px;
+    """,
+    max_width=800,
+)
+
 if 'cordx' not in st.session_state:
     st.session_state.cordx=""
 if 'cordy' not in st.session_state:
     st.session_state.cordy=""
 if 'chx' not in st.session_state:
     st.session_state.chx=False
+
+
 st.title("Heritage Near Me")
 col1,col2=st.columns([4,1])
 col3, col4 = st.columns([4, 1])
@@ -44,6 +62,10 @@ with col3:
     if chx:
         m1 = folium.Map(location=[0,0], zoom_start=1,tile=basemap_fol)
         Draw(export=True).add_to(m1)
+        folium.GeoJson(
+            heritage.to_json(),
+            name="Heritage",
+            tooltip=tooltip2).add_to(m1)
         output=st_folium(m1, width=700, height=500)
         if output["last_clicked"] is None:
             st.write("Click the map and get latitude and longitude!!")
@@ -56,7 +78,7 @@ with col3:
             if fol_lat!= st.session_state.cordy:
                 st.session_state.cordy=fol_lat
                 st.rerun()
-            #st.rerun()
+
         if st.session_state.search==True:
             home_city_coordinates =[y_cord,x_cord]
             result= datum.apply(calculate_distance, axis=1)
