@@ -18,12 +18,13 @@ col1,col2=st.columns([4,1])
 col3, col4 = st.columns([4, 1])
 options = list(leafmap.basemaps.keys())
 index = options.index("OpenTopoMap")
+st.session_state
 with col1:
     col5,col6,col7= st.columns([2,2,1],vertical_alignment="bottom")
     with col5:
-        x_cord=st.text_input("Longitude")
+        x_cord=st.text_input("Longitude",key='cordx')
     with col6:
-        y_cord=st.text_input("Latitude")
+        y_cord=st.text_input("Latitude",key='cordy')
     with col7:
         button=st.button("Searching",key='search')
 with col4:
@@ -38,8 +39,10 @@ with col3:
         m1 = folium.Map(location=[39.949610, -75.150282], zoom_start=5,tile=basemap)
         Draw(export=True).add_to(m1)
         output=st_folium(m1, width=700, height=500)
-        st.write(output)
-        st.write(output["last_clicked"]['lat'])
+        fol_lat=output["last_clicked"]['lat']
+        fol_long=output["last_clicked"]['lng']
+        st.session_state.cordx=fol_long
+        st.session_state.cordy=fol_lat
     else:
         m = leafmap.Map(locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
         m.add_points_from_xy(datum,x=lon,y=lat,popup=['NAME','COUNTRY','REGION','DATEINSCRI'])
