@@ -20,7 +20,7 @@ st.title("Heritage Near Me")
 col1,col2=st.columns([4,1])
 col3, col4 = st.columns([4, 1])
 options = list(leafmap.basemaps.keys())
-option1=list(folium.basemaps.keys())
+option1=["OpenStreetMap","Cartodb Positron","Cartodb dark_matter"]
 index = options.index("OpenTopoMap")
 st.session_state
 with col1:
