@@ -10,6 +10,7 @@ st.set_page_config(layout="wide")
 
 ct_sort=st.session_state.heritage1.sort_values(by='COUNTRY', ascending=True)
 rg_sort=st.session_state.heritage1.sort_values(by='COUNTRY', ascending=True)
+st.write(ct_sort)
 m=leafmap.Map()
 st.title("Adding!!")
 yr_range=list(range(1900,2100))
