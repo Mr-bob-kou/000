@@ -92,7 +92,7 @@ with tab1:
             'DESCRIPTIO':[description],
             'REGION':[region],
             'CATSHORT':[cat_short],
-            'cre':[criteria]
+            'cre':[criteria],
             'CATFIN':[cat_fin],
             "TRANSBOUND":[num]}
         gdf = gpd.GeoDataFrame(df1, geometry=gpd.points_from_xy(df1['LONGITUDE'], df1['LATITUDE']))
