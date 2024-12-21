@@ -97,11 +97,11 @@ with col3:
                 st.write("The Nearest Heritage is:",name )
                 st.write("The Minimum Distance is:",mini_dis,"km" )
             elif mult=="Top 5":
-                st.dataframe(data=datum.head(5))
+                st.write(datum.head(5))
             elif mult=="Top 10":
-                st.dataframe(data=datum.head(10))
+                st.write(datum.head(10))
             elif mult=="See All":
-                st.dataframe(data=datum)
+                st.write(datum)
             button2=st.button("Rerun")
             if button2:
                 st.rerun()
