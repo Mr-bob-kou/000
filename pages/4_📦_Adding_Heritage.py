@@ -55,12 +55,12 @@ with tab1:
         m=leafmap.Map(center=loct,zoom=15)
         m.add_marker(loct)
         m.to_streamlit(width=500, height=500)
-    with st.expander("Optionals:")
-    st.write("Optional:")
-    danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"],key="danger")
-    just=st.text_area("Justification")
-    revbis=st.radio("How many time is the data revised ",times,horizontal=True,key="time")
-    tb=st.checkbox("Transboundary?",key="TB") 
+    with st.expander("Optionals:"):
+        st.write("Optional:")
+        danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"],key="danger")
+        just=st.text_area("Justification")
+        revbis=st.radio("How many time is the data revised ",times,horizontal=True,key="time")
+        tb=st.checkbox("Transboundary?",key="TB") 
             
     
     submitted = st.button("Submit")
