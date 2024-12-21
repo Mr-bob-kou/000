@@ -8,7 +8,6 @@ import pandas as pd
 
 st.set_page_config(layout="wide",page_title="My World Herritage Website", page_icon="☘️")
 st.title("Main")
-st.write("Test")
 st.session_state
 data="https://raw.githubusercontent.com/Mr-bob-kou/My_Respository/main/point.geojson"
 if 'heritage1' not in st.session_state:
