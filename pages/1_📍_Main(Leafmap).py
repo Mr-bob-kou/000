@@ -22,7 +22,7 @@ heritage_sort=heritage.sort_values(by='NAME', ascending=True)
 
 options = list(leafmap.basemaps.keys())
 index = options.index("OpenStreetMap")
-modes=["Default","Heat Map","Choropleth Map(Heritage Count)","Inscribed Date","Classification"]
+modes=["Default","Heat Map","Choropleth Map(Heritage Count)","Inscribed Date","Catagory"]
 modes1="Default"
 opt=["See All"]+list(heritage_sort['NAME'])
 
@@ -197,7 +197,13 @@ with col1:
             m7 = leafmap.Map(center=centers,zoom=15,locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
             pop=["NAME","DATEINSCRI","COUNTRY","DESCRIPTIO","AREAHA","DANGER","LONGITUDE","LATITUDE"]
             Default(heritage,m7, "LONGITUDE","LATITUDE",pop)
-        
+
+    elif mode=="Catagory":
+        pop=["NAME","DATEINSCRI","COUNTRY","DESCRIPTIO","AREAHA","DANGER","LONGITUDE","LATITUDE"]
+        m=leafmap.Map(center=[40, -100], zoom=4)
+        m.add_geojson(regions, layer_name="Countries",zoom_to_layer=False)
+        m.add_points_from_xy(heritage,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',icon_colors=['green','orange','red'])
+        m.add_basemap(basemap)
         
     elif mode=="Inscribed Date":
         m=leafmap.Map(center=[40, -100], zoom=4)
