@@ -50,17 +50,18 @@ with tab1:
         type=st.selectbox("Type",tp)
         areha=st.text_input("Area(ha)")
         criteria= st.multiselect("Criteria",cre_list,key="multis")
-        st.write("For criteria:[See There](https://whc.unesco.org/en/criteria/)")
+        st.write("For criteria:[See There](https://whc.unesco.org/en/criteria/)") 
+        with st.expander("Optionals:"):
+            st.write("Optional:")
+            danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"],key="danger")
+            just=st.text_area("Justification")
+            revbis=st.radio("How many time is the data revised ",times,horizontal=True,key="time")
+            tb=st.checkbox("Transboundary?",key="TB") 
     with co2:
         m=leafmap.Map(center=loct,zoom=15)
         m.add_marker(loct)
         m.to_streamlit(width=500, height=500)
-    with st.expander("Optionals:"):
-        st.write("Optional:")
-        danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"],key="danger")
-        just=st.text_area("Justification")
-        revbis=st.radio("How many time is the data revised ",times,horizontal=True,key="time")
-        tb=st.checkbox("Transboundary?",key="TB") 
+   
             
     
     submitted = st.button("Submit")
