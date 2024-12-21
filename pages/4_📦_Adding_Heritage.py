@@ -8,7 +8,7 @@ import time
 from collections import OrderedDict
 
 st.set_page_config(layout="wide")
-
+datum=st.session_state.heritage1
 rg_sort=st.session_state.heritage1.sort_values(by='REGION', ascending=True)
 
 m=leafmap.Map()
@@ -50,13 +50,15 @@ with tab1:
         submitted = st.form_submit_button("Submit")
     if submitted:
         num=bol_to_num(tb)
-        df1={'NAME':[name],
+        df1={'UNIQUENUM':datum['UNIQUENUM'].max()+1
+            'IDNUM':datum['IDNUM'].max()+1
+            'NAME':[name],
             'COUNTRY':[country],
+            'LONGITUDE':[float(x_cord)],
+            'LATITUDE':[float(y_cord)],
             'DATEINSCRI':[year],
             'DESCRIPTIO':[description],
             'REGION':[region],
-            'LONGITUDE':[float(x_cord)],
-            'LATITUDE':[float(y_cord)],
             "TRANSBOUND":[num]}
         gdf = gpd.GeoDataFrame(df1, geometry=gpd.points_from_xy(df1['LONGITUDE'], df1['LATITUDE']))
         st.dataframe(data=gdf,use_container_width=True)
