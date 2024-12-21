@@ -53,7 +53,7 @@ with tab1:
             tb=st.checkbox("Transboundary?",key="TB")
             st.write("Advanced:")
             just=st.text_area("Justification")
-            revbis=st.radio("How many time is the data revised ",time ,horizontal=True,key="time")
+            revbis=st.radio("How many time is the data revised ",times,horizontal=True,key="time")
             
             
         with co2:
