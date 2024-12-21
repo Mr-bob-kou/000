@@ -70,13 +70,13 @@ with tab1:
             else:
                 cat_fin="N"
         elif type=='Cutural':
-            cat_short='C'
+            cat_short="C"
             if st.session_state.danger=="Yes":
                 cat_fin="CD"
             else:
                 cat_fin="C"
         elif type=='Mixed':
-            cat_short='C/N'
+            cat_short="C/N"
         df1={'UNIQUENUM':[datum['UNIQUENUM'].max()+1],
             'IDNUM':[datum['IDNUM'].max()+1],
             'NAME':[name],
