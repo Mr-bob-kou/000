@@ -56,10 +56,6 @@ with tab1:
             just=st.text_area("Justification")
             revbis=st.radio("How many time is the data revised ",times,horizontal=True,key="time")
             tb=st.checkbox("Transboundary?",key="TB") 
-           
-
-st.write("You selected:", options)
-            
             
         with co2:
             m=leafmap.Map(center=loct,zoom=15)
