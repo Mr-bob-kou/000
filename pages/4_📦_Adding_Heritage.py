@@ -60,10 +60,16 @@ with tab1:
         num=bol_to_num(tb)
         if type=='Natural':
             cat_short="N"
-            final_ct("ND","N")
+            if st.session_state.danger=="Yes":
+                cat_fin="ND"
+            else:
+                cat_fin="N"
         elif type=='Cutural':
             cat_short=='C'
-            final_ct("CD","C")
+            if st.session_state.danger=="Yes":
+                cat_fin="CD"
+            else:
+                cat_fin="C"
         elif type=='Mixed':
             cat_short=='C/N'
         df1={'UNIQUENUM':[datum['UNIQUENUM'].max()+1],
