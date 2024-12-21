@@ -9,9 +9,9 @@ st.set_page_config(layout="wide",page_title="My World Herritage Website", page_i
 st.title("Main")
 st.session_state
 data="https://raw.githubusercontent.com/Mr-bob-kou/My_Respository/main/point.geojson"
-heritage=gpd.read_file(data)
 if 'heritage1' not in st.session_state:
-    st.session_state.heritage1 = heritage
+    st.session_state.heritage1 = gpd.read_file(data)
+heritage=st.session_state.heritage1
 regions = "https://raw.githubusercontent.com/Mr-bob-kou/My_Respository/main/world-administrative-boundaries.geojson"
 data2="https://github.com/Mr-bob-kou/My_Respository/raw/main/World%20Heritage%20Counts.geojson"
 Count=gpd.read_file(data2)
