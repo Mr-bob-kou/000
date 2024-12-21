@@ -16,6 +16,7 @@ st.title("Adding!!")
 yr_range=list(range(1900,2100))
 tp=["Natural","Cultural","Mixed"]
 times=["Zero","One","Two","Three","Four","Five+"]
+cre_list=["(i)", "(ii)", "(iii)", "(iv)","(v)","(vi)","(vii)","(viii)","(ix)","(x)"]
 rg=list(OrderedDict.fromkeys(rg_sort["REGION"]))
 
 def bol_to_num(bol):
@@ -48,12 +49,16 @@ with tab1:
             y_cord=st.text_input("Latitude",0)
             loct=[y_cord,x_cord]
             type=st.selectbox("Type",tp)
-            danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"],key="danger")
             areha=st.text_input("Area(ha)")
-            tb=st.checkbox("Transboundary?",key="TB")
+            criteria= st.multiselect("Criteria",cre_list,key="multis")
             st.write("Advanced:")
+            danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"],key="danger")
             just=st.text_area("Justification")
             revbis=st.radio("How many time is the data revised ",times,horizontal=True,key="time")
+            tb=st.checkbox("Transboundary?",key="TB") 
+           
+
+st.write("You selected:", options)
             
             
         with co2:
