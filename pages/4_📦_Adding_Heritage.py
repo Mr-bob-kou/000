@@ -50,8 +50,8 @@ with tab1:
         submitted = st.form_submit_button("Submit")
     if submitted:
         num=bol_to_num(tb)
-        df1={'UNIQUENUM':datum['UNIQUENUM'].max()+1
-            'IDNUM':datum['IDNUM'].max()+1
+        df1={'UNIQUENUM':datum['UNIQUENUM'].max()+1,
+            'IDNUM':datum['IDNUM'].max()+1,
             'NAME':[name],
             'COUNTRY':[country],
             'LONGITUDE':[float(x_cord)],
