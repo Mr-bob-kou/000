@@ -51,6 +51,7 @@ with tab1:
             type=st.selectbox("Type",tp)
             areha=st.text_input("Area(ha)")
             criteria= st.multiselect("Criteria",cre_list,key="multis")
+            st.write("For criteria:[See There](https://whc.unesco.org/en/criteria/)")
             st.write("Advanced:")
             danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"],key="danger")
             just=st.text_area("Justification")
