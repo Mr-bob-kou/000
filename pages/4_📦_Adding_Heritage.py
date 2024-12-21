@@ -25,6 +25,11 @@ def bol_to_num(bol):
     else:
         num=0
     return num
+def final_ct(a,b):
+    if st.session_state.danger=="Yes":
+        return cat_fin=a
+    else:
+        return cat_fin=b
 st.session_state
 with tab1:
     with st.form("my_form"):
@@ -50,8 +55,16 @@ with tab1:
         submitted = st.form_submit_button("Submit")
     if submitted:
         num=bol_to_num(tb)
-        df1={'UNIQUENUM':datum['UNIQUENUM'].max()+1,
-            'IDNUM':datum['IDNUM'].max()+1,
+        if type=='Natural':
+            cat_short="N"
+            final_ct("ND","N")
+        elif type=='Cutural':
+            cat_short=='C'
+            final_ct("CD","C")
+        elif type=='Mixed':
+            cat_short=='C/N'
+        df1={'UNIQUENUM':[datum['UNIQUENUM'].max()+1],
+            'IDNUM':[datum['IDNUM'].max()+1],
             'NAME':[name],
             'COUNTRY':[country],
             'LONGITUDE':[float(x_cord)],
@@ -59,6 +72,8 @@ with tab1:
             'DATEINSCRI':[year],
             'DESCRIPTIO':[description],
             'REGION':[region],
+            'CATSHORT':[cat_short],
+            'CATFIN':[cat_fin],
             "TRANSBOUND":[num]}
         gdf = gpd.GeoDataFrame(df1, geometry=gpd.points_from_xy(df1['LONGITUDE'], df1['LATITUDE']))
         st.dataframe(data=gdf,use_container_width=True)
