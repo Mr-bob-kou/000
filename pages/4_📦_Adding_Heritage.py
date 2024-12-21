@@ -15,6 +15,7 @@ m=leafmap.Map()
 st.title("Adding!!")
 yr_range=list(range(1900,2100))
 tp=["Natural","Cultural","Mixed"]
+times=["Zero","One","Two","Three","Four","Five+"]
 rg=list(OrderedDict.fromkeys(rg_sort["REGION"]))
 
 def bol_to_num(bol):
@@ -50,6 +51,10 @@ with tab1:
             danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"],key="danger")
             areha=st.text_input("Area(ha)")
             tb=st.checkbox("Transboundary?",key="TB")
+            st.write("Advanced:")
+            just=st.text_area("Justification")
+            revbis=st.radio("How many time is the data revised ",time ,horizontal=True,key="time")
+            
             
         with co2:
             m=leafmap.Map(center=loct,zoom=15)
@@ -82,7 +87,7 @@ with tab1:
             'DESCRIPTIO':[description],
             'REGION':[region],
             'CATSHORT':[cat_short],
-            'CATFIN':[cat_short],
+            'CATFIN':[cat_fin],
             "TRANSBOUND":[num]}
         st.write(cat_fin)
         #gdf = gpd.GeoDataFrame(df1, geometry=gpd.points_from_xy(df1['LONGITUDE'], df1['LATITUDE']))
