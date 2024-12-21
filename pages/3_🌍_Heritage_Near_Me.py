@@ -94,8 +94,6 @@ with col3:
             mini_dis=miun["distance_from_home"].to_string(index=False)
             st.write("The Nearest Heritage is:",name )
             st.write("The Minimum Distance is:",mini_dis,"km" )
-            st.write(datum.head(5))
-            st.write(datum.head(10))
             st.write(datum)
             button2=st.button("Rerun")
             if button2:
