@@ -92,16 +92,11 @@ with col3:
             miun=datum[datum['distance_from_home']==datum['distance_from_home'].min()]
             name=miun["NAME"].to_string(index=False)
             mini_dis=miun["distance_from_home"].to_string(index=False)
-            mult=st.pills(" ",muti_options,default='The Nearest')
-            if mult=="The Nearest":
-                st.write("The Nearest Heritage is:",name )
-                st.write("The Minimum Distance is:",mini_dis,"km" )
-            elif mult=="Top 5":
-                st.write(datum.head(5))
-            elif mult=="Top 10":
-                st.write(datum.head(10))
-            elif mult=="See All":
-                st.write(datum)
+            st.write("The Nearest Heritage is:",name )
+            st.write("The Minimum Distance is:",mini_dis,"km" )
+            st.write(datum.head(5))
+            st.write(datum.head(10))
+            st.write(datum)
             button2=st.button("Rerun")
             if button2:
                 st.rerun()
