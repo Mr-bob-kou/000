@@ -37,32 +37,33 @@ def final_ct(a,b):
 tab1, tab2,tab3=st.tabs(["Add Heritage", "Edit Heritage","Delete Heritage"])
 st.session_state
 with tab1:
-    with st.form("my_form"):
-        name = st.text_input("Name")
-        country= st.text_input("Country")
-        region=st.selectbox("Region",rg)
-        year=st.selectbox("Inscribed Year",yr_range)
-        description=st.text_area("Description","NA")
-        co1,co2=st.columns([1,1])
-        with co1:
-            x_cord=st.text_input("Longitude",0) 
-            y_cord=st.text_input("Latitude",0)
-            loct=[y_cord,x_cord]
-            type=st.selectbox("Type",tp)
-            areha=st.text_input("Area(ha)")
-            criteria= st.multiselect("Criteria",cre_list,key="multis")
-            st.write("For criteria:[See There](https://whc.unesco.org/en/criteria/)")
-            st.write("Advanced:")
-            danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"],key="danger")
-            just=st.text_area("Justification")
-            revbis=st.radio("How many time is the data revised ",times,horizontal=True,key="time")
-            tb=st.checkbox("Transboundary?",key="TB") 
+    name = st.text_input("Name")
+    country= st.text_input("Country")
+    region=st.selectbox("Region",rg)
+    year=st.selectbox("Inscribed Year",yr_range)
+    description=st.text_area("Description","NA")
+    co1,co2=st.columns([1,1])
+    with co1:
+        x_cord=st.text_input("Longitude",0) 
+        y_cord=st.text_input("Latitude",0)
+        loct=[y_cord,x_cord]
+        type=st.selectbox("Type",tp)
+        areha=st.text_input("Area(ha)")
+        criteria= st.multiselect("Criteria",cre_list,key="multis")
+        st.write("For criteria:[See There](https://whc.unesco.org/en/criteria/)")
+    with co2:
+        m=leafmap.Map(center=loct,zoom=15)
+        m.add_marker(loct)
+        m.to_streamlit(width=500, height=500)
+    with st.expander("Optionals:")
+    st.write("Optional:")
+    danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"],key="danger")
+    just=st.text_area("Justification")
+    revbis=st.radio("How many time is the data revised ",times,horizontal=True,key="time")
+    tb=st.checkbox("Transboundary?",key="TB") 
             
-        with co2:
-            m=leafmap.Map(center=loct,zoom=15)
-            m.add_marker(loct)
-            m.to_streamlit(width=500, height=500)
-        submitted = st.form_submit_button("Submit")
+    
+    submitted = st.button("Submit")
     if submitted:
         num=bol_to_num(tb)
         if type=='Natural':
