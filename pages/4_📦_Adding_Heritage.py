@@ -65,6 +65,7 @@ with tab1:
             
     
     submitted = st.button("Submit")
+    st.write(st.session_state.multis)
     if submitted:
         num=bol_to_num(tb)
         if type=='Natural':
