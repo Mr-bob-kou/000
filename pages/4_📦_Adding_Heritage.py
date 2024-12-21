@@ -81,7 +81,7 @@ with tab1:
                 cat_fin="C"
         elif type=='Mixed':
             cat_short="C/N"
-        result = " ".join(criteria.values())
+        result = " ".join(criteria)
         df1={'UNIQUENUM':[datum['UNIQUENUM'].max()+1],
             'IDNUM':[datum['IDNUM'].max()+1],
             'NAME':[name],
