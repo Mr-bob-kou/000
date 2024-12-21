@@ -17,7 +17,7 @@ yr_range=list(range(1900,2100))
 tp=["Natural","Cultural","Mixed"]
 rg=list(set(rg_sort["REGION"]))
 cout=list(set(ct_sort["COUNTRY"]))
-st.write(cout)
+st.write(set(ct_sort["COUNTRY"]))
 tab1, tab2,tab3=st.tabs(["Add Heritage", "Edit Heritage","Delete Heritage"])
 def bol_to_num(bol):
     if bol==True:
