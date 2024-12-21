@@ -9,7 +9,7 @@ import time
 st.set_page_config(layout="wide")
 
 ct_sort=st.session_state.heritage1.sort_values(by='COUNTRY', ascending=True)
-rg_sort=st.session_state.heritage1.sort_values(by='COUNTRY', ascending=True)
+rg_sort=st.session_state.heritage1.sort_values(by='REGION', ascending=True)
 
 m=leafmap.Map()
 st.title("Adding!!")
@@ -17,7 +17,7 @@ yr_range=list(range(1900,2100))
 tp=["Natural","Cultural","Mixed"]
 rg=list(set(rg_sort["REGION"]))
 cout=list(set(ct_sort["COUNTRY"]))
-st.write(set(ct_sort["COUNTRY"]))
+st.write(ct_sort["COUNTRY"])
 tab1, tab2,tab3=st.tabs(["Add Heritage", "Edit Heritage","Delete Heritage"])
 def bol_to_num(bol):
     if bol==True:
