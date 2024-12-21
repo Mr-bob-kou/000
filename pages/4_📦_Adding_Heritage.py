@@ -17,19 +17,22 @@ yr_range=list(range(1900,2100))
 tp=["Natural","Cultural","Mixed"]
 rg=list(OrderedDict.fromkeys(rg_sort["REGION"]))
 
-
-tab1, tab2,tab3=st.tabs(["Add Heritage", "Edit Heritage","Delete Heritage"])
 def bol_to_num(bol):
     if bol==True:
         num=1
     else:
         num=0
     return num
+
 def final_ct(a,b):
     if st.session_state.danger=="Yes":
-        return cat_fin=a
+        cat_fin=a
     else:
-        return cat_fin=b
+        cat_fin=b
+    return cat_fin
+
+
+tab1, tab2,tab3=st.tabs(["Add Heritage", "Edit Heritage","Delete Heritage"])
 st.session_state
 with tab1:
     with st.form("my_form"):
