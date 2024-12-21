@@ -69,7 +69,7 @@ with tab1:
                 cat_fin="ND"
             else:
                 cat_fin="N"
-        elif type=='Cutural':
+        elif type=='Cultural':
             cat_short="C"
             if st.session_state.danger=="Yes":
                 cat_fin="CD"
