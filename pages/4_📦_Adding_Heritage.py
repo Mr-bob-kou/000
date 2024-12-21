@@ -65,7 +65,6 @@ with tab1:
             
     
     submitted = st.button("Submit")
-    st.write(st.session_state.multis)
     if submitted:
         num=bol_to_num(tb)
         if type=='Natural':
@@ -82,6 +81,7 @@ with tab1:
                 cat_fin="C"
         elif type=='Mixed':
             cat_short="C/N"
+        result = " ".join(criteria.values())
         df1={'UNIQUENUM':[datum['UNIQUENUM'].max()+1],
             'IDNUM':[datum['IDNUM'].max()+1],
             'NAME':[name],
@@ -92,7 +92,7 @@ with tab1:
             'DESCRIPTIO':[description],
             'REGION':[region],
             'CATSHORT':[cat_short],
-            'cre':[criteria],
+            'cre':[result],
             'CATFIN':[cat_fin],
             "TRANSBOUND":[num]}
         gdf = gpd.GeoDataFrame(df1, geometry=gpd.points_from_xy(df1['LONGITUDE'], df1['LATITUDE']))
