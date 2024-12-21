@@ -13,7 +13,7 @@ rg_sort=st.session_state.heritage1.sort_values(by='REGION', ascending=True)
 
 m=leafmap.Map()
 st.title("Adding!!")
-yr_range=list(range(1900,2100))
+yr_range=list(range(1978,2030))
 tp=["Natural","Cultural","Mixed"]
 times=["Zero","One","Two","Three","Four","Five+"]
 cre_list=["(i)", "(ii)", "(iii)", "(iv)","(v)","(vi)","(vii)","(viii)","(ix)","(x)"]
