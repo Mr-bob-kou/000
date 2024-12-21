@@ -205,6 +205,7 @@ with col1:
         m.add_geojson(regions, layer_name="Countries",zoom_to_layer=False)
         m.add_points_from_xy(heritage,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',icon_colors=['green','orange','red'])
         m.add_basemap(basemap)
+        m.to_streamlit(height=700)
         
     elif mode=="Inscribed Date":
         m=leafmap.Map(center=[40, -100], zoom=4)
