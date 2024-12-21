@@ -89,12 +89,11 @@ with tab1:
             'CATSHORT':[cat_short],
             'CATFIN':[cat_fin],
             "TRANSBOUND":[num]}
-        st.write(cat_fin)
-        #gdf = gpd.GeoDataFrame(df1, geometry=gpd.points_from_xy(df1['LONGITUDE'], df1['LATITUDE']))
-        #st.dataframe(data=gdf,use_container_width=True)
-        #st.session_state.heritage1=pd.concat([st.session_state.heritage1,gdf], axis=0, join='outer',ignore_index=True)
-        #time.sleep(5)
-        #st.rerun()
+        gdf = gpd.GeoDataFrame(df1, geometry=gpd.points_from_xy(df1['LONGITUDE'], df1['LATITUDE']))
+        st.dataframe(data=gdf,use_container_width=True)
+        st.session_state.heritage1=pd.concat([st.session_state.heritage1,gdf], axis=0, join='outer',ignore_index=True)
+        time.sleep(5)
+        st.rerun()
             
 with tab2:
     edit_df=st.data_editor(st.session_state.heritage1, use_container_width=True,num_rows="dynamic")
