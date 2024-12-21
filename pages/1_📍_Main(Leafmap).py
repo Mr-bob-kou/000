@@ -221,11 +221,13 @@ with col1:
             years=to_df(heritage,'DATEINSCRI')
             years['aggr']=0
             years.rename(columns={0:'count'},inplace=True)
-            st.write(years)
-            #for i in range(Dateint,Dateend):
-                #if i not in years['DATEINSCRI'].values:
-                    
-                
+            for i in range(Dateint,Dateend):
+                if i not in years['DATEINSCRI'].values:
+                    Nu_data={'DATEINSCRI':i,
+                            'count':0,
+                            'aggr':0}
+                    years=pd.concat([years,pd.DataFrame(Nu_data)],ignore_index=True)
+            st.write(years)   
             pp=years[years['DATEINSCRI']==Inscdate]
             d=pp['count'].to_list()[0]
             st.write("Year:",Inscdate)
