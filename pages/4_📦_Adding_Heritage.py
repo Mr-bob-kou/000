@@ -76,7 +76,7 @@ with tab1:
             'DESCRIPTIO':[description],
             'REGION':[region],
             'CATSHORT':[cat_short],
-            'CATFIN':[cat_fin],
+            'CATFIN':[cat_short],
             "TRANSBOUND":[num]}
         gdf = gpd.GeoDataFrame(df1, geometry=gpd.points_from_xy(df1['LONGITUDE'], df1['LATITUDE']))
         st.dataframe(data=gdf,use_container_width=True)
