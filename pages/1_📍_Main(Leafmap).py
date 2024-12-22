@@ -247,30 +247,14 @@ with col1:
 
     if mode=='Choropleth Map':
         if count_by_type=='See All':
-            cat_crmap(heritage,reg_df,style_function,legend_dict)
+            cat_crmap(heritage,reg_df)
         elif count_by_type=='Natural':
-            data2=count_sj(heritage,reg_df,cat='N')
-            Count=gpd.read_file(data2)
-            count10=Count.sort_values(by='count', ascending=False).head(10)
-            Count["elevation"] = Count['count'].apply(calculate_elevation)
-            Count["filled_color"]=Count['count'].apply(color_scale)
-        if chbox:
-           counter(Count)
-        else:
-            chromap(data2,m,style_function,legend_dict) 
+            cat_crmap(heritage,reg_df,cat='N',style_function=style_function1,legend_dict=legend_dict1)
         elif count_by_type=='Cultural':
-            data2=count_sj(heritage,reg_df,cat='C')
+            cat_crmap(heritage,reg_df,cat='C')
         elif count_by_type=='Mixed':
-            data2=count_sj(heritage,reg_df,cat='C/N')
+            cat_crmap(heritage,reg_df,cat='N',style_function=style_function1,legend_dict=legend_dict1)
         
-        Count=gpd.read_file(data2)
-        count10=Count.sort_values(by='count', ascending=False).head(10)
-        Count["elevation"] = Count['count'].apply(calculate_elevation)
-        Count["filled_color"]=Count['count'].apply(color_scale)
-        if chbox:
-           counter(Count)
-        else:
-            chromap(data2,m,style_function,legend_dict) 
         col3,col4=st.columns([2,2])
         with col3:
             st.write("#### Heritage Count Statistics(Top 10)")
