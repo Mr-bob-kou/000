@@ -40,7 +40,7 @@ with tab1:
     name = st.text_input("Name")
     country= st.text_input("Country")
     region=st.selectbox("Region",rg)
-    year=st.selectbox("Inscribed Year",yr_range)
+    year=st.selectbox("First inscription Date",yr_range)
     description=st.text_area("Description","NA")
     co1,co2=st.columns([1,1])
     with co1:
@@ -51,11 +51,15 @@ with tab1:
         areha=st.text_input("Area(ha)")
         criteria= st.multiselect("Criteria",cre_list,key="multis")
         st.write("For criteria:[See There](https://whc.unesco.org/en/criteria/)") 
-        with st.expander("Optionals:"):
-            st.write("Optional:")
-            danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"],key="danger")
+        with st.expander("Optionals"):
+            danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"],index=1,key="danger")
+            if st.session_state.danger=="Yes":
+                danger_start=st.selectbox("Year Start",yr_range)
+            else:
+                danger_start=None
             just=st.text_area("Justification")
             revbis=st.radio("How many time is the data revised ",times,horizontal=True,key="time")
+            sedate=st.selectbox("Second inscription date",[None]+yr_range)
             tb=st.checkbox("Transboundary?",key="TB") 
     with co2:
         m=leafmap.Map(center=loct,zoom=15)
@@ -81,6 +85,19 @@ with tab1:
                 cat_fin="C"
         elif type=='Mixed':
             cat_short="C/N"
+        if revbis=="Zero":
+            rev_time=None
+        elif revbis=="One":
+            rev_time="rev"
+        elif revbis=="Two":
+            rev_time="bis"
+        elif revbis=="Three":
+            rev_time="Ter"
+        elif revbis=="Four":
+            rev_time="Quat"
+        elif revbis=="Five+":
+            rev_time="Others"
+        
         result = " ".join(criteria)
         df1={'UNIQUENUM':[datum['UNIQUENUM'].max()+1],
             'IDNUM':[datum['IDNUM'].max()+1],
@@ -88,7 +105,11 @@ with tab1:
             'COUNTRY':[country],
             'LONGITUDE':[float(x_cord)],
             'LATITUDE':[float(y_cord)],
+            'REVBIS':[rev_time]
+            'JUSTIFICAT':[just],
             'DATEINSCRI':[year],
+            'SECDATE':[sedate]
+            'DANGER':[danger_start],
             'DESCRIPTIO':[description],
             'REGION':[region],
             'CATSHORT':[cat_short],
