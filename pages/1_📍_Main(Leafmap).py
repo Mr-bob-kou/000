@@ -102,7 +102,7 @@ def style_function1(feature):
 
 
 
-def chromap(datum,mp,style_function=style_function,legend_dict=legend_dict):
+def chromap(datum,mp,style_function,legend_dict):
     mp.add_basemap(basemap)
     mp.add_geojson(datum,style_callback=style_function) 
     mp.add_legend(title="Heritage Counts", legend_dict=legend_dict,draggable=False,position="bottomright")
@@ -197,7 +197,7 @@ def td_counter(data):
         )
      return st.write(deck)
 
-def cat_crmap(data1,data2,cat=None,style_function=style_function,legend_dict=legend_dict):
+def cat_crmap(data1,data2,cat=None,style_function,legend_dict):
     data3=count_sj(data1,data2,cat=None)
     Count=gpd.read_file(data3)
     count10=Count.sort_values(by='count', ascending=False).head(10)
@@ -247,7 +247,7 @@ with col1:
 
     if mode=='Choropleth Map':
         if count_by_type=='See All':
-            cat_crmap(heritage,reg_df)
+            cat_crmap(heritage,reg_df,style_function,legend_dict)
         elif count_by_type=='Natural':
             cat_crmap(heritage,reg_df,cat='N',style_function=style_function1,legend_dict=legend_dict1)
         elif count_by_type=='Cultural':
