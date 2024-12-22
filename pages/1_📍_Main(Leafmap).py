@@ -14,7 +14,7 @@ if 'heritage1' not in st.session_state:
     st.session_state.heritage1 = gpd.read_file(data)
 heritage=st.session_state.heritage1
 regions = "https://raw.githubusercontent.com/Mr-bob-kou/My_Respository/main/world-administrative-boundaries.geojson"
-reg_df=gdp.read_file(regions)
+reg_df=gpd.read_file(regions)
 #data2="https://github.com/Mr-bob-kou/My_Respository/raw/main/World%20Heritage%20Counts.geojson"
 #Count=gpd.read_file(data2)
 data3="https://raw.githubusercontent.com/Mr-bob-kou/My_Respository/refs/heads/main/point2.geojson"
