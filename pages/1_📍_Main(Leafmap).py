@@ -12,6 +12,7 @@ st.session_state
 data="https://raw.githubusercontent.com/Mr-bob-kou/My_Respository/main/point.geojson"
 if 'heritage1' not in st.session_state:
     st.session_state.heritage1 = gpd.read_file(data)
+
 heritage=st.session_state.heritage1
 regions = "https://raw.githubusercontent.com/Mr-bob-kou/My_Respository/main/world-administrative-boundaries.geojson"
 reg_df=gpd.read_file(regions)
@@ -19,7 +20,6 @@ reg_df=gpd.read_file(regions)
 #Count=gpd.read_file(data2)
 data3="https://raw.githubusercontent.com/Mr-bob-kou/My_Respository/refs/heads/main/point2.geojson"
 heritage2=gpd.read_file(data3)
-count10=Count.sort_values(by='count', ascending=False).head(10)
 heritage_sort=heritage.sort_values(by='NAME', ascending=True)
 
 options = list(leafmap.basemaps.keys())
@@ -126,7 +126,9 @@ def count_sj(data,regions):
     count=gpd.sjoin(data,regions, how='inner', predicate='within')
     a=count.groupby("name").size()
     count_per_polygon = a.rename('count')
-    return pd.merge(regions, count_per_polygon,how='outer',left_on='name', right_index=True).fillna(0)
+    count=pd.merge(regions, count_per_polygon,how='outer',left_on='name', right_index=True).fillna(0)
+    return count.to_json()
+
 
 Count["elevation"] = Count['count'].apply(calculate_elevation)
 Count["filled_color"]=Count['count'].apply(color_scale)
@@ -158,8 +160,11 @@ with col2:
             Info(h_name,h_country,h_des)
     if mode=="Catagory":
         types=st.selectbox("Types",["See All","Natural","Cultural","Mixed"])
+
+
 with col1:
     m = leafmap.Map(center=[40, -100], zoom=4)
+
     if mode=='Choropleth Map(Heritage Count)':
         if chbox:
             deck=pdk.Deck(map_style="light",
@@ -189,6 +194,8 @@ with col1:
             st.write(deck)
         else:
             data2=count_sj(heritage,reg_df)
+            Count=gpd.read_file(data2)
+            count10=Count.sort_values(by='count', ascending=False).head(10)
             chromap(data2,m) 
         col3,col4=st.columns([2,2])
         with col3:
