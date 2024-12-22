@@ -142,6 +142,8 @@ with col2:
             h_country=s['COUNTRY'].to_string(index=False)
             h_des=s['DESCRIPTIO'].to_string(index=False)
             Info(h_name,h_country,h_des)
+    if mode=="Catagory":
+        types=st.selectbox("Types",["See All","Natural","Cultural","Mixed"])
 with col1:
     m = leafmap.Map(center=[40, -100], zoom=4)
     if mode=='Choropleth Map(Heritage Count)':
@@ -203,11 +205,17 @@ with col1:
         pop=["NAME","DATEINSCRI","COUNTRY","DESCRIPTIO","AREAHA","DANGER","LONGITUDE","LATITUDE"]
         m=leafmap.Map(center=[40, -100], zoom=4)
         m.add_geojson(regions, layer_name="Countries",zoom_to_layer=False)
-        m.add_points_from_xy(heritage,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=['orange','green','red'],icon_colors=['white','green','red'],add_legend=False)
-        legend_dict={"Cultural":"#FF8000",
-                    "Natural":"#008000",
-                    "Mixed":"#ff0000"}
-        m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
+        if types=="See All":
+            m.add_points_from_xy(heritage,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=['orange','green','red'],icon_colors=['white','green','red'],add_legend=False)
+            legend_dict={"Cultural":"#FF8000",
+                         "Natural":"#008000",
+                         "Mixed":"#ff0000"}
+            m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
+        if types=="Natural":
+            natural=heritage[heritage["CATSHORT"]=="N"]
+            m.add_points_from_xy(natural,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=['green'],icon_colors=['green'],add_legend=False)
+            legend_dict={"Natural":"#008000"}
+            m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
         m.add_basemap(basemap)
         m.to_streamlit(height=700)
         
