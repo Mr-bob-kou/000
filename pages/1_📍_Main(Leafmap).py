@@ -206,7 +206,7 @@ def cat_crmap(data1,data2,style_function,legend_dict,cat=None):
     if chbox:
         td_counter(Count)
     else:
-        chromap(data2,m,style_function,legend_dict) 
+        chromap(data3,m,style_function,legend_dict) 
 
 
 
@@ -247,15 +247,7 @@ with col1:
 
     if mode=='Choropleth Map':
         if count_by_type=='See All':
-            data3=count_sj(data1,data2,cat=None)
-            Count=gpd.read_file(data3)
-            count10=Count.sort_values(by='count', ascending=False).head(10)
-            Count["elevation"] = Count['count'].apply(calculate_elevation)
-            Count["filled_color"]=Count['count'].apply(color_scale)
-            if chbox:
-                td_counter(Count)
-            else:
-                chromap(data2,m,style_function,legend_dict) 
+            cat_crmap(heritage,reg_df)
         #elif count_by_type=='Natural':
             #cat_crmap(heritage,reg_df,cat='N',style_function=style_function1,legend_dict=legend_dict1)
        # elif count_by_type=='Cultural':
