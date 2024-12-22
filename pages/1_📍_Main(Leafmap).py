@@ -114,6 +114,12 @@ def color_scale(val):
 def calculate_elevation(val):
     return math.sqrt(val) * 20000
 
+def type(name,color,type_name,color_code,pop):
+    typee=heritage[heritage["CATSHORT"]==name]
+    m.add_points_from_xy(typee,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=[color],icon_colors=[color],add_legend=False)
+    legend_dict={type_name:color_code}
+    m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
+
 Count["elevation"] = Count['count'].apply(calculate_elevation)
 Count["filled_color"]=Count['count'].apply(color_scale)
 
@@ -212,9 +218,11 @@ with col1:
                          "Mixed":"#ff0000"}
             m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
         elif types=="Natural":
-            natural=heritage[heritage["CATSHORT"]=="N"]
-            m.add_points_from_xy(natural,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=['green'],icon_colors=['green'],add_legend=False)
-            legend_dict={"Natural":"#008000"}
+            type("N",'green',"Natural","#008000",pop)
+        elif types=="Cultural":
+            cultural=heritage[heritage["CATSHORT"]=="C"]
+            m.add_points_from_xy(cultural,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=['green'],icon_colors=['green'],add_legend=False)
+            legend_dict={"Cultural":"#FF8000"}
             m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
         m.add_basemap(basemap)
         m.to_streamlit(height=700)
