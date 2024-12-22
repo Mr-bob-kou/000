@@ -98,7 +98,7 @@ with tab1:
         elif revbis=="Five+":
             rev_time="Others"
         
-        result = " ".join(criteria)
+        result = "".join(criteria)
         df1={'UNIQUENUM':[datum['UNIQUENUM'].max()+1],
             'IDNUM':[datum['IDNUM'].max()+1],
             'NAME':[name],
