@@ -28,6 +28,14 @@ modes=["Default","Heat Map","Choropleth Map","Inscribed Date","Catagory"]
 modes1="Default"
 opt=["See All"]+list(heritage_sort['NAME'])
 
+legend_dict = {
+    "0":'#FFFFFF',
+    "0-10":'#D2E9FF',
+    "10-20":'#ACD6FF',
+    "20-30": '#46A3FF',
+    "30-40": '#0066CC',
+    "40+": '#003060',
+}
 
 legend_dict1 = {
     "0":'#FFFFFF',
@@ -37,14 +45,6 @@ legend_dict1 = {
     "10+": '#003060',
 }
 
-legend_dict = {
-    "0":'#FFFFFF',
-    "0-10":'#D2E9FF',
-    "10-20":'#ACD6FF',
-    "20-30": '#46A3FF',
-    "30-40": '#0066CC',
-    "40+": '#003060',
-}
 COLOR_RANGE = [
     [255, 255, 255],
     [210, 233, 255],
@@ -113,10 +113,10 @@ def style_function1(feature):
 
 
 
-def chromap(datum,mp,style_function,legend_dict):
+def chromap(datum,mp,style_function,ld):
     mp.add_basemap(basemap)
     mp.add_geojson(datum,style_callback=style_function) 
-    mp.add_legend(title="Heritage Counts", legend_dict=legend_dict,draggable=False,position="bottomright")
+    mp.add_legend(title="Heritage Counts", legend_dict=ld,draggable=False,position="bottomright")
     return mp.to_streamlit(height=700)
 
 def heatmap(datum,mp,lat,lon,val):
