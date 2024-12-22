@@ -56,6 +56,17 @@ COLOR_RANGE = [
 
 BREAKS = [0,10,20,30,40,50]
 
+COLOR_RANGE1 = [
+    [255, 255, 255],
+    [210, 233, 255],
+    [70, 163, 255],
+    [0, 102, 204],
+    [0, 48, 96]
+]
+
+BREAKS1 = [0,3,7,10,20]
+
+
 def style_function(feature):
     count = feature['properties']['count']
     
@@ -144,11 +155,18 @@ def Info(NAME,COUNTRY,DESC):
     st.write("Country:",COUNTRY)
     st.write("Description:",DESC)
 
-def color_scale(val,BREAKS=BREAKS,COLOR_RANGE=COLOR_RANGE):
+def color_scale(val):
     for i, b in enumerate(BREAKS):
         if val <= b:
             return COLOR_RANGE[i]
     return COLOR_RANGE[i]
+
+def color_scale1(val):
+    for i, b in enumerate(BREAKS1):
+        if val <= b:
+            return COLOR_RANGE1[i]
+    return COLOR_RANGE1[i]
+
 
 def calculate_elevation(val):
     return math.sqrt(val) * 20000
@@ -247,13 +265,45 @@ with col1:
 
     if mode=='Choropleth Map':
         if count_by_type=='See All':
-            cat_crmap(heritage,reg_df,style_function,legend_dict)
-        #elif count_by_type=='Natural':
-            #cat_crmap(heritage,reg_df,cat='N',style_function=style_function1,legend_dict=legend_dict1)
-       # elif count_by_type=='Cultural':
-            #cat_crmap(heritage,reg_df,cat='C')
-        #elif count_by_type=='Mixed':
-            #cat_crmap(heritage,reg_df,cat='N',style_function=style_function1,legend_dict=legend_dict1)
+            data3=count_sj(heritage,reg_df,cat=None)
+            Count=gpd.read_file(data3)
+            count10=Count.sort_values(by='count', ascending=False).head(10)
+            Count["elevation"] = Count['count'].apply(calculate_elevation)
+            Count["filled_color"]=Count['count'].apply(color_scale)
+            if chbox:
+                td_counter(Count)
+            else:
+                chromap(data3,m,style_function,legend_dict) 
+        elif count_by_type=='Natural':
+            data3=count_sj(heritage,reg_df,cat='N')
+            Count=gpd.read_file(data3)
+            count10=Count.sort_values(by='count', ascending=False).head(10)
+            Count["elevation"] = Count['count'].apply(calculate_elevation)
+            Count["filled_color"]=Count['count'].apply(color_scale1)
+            if chbox:
+                td_counter(Count)
+            else:
+                chromap(data3,m,style_function1,legend_dict) 
+        elif count_by_type=='Cultural':
+            data3=count_sj(heritage,reg_df,cat='C')
+            Count=gpd.read_file(data3)
+            count10=Count.sort_values(by='count', ascending=False).head(10)
+            Count["elevation"] = Count['count'].apply(calculate_elevation)
+            Count["filled_color"]=Count['count'].apply(color_scale)
+            if chbox:
+                td_counter(Count)
+            else:
+                chromap(data3,m,style_function,legend_dict) 
+        elif count_by_type=='Mixed':
+            data3=count_sj(heritage,reg_df,cat='C/N')
+            Count=gpd.read_file(data3)
+            count10=Count.sort_values(by='count', ascending=False).head(10)
+            Count["elevation"] = Count['count'].apply(calculate_elevation)
+            Count["filled_color"]=Count['count'].apply(color_scale1)
+            if chbox:
+                td_counter(Count)
+            else:
+                chromap(data3,m,style_function1,legend_dict) 
         
         col3,col4=st.columns([2,2])
         with col3:
