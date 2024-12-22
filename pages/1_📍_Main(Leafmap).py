@@ -90,7 +90,7 @@ def style_function1(feature):
         color = '#46A3FF'
     elif count > 0:
         color = '#D2E9FF'
-    elif count = 0 :
+    elif count == 0 :
         color = '#FFFFFF'
     
     return {
