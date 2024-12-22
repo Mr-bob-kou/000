@@ -130,8 +130,6 @@ def count_sj(data,regions):
     return count.to_json()
 
 
-Count["elevation"] = Count['count'].apply(calculate_elevation)
-Count["filled_color"]=Count['count'].apply(color_scale)
 
 with st.expander("See All Heritage Data"):
     st.dataframe(data=heritage, use_container_width=True)
@@ -165,7 +163,12 @@ with col2:
 with col1:
     m = leafmap.Map(center=[40, -100], zoom=4)
 
-    if mode=='Choropleth Map(Heritage Count)':
+    if mode=='Choropleth Map(Heritage Count)': 
+        data2=count_sj(heritage,reg_df)
+        Count=gpd.read_file(data2)
+        count10=Count.sort_values(by='count', ascending=False).head(10)
+        Count["elevation"] = Count['count'].apply(calculate_elevation)
+        Count["filled_color"]=Count['count'].apply(color_scale)
         if chbox:
             deck=pdk.Deck(map_style="light",
             initial_view_state={
@@ -193,9 +196,7 @@ with col1:
         )
             st.write(deck)
         else:
-            data2=count_sj(heritage,reg_df)
-            Count=gpd.read_file(data2)
-            count10=Count.sort_values(by='count', ascending=False).head(10)
+           
             chromap(data2,m) 
         col3,col4=st.columns([2,2])
         with col3:
