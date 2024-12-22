@@ -195,7 +195,7 @@ def td_counter(data):
                 ),
             ],
         )
-    return st.write(deck)
+     return st.write(deck)
 
 def cat_crmap(data1,data2,cat=None,BREAKS=BREAKS,COLOR_RANGE=COLOR_RANGE,style_function,legend_dict):
     data3=count_sj(data1,data2,cat=None)
