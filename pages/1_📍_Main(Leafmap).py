@@ -283,7 +283,7 @@ with col1:
             if chbox:
                 td_counter(Count)
             else:
-                chromap(data3,m,style_function1,legend_dict) 
+                chromap(data3,m,style_function1,legend_dict1) 
         elif count_by_type=='Cultural':
             data3=count_sj(heritage,reg_df,cat='C')
             Count=gpd.read_file(data3)
@@ -303,7 +303,7 @@ with col1:
             if chbox:
                 td_counter(Count)
             else:
-                chromap(data3,m,style_function1,legend_dict) 
+                chromap(data3,m,style_function1,legend_dict1) 
         
         col3,col4=st.columns([2,2])
         with col3:
