@@ -24,7 +24,7 @@ heritage_sort=heritage.sort_values(by='NAME', ascending=True)
 
 options = list(leafmap.basemaps.keys())
 index = options.index("OpenStreetMap")
-modes=["Default","Heat Map","Choropleth Map(Heritage Count)","Inscribed Date","Catagory"]
+modes=["Default","Heat Map","Choropleth Map","Inscribed Date","Catagory"]
 modes1="Default"
 opt=["See All"]+list(heritage_sort['NAME'])
 
@@ -122,8 +122,12 @@ def type(name,color,type_name,color_code,pop):
     legend_dict={type_name:color_code}
     m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
 
-def count_sj(data,regions):
-    count=gpd.sjoin(data,regions, how='inner', predicate='within')
+def count_sj(data,regions,cat=None):
+    if cat==None:
+        data1=data
+    else:
+        data1=data[data["CATSHORT"]==cat]
+    count=gpd.sjoin(data1,regions, how='inner', predicate='within')
     a=count.groupby("name").size()
     count_per_polygon = a.rename('count')
     count=pd.merge(regions, count_per_polygon,how='outer',left_on='name', right_index=True).fillna(0)
@@ -138,8 +142,10 @@ col1, col2 = st.columns([4, 1])
 with col2:
     basemap = st.selectbox("Select a basemap:", options, index)
     mode=st.selectbox("Select a Mode",modes)
-    if mode=='Choropleth Map(Heritage Count)':
+    if mode=='Choropleth Map':
+        count_by_type=st.selectbox("Type Counts",["See All","Natural","Cultural","Mixed"])
         chbox=st.checkbox("3-D Presentation")
+        
     if mode=="Inscribed Date":
         Dateint=heritage['DATEINSCRI'].min()
         Dateend=heritage['DATEINSCRI'].max()
@@ -163,8 +169,16 @@ with col2:
 with col1:
     m = leafmap.Map(center=[40, -100], zoom=4)
 
-    if mode=='Choropleth Map(Heritage Count)': 
-        data2=count_sj(heritage,reg_df)
+    if mode=='Choropleth Map':
+        if count_by_type=='See All':
+            data2=count_sj(heritage,reg_df)
+        elif count_by_type=='Natural':
+            data2=count_sj(heritage,reg_df,cat='N')
+        elif count_by_type=='Cultural':
+            data2=count_sj(heritage,reg_df,cat='C')
+        elif count_by_type=='Mixed':
+            data2=count_sj(heritage,reg_df,cat='C/N')
+        
         Count=gpd.read_file(data2)
         count10=Count.sort_values(by='count', ascending=False).head(10)
         Count["elevation"] = Count['count'].apply(calculate_elevation)
