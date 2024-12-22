@@ -71,7 +71,7 @@ def style_function(feature):
         'fillOpacity': 1
     }
 
-def chromap(datum,mp,style_function,legend_dict):
+def chromap(datum,mp,style_function=style_function,legend_dict=legend_dict):
     mp.add_basemap(basemap)
     mp.add_geojson(datum,style_callback=style_function) 
     mp.add_legend(title="Heritage Counts", legend_dict=legend_dict,draggable=False,position="bottomright")
@@ -137,6 +137,8 @@ def count_sj(data,regions,cat=None):
     count_per_polygon = a.rename('count')
     count=pd.merge(regions, count_per_polygon,how='outer',left_on='name', right_index=True).fillna(0)
     return count.to_json()
+    
+
 
 
 
@@ -215,7 +217,7 @@ with col1:
         )
             st.write(deck)
         else:
-           
+            
             chromap(data2,m,style_function,legend_dict) 
         col3,col4=st.columns([2,2])
         with col3:
