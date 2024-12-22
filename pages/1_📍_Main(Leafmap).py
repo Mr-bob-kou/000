@@ -204,6 +204,10 @@ with col1:
         m=leafmap.Map(center=[40, -100], zoom=4)
         m.add_geojson(regions, layer_name="Countries",zoom_to_layer=False)
         m.add_points_from_xy(heritage,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=['orange','green','red'],icon_colors=['white','green','red'])
+        legend_dict={"Cultural":"#FF8000",
+                    "Natural":"#008000",
+                    "Mixed":"#ff0000"}
+        m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
         m.add_basemap(basemap)
         m.to_streamlit(height=700)
         
@@ -211,7 +215,7 @@ with col1:
         m=leafmap.Map(center=[40, -100], zoom=4)
         Insc=heritage[heritage['DATEINSCRI']==Inscdate]
         m.add_geojson(regions, layer_name="Countries")
-        m.add_points_from_xy(Insc,x="LONGITUDE",y="LATITUDE", popup=["NAME","DATEINSCRI","COUNTRY","DESCRIPTIO","AREAHA","DANGER","LONGITUDE","LATITUDE"])
+        m.add_points_from_xy(Insc,x="LONGITUDE",y="LATITUDE", popup=["NAME","DATEINSCRI","COUNTRY","DESCRIPTIO","AREAHA","DANGER","LONGITUDE","LATITUDE","CATFIN"])
         m.add_basemap(basemap)
         m.to_streamlit(height=700)
         col3,col4=st.columns([3,1])
