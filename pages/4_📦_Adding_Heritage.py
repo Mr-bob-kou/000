@@ -112,7 +112,7 @@ with tab1:
             'DANGER':[danger_start],
             'DESCRIPTIO':[description],
             'REGION':[region],
-            'AREAHA':[areha]
+            'AREAHA':[areha],
             'CATSHORT':[cat_short],
             'CRITERIA':[result],
             'CATFIN':[cat_fin],
