@@ -48,7 +48,7 @@ with tab1:
         y_cord=st.text_input("Latitude",0)
         loct=[y_cord,x_cord]
         type=st.selectbox("Type",tp)
-        areha=st.text_input("Area(ha)")
+        areha=st.number_input("Area(ha)")
         criteria= st.multiselect("Criteria",cre_list,key="multis")
         st.write("For criteria:[See There](https://whc.unesco.org/en/criteria/)") 
         with st.expander("Optionals"):
@@ -112,6 +112,7 @@ with tab1:
             'DANGER':[danger_start],
             'DESCRIPTIO':[description],
             'REGION':[region],
+            'AREAHA':[areha]
             'CATSHORT':[cat_short],
             'CRITERIA':[result],
             'CATFIN':[cat_fin],
