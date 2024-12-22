@@ -247,13 +247,21 @@ with col1:
 
     if mode=='Choropleth Map':
         if count_by_type=='See All':
-            cat_crmap(heritage,reg_df,style_function,legend_dict)
-        elif count_by_type=='Natural':
-            cat_crmap(heritage,reg_df,cat='N',style_function=style_function1,legend_dict=legend_dict1)
-        elif count_by_type=='Cultural':
-            cat_crmap(heritage,reg_df,cat='C')
-        elif count_by_type=='Mixed':
-            cat_crmap(heritage,reg_df,cat='N',style_function=style_function1,legend_dict=legend_dict1)
+            data3=count_sj(data1,data2,cat=None)
+            Count=gpd.read_file(data3)
+            count10=Count.sort_values(by='count', ascending=False).head(10)
+            Count["elevation"] = Count['count'].apply(calculate_elevation)
+            Count["filled_color"]=Count['count'].apply(color_scale)
+            if chbox:
+                td_counter(Count)
+            else:
+                chromap(data2,m,style_function,legend_dict) 
+        #elif count_by_type=='Natural':
+            #cat_crmap(heritage,reg_df,cat='N',style_function=style_function1,legend_dict=legend_dict1)
+       # elif count_by_type=='Cultural':
+            #cat_crmap(heritage,reg_df,cat='C')
+        #elif count_by_type=='Mixed':
+            #cat_crmap(heritage,reg_df,cat='N',style_function=style_function1,legend_dict=legend_dict1)
         
         col3,col4=st.columns([2,2])
         with col3:
