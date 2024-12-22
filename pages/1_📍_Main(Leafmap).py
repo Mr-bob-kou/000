@@ -207,7 +207,7 @@ with col1:
         m.add_basemap(basemap)
         m.to_streamlit(height=700)
         
-    elif mode=="Inscribed Date":
+    elif mode=="Inscription Date":
         m=leafmap.Map(center=[40, -100], zoom=4)
         Insc=heritage[heritage['DATEINSCRI']==Inscdate]
         m.add_geojson(regions, layer_name="Countries")
