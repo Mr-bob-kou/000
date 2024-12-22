@@ -14,8 +14,9 @@ if 'heritage1' not in st.session_state:
     st.session_state.heritage1 = gpd.read_file(data)
 heritage=st.session_state.heritage1
 regions = "https://raw.githubusercontent.com/Mr-bob-kou/My_Respository/main/world-administrative-boundaries.geojson"
-data2="https://github.com/Mr-bob-kou/My_Respository/raw/main/World%20Heritage%20Counts.geojson"
-Count=gpd.read_file(data2)
+reg_df=gdp.read_file(regions)
+#data2="https://github.com/Mr-bob-kou/My_Respository/raw/main/World%20Heritage%20Counts.geojson"
+#Count=gpd.read_file(data2)
 data3="https://raw.githubusercontent.com/Mr-bob-kou/My_Respository/refs/heads/main/point2.geojson"
 heritage2=gpd.read_file(data3)
 count10=Count.sort_values(by='count', ascending=False).head(10)
@@ -121,6 +122,12 @@ def type(name,color,type_name,color_code,pop):
     legend_dict={type_name:color_code}
     m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
 
+def count_sj(data,regions):
+    count=gpd.sjoin(data,regions, how='inner', predicate='within')
+    a=count.groupby("name").size()
+    count_per_polygon = a.rename('count')
+    return pd.merge(regions, count_per_polygon,how='outer',left_on='name', right_index=True).fillna(0)
+
 Count["elevation"] = Count['count'].apply(calculate_elevation)
 Count["filled_color"]=Count['count'].apply(color_scale)
 
@@ -181,7 +188,8 @@ with col1:
         )
             st.write(deck)
         else:
-           chromap(data2,m) 
+            data2=count_sj(heritage,reg_df)
+            chromap(data2,m) 
         col3,col4=st.columns([2,2])
         with col3:
             st.write("#### Heritage Count Statistics(Top 10)")
