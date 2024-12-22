@@ -236,7 +236,7 @@ with col1:
         else:
             cond=alt.condition(alt.datum.Types==types,alt.value('red'),alt.value('steelblue'))
             charts_cat = alt.Chart(ct_group).mark_bar(size=10).encode(x=alt.X("Types",type='nominal'),y=alt.Y("count",type="quantitative"),color=cond)
-        st.altair_chart(charts_cat,use_container_width=True)
+        st.altair_chart(charts_cat)
         
     elif mode=="Inscription Date":
         m=leafmap.Map(center=[40, -100], zoom=4)
