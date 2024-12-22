@@ -231,6 +231,12 @@ with col1:
             type("C/N","red","Mixed","#ff0000",pop)
         m.add_basemap(basemap)
         m.to_streamlit(height=700)
+        if types=="See All":
+            charts_cat = alt.Chart(ct_group).mark_bar(size=10).encode(x=alt.X("Types",type='nominal'),y=alt.Y("count",type="quantitative"))
+        else:
+            cond=alt.condition(alt.datum.Types==types,alt.value('red'),alt.value('steelblue'))
+            charts_cat = alt.Chart(ct_group).mark_bar(size=10).encode(x=alt.X("Types",type='nominal'),y=alt.Y("count",type="quantitative"),color=cond)
+        st.altair_chart(charts_cat,use_container_width=True)
         
     elif mode=="Inscription Date":
         m=leafmap.Map(center=[40, -100], zoom=4)
