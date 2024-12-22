@@ -220,10 +220,9 @@ with col1:
         elif types=="Natural":
             type("N",'green',"Natural","#008000",pop)
         elif types=="Cultural":
-            cultural=heritage[heritage["CATSHORT"]=="C"]
-            m.add_points_from_xy(cultural,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=['green'],icon_colors=['green'],add_legend=False)
-            legend_dict={"Cultural":"#FF8000"}
-            m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
+            type("C","orange","Cultural","#FF8000",pop)
+        elif types=="Mixed":
+            type("C/N","red","Mixed","#ff0000",pop)
         m.add_basemap(basemap)
         m.to_streamlit(height=700)
         
