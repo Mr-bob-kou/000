@@ -211,7 +211,7 @@ with col1:
                          "Natural":"#008000",
                          "Mixed":"#ff0000"}
             m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
-        if types=="Natural":
+        elif types=="Natural":
             natural=heritage[heritage["CATSHORT"]=="N"]
             m.add_points_from_xy(natural,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=['green'],icon_colors=['green'],add_legend=False)
             legend_dict={"Natural":"#008000"}
