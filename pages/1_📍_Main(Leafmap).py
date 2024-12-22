@@ -29,6 +29,14 @@ modes1="Default"
 opt=["See All"]+list(heritage_sort['NAME'])
 
 
+legend_dict1 = {
+    "0":'#FFFFFF',
+    "0-3":'#D2E9FF',
+    "3-7": '#46A3FF',
+    "7-10": '#0066CC',
+    "10+": '#003060',
+}
+
 legend_dict = {
     "0":'#FFFFFF',
     "0-10":'#D2E9FF',
@@ -70,6 +78,29 @@ def style_function(feature):
         'weight': 2,
         'fillOpacity': 1
     }
+
+def style_function1(feature):
+    count = feature['properties']['count']
+    
+    if count > 10:
+        color = '#003060'
+    elif count > 7:
+        color = "#0066CC"
+    elif count > 3:
+        color = '#46A3FF'
+    elif count > 0:
+        color = '#D2E9FF'
+    elif count = 0 :
+        color = '#FFFFFF'
+    
+    return {
+        'fillColor': color,
+        'color':"black",
+        'weight': 2,
+        'fillOpacity': 1
+    }
+
+
 
 def chromap(datum,mp,style_function=style_function,legend_dict=legend_dict):
     mp.add_basemap(basemap)
@@ -113,11 +144,12 @@ def Info(NAME,COUNTRY,DESC):
     st.write("Country:",COUNTRY)
     st.write("Description:",DESC)
 
-def color_scale(val):
+def color_scale(val,BREAKS=BREAKS,COLOR_RANGE=COLOR_RANGE):
     for i, b in enumerate(BREAKS):
         if val <= b:
             return COLOR_RANGE[i]
     return COLOR_RANGE[i]
+
 def calculate_elevation(val):
     return math.sqrt(val) * 20000
 
@@ -137,7 +169,44 @@ def count_sj(data,regions,cat=None):
     count_per_polygon = a.rename('count')
     count=pd.merge(regions, count_per_polygon,how='outer',left_on='name', right_index=True).fillna(0)
     return count.to_json()
-    
+
+def td_counter(data):
+     deck=pdk.Deck(map_style="light",
+            initial_view_state={
+                "latitude": 0,
+                "longitude": 0,
+                "zoom":0,
+                "pitch": 50,
+            },
+            layers=[
+                pdk.Layer(
+                    "GeoJsonLayer",
+                    data,
+                    id="geojson",
+                    opacity=0.8,
+                    stroked=True,
+                    get_fill_color="filled_color",
+                    get_polygon="geometry",
+                    get_elevation='elevation',
+                    filled=True,
+                    extruded=True,
+                    wireframe=True,
+                    pickable=True
+                ),
+            ],
+        )
+    return st.write(deck)
+
+def cat_crmap(data1,data2,cat=None,BREAKS=BREAKS,COLOR_RANGE=COLOR_RANGE,style_function,legend_dict):
+    data3=count_sj(data1,data2,cat=None)
+    Count=gpd.read_file(data3)
+    count10=Count.sort_values(by='count', ascending=False).head(10)
+    Count["elevation"] = Count['count'].apply(calculate_elevation(BREAKS=BREAKS,COLOR_RANGE=COLOR_RANGE))
+    Count["filled_color"]=Count['count'].apply(color_scale)
+    if chbox:
+        td_counter(Count)
+    else:
+        chromap(data2,m,style_function,legend_dict) 
 
 
 
@@ -178,9 +247,17 @@ with col1:
 
     if mode=='Choropleth Map':
         if count_by_type=='See All':
-            data2=count_sj(heritage,reg_df)
+            cat_crmap(heritage,reg_df,style_function,legend_dict)
         elif count_by_type=='Natural':
             data2=count_sj(heritage,reg_df,cat='N')
+            Count=gpd.read_file(data2)
+            count10=Count.sort_values(by='count', ascending=False).head(10)
+            Count["elevation"] = Count['count'].apply(calculate_elevation)
+            Count["filled_color"]=Count['count'].apply(color_scale)
+        if chbox:
+           counter(Count)
+        else:
+            chromap(data2,m,style_function,legend_dict) 
         elif count_by_type=='Cultural':
             data2=count_sj(heritage,reg_df,cat='C')
         elif count_by_type=='Mixed':
@@ -191,33 +268,8 @@ with col1:
         Count["elevation"] = Count['count'].apply(calculate_elevation)
         Count["filled_color"]=Count['count'].apply(color_scale)
         if chbox:
-            deck=pdk.Deck(map_style="light",
-            initial_view_state={
-                "latitude": 0,
-                "longitude": 0,
-                "zoom":0,
-                "pitch": 50,
-            },
-            layers=[
-                pdk.Layer(
-                    "GeoJsonLayer",
-                    Count,
-                    id="geojson",
-                    opacity=0.8,
-                    stroked=True,
-                    get_fill_color="filled_color",
-                    get_polygon="geometry",
-                    get_elevation='elevation',
-                    filled=True,
-                    extruded=True,
-                    wireframe=True,
-                    pickable=True
-                ),
-            ],
-        )
-            st.write(deck)
+           counter(Count)
         else:
-            
             chromap(data2,m,style_function,legend_dict) 
         col3,col4=st.columns([2,2])
         with col3:
