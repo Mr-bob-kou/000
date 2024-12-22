@@ -247,7 +247,7 @@ with col1:
 
     if mode=='Choropleth Map':
         if count_by_type=='See All':
-            cat_crmap(heritage,reg_df)
+            cat_crmap(heritage,reg_df,style_function,legend_dict)
         #elif count_by_type=='Natural':
             #cat_crmap(heritage,reg_df,cat='N',style_function=style_function1,legend_dict=legend_dict1)
        # elif count_by_type=='Cultural':
