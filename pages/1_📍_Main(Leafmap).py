@@ -203,7 +203,7 @@ with col1:
         pop=["NAME","DATEINSCRI","COUNTRY","DESCRIPTIO","AREAHA","DANGER","LONGITUDE","LATITUDE"]
         m=leafmap.Map(center=[40, -100], zoom=4)
         m.add_geojson(regions, layer_name="Countries",zoom_to_layer=False)
-        m.add_points_from_xy(heritage,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=['orange','green','red'],icon_colors=['white','green','red'])
+        m.add_points_from_xy(heritage,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=['orange','green','red'],icon_colors=['white','green','red'],add_legend=False)
         legend_dict={"Cultural":"#FF8000",
                     "Natural":"#008000",
                     "Mixed":"#ff0000"}
