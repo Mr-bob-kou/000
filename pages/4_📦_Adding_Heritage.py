@@ -105,10 +105,10 @@ with tab1:
             'COUNTRY':[country],
             'LONGITUDE':[float(x_cord)],
             'LATITUDE':[float(y_cord)],
-            'REVBIS':[rev_time]
+            'REVBIS':[rev_time],
             'JUSTIFICAT':[just],
             'DATEINSCRI':[year],
-            'SECDATE':[sedate]
+            'SECDATE':[sedate],
             'DANGER':[danger_start],
             'DESCRIPTIO':[description],
             'REGION':[region],
