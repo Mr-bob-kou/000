@@ -70,11 +70,13 @@ def style_function(feature):
         'weight': 2,
         'fillOpacity': 1
     }
-def chromap(datum,mp):
+
+def chromap(datum,mp,style_function,legend_dict):
     mp.add_basemap(basemap)
     mp.add_geojson(datum,style_callback=style_function) 
     mp.add_legend(title="Heritage Counts", legend_dict=legend_dict,draggable=False,position="bottomright")
     return mp.to_streamlit(height=700)
+
 def heatmap(datum,mp,lat,lon,val):
     mp.add_heatmap(
         datum,
@@ -84,6 +86,7 @@ def heatmap(datum,mp,lat,lon,val):
         name="Heat map",
         radius=20)
     return mp.to_streamlit(height=700)
+
 def Default(datum,mp,lon,lat,pop):
     mp.add_geojson(regions, layer_name="Countries",zoom_to_layer=False)
     mp.add_points_from_xy(datum,x=lon,y=lat, popup=pop)
@@ -94,6 +97,7 @@ def to_df(datum,val):
     couda=datum.groupby(val).size()
     couda.to_frame()
     return couda.reset_index()
+
 def cuml(datum,val):
     datum['aggr']=0
     for i in datum.index:
@@ -102,6 +106,7 @@ def cuml(datum,val):
         else:
             datum['aggr'][i]=datum[val][i]+datum['aggr'][i-1]
     return datum
+
 def Info(NAME,COUNTRY,DESC):
     st.write("INFO:")
     st.write("Heritage Name:",NAME)
@@ -211,7 +216,7 @@ with col1:
             st.write(deck)
         else:
            
-            chromap(data2,m) 
+            chromap(data2,m,style_function,legend_dict) 
         col3,col4=st.columns([2,2])
         with col3:
             st.write("#### Heritage Count Statistics(Top 10)")
