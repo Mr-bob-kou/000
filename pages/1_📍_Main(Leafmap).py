@@ -27,6 +27,7 @@ modes=["Default","Heat Map","Choropleth Map(Heritage Count)","Inscribed Date","C
 modes1="Default"
 opt=["See All"]+list(heritage_sort['NAME'])
 
+
 legend_dict = {
     "0":'#FFFFFF',
     "0-10":'#D2E9FF',
@@ -211,6 +212,11 @@ with col1:
         pop=["NAME","DATEINSCRI","COUNTRY","DESCRIPTIO","AREAHA","DANGER","LONGITUDE","LATITUDE"]
         m=leafmap.Map(center=[40, -100], zoom=4)
         m.add_geojson(regions, layer_name="Countries",zoom_to_layer=False)
+        ct_group=to_df(heritage,"CATSHORT")
+        ct_group.rename(columns={0:'count'},inplace=True)
+        df_group={"Types":["Cultural","Mix","Natural"]}
+        ct_group=pd.concat([ct_group,df_group],axis=1)
+        st.write(ct_group)
         if types=="See All":
             m.add_points_from_xy(heritage,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=['orange','green','red'],icon_colors=['white','green','red'],add_legend=False)
             legend_dict={"Cultural":"#FF8000",
