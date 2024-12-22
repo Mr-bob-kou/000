@@ -201,7 +201,7 @@ def cat_crmap(data1,data2,cat=None,BREAKS=BREAKS,COLOR_RANGE=COLOR_RANGE,style_f
     data3=count_sj(data1,data2,cat=None)
     Count=gpd.read_file(data3)
     count10=Count.sort_values(by='count', ascending=False).head(10)
-    Count["elevation"] = Count['count'].apply(calculate_elevation(BREAKS=BREAKS,COLOR_RANGE=COLOR_RANGE))
+    Count["elevation"] = Count['count'].apply(calculate_elevation)
     Count["filled_color"]=Count['count'].apply(color_scale)
     if chbox:
         td_counter(Count)
