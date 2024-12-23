@@ -8,33 +8,55 @@ import pandas as pd
 
 st.set_page_config(layout="wide")
 
+heritage=st.session_state.heritage1
+
 regions = "https://raw.githubusercontent.com/Mr-bob-kou/My_Respository/main/world-administrative-boundaries.geojson"
 reg_df=gpd.read_file(regions)
+Dateint=heritage['DATEINSCRI'].min()
+Dateend=heritage['DATEINSCRI'].max()
 
+if "disable_type" not in st.session_state:
+    st.session_state.disable_type=True
+    st.session_state.disable_inscdate=True
+    st.session_state.disable_chbox=True
 
 st.title("Analysis")
 option=["Region","Catagory","Inscription Date"]
 mode=st.multiselect("Choose the data to analyze it",option,key="modes")
 st.session_state
 but=st.button("Click it")
-if but==True:
-    if "Region" in st.session_state.modes:
-        if "Catagory" in st.session_state.modes:
-            if"Inscription Date" in st.session_state.modes:
-                st.write("A")
+co1,col2=st.columns([4,1])
+with col2:
+    types=st.selectbox("Types",["See All","Natural","Cultural","Mixed"], disabled= st.session_state.disable_type)
+    Inscdate=st.slider("Choose the Year",Dateint,Dateend,disabled=st.session_state.disable_inscdate)
+    chbox=st.checkbox("3-D Presentation",disabled=st.session_state.disable_chbox)
+    
+with col1:
+    if but==True:
+        if "Region" in st.session_state.modes:
+            st.session_state.disable_chbox=False
+            if "Catagory" in st.session_state.modes:
+                st.session_state.disable_type=False
+                if"Inscription Date" in st.session_state.modes:
+                    st.session_state.disable_inscdate=False
+                    st.write("A")
+                else:
+                    st.write("B")
+            elif "Inscription Date" in st.session_state.modes:
+                st.session_state.disable_inscdate=False
+                st.write("C")
             else:
-                st.write("B")
+                st.write("D")
+        elif "Catagory" in st.session_state.modes:
+            st.session_state.disable_type=False
+            if"Inscription Date" in st.session_state.modes:
+                st.session_state.disable_inscdate=False
+                st.write("E")
+            else:
+                st.write("F")
         elif "Inscription Date" in st.session_state.modes:
-            st.write("C")
+            st.session_state.disable_inscdate=False
+            st.write("G")
         else:
-            st.write("D")
-    elif "Catagory" in st.session_state.modes:
-        if"Inscription Date" in st.session_state.modes:
-            st.write("E")
-        else:
-            st.write("F")
-    elif "Inscription Date" in st.session_state.modes:
-        st.write("G")
-    else:
-        st.write("H")
+            st.write("H")
         
