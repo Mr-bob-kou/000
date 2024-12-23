@@ -8,22 +8,22 @@ option=["Region","Catagory","Inscription Date"]
 mode=st.multiselect("Choose the data to analyze it",option,key="modes")
 but=st.button("Click it")
 if but=="True":
-    if "Region" is in st.session_state.modes:
-        if "Catagory" is in st.session_state.modes:
-            if"Inscription Date" is in st.session_state.modes:
+    if "Region" in st.session_state.modes:
+        if "Catagory" in st.session_state.modes:
+            if"Inscription Date" in st.session_state.modes:
                 st.write("A")
             else:
                 st.write("B")
-        elif "Inscription Date" is in st.session_state.modes:
+        elif "Inscription Date" in st.session_state.modes:
             st.write("C")
         else:
             st.write("D")
-    elif "Catagory" is in st.session_state.modes:
-        if"Inscription Date" is in st.session_state.modes:
+    elif "Catagory" in st.session_state.modes:
+        if"Inscription Date" in st.session_state.modes:
             st.write("E")
         else:
             st.write("F")
-    elif "Inscription Date"is in st.session_state.modes:
+    elif "Inscription Date" in st.session_state.modes:
         st.write("G")
     else:
         st.write("H")
