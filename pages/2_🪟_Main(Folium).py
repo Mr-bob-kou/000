@@ -20,6 +20,10 @@ index = bas_options.index("OpenStreetMap")
 if "button_click" not in st.session_state:
     st.session_state.button_click=False
 
+if "disable" not in st.session_state:
+    st.session_state.disable=False
+
+
 
 def cuml(datum,val):
     datum['aggr']=0
@@ -90,13 +94,14 @@ option=["Region","Category","Inscription Date"]
 st.session_state
 col3,col4=st.columns([4,1],vertical_alignment="bottom")
 with col3:
-    mode=st.multiselect("Choose the data to analyze it",option,key="modes")
+    mode=st.multiselect("Choose the data to analyze it",option,key="modes",disable=st.session_state.disable)
 with col4:
     but=st.button("Click it",key="bot")
 
 col1,col2=st.columns([4,1])
 if st.button("Rerun"):
     st.session_state.button_click=False
+    st.session_state.disable=False
     st.rerun()
     
 
@@ -114,6 +119,7 @@ with col1:
     m=leafmap.Map(center=[40, -100], zoom=4)
     if but==True or st.session_state.button_click:
         st.session_state.button_click=True
+        st.session_state.disable=True
         if "Region" in st.session_state.modes:
             if "Category" in st.session_state.modes:
                 if"Inscription Date" in st.session_state.modes:
