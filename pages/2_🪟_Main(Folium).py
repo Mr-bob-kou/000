@@ -120,7 +120,6 @@ with col1:
     if but==True or st.session_state.button_click:
         st.session_state.button_click=True
         st.session_state.disable=True
-        st.rerun()
         if "Region" in st.session_state.modes:
             if "Category" in st.session_state.modes:
                 if"Inscription Date" in st.session_state.modes:
