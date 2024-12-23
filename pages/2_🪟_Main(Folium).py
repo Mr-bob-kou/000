@@ -48,7 +48,9 @@ with col4:
 
 col1,col2=st.columns([4,1])
 if st.button("Rerun"):
+    st.session_state.button_click=False
     st.rerun()
+    
 
 
 with col2:
