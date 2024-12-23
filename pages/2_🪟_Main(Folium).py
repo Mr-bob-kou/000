@@ -31,7 +31,7 @@ with col3:
 with col4:
     but=st.button("Click it")
 col1,col2=st.columns([4,1])
-if st.buttom("Rerun"):
+if st.button("Rerun"):
     st.rerun()
 with col2:
     basemap=st.selectbox("Choose the Base Map",bas_options, index)
