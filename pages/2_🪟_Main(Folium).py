@@ -27,9 +27,13 @@ def to_df(datum,val):
 
 def type(name,color,type_name,color_code,pop,data=heritage):
     typee=data[data["CATSHORT"]==name]
-    m.add_points_from_xy(typee,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=[color],icon_colors=[color],add_legend=False)
-    legend_dict={type_name:color_code}
-    m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
+    if typee is not None:
+        m.add_points_from_xy(typee,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=[color],icon_colors=[color],add_legend=False)
+        legend_dict={type_name:color_code}
+        m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
+    else:
+        legend_dict={type_name:color_code}
+        m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
 
 def button_to_true():
     st.session_state.button_click==True
