@@ -25,20 +25,27 @@ def to_df(datum,val):
     couda.to_frame()
     return couda.reset_index()
 
-def type(name,color,type_name,color_code,pop):
-    typee=heritage[heritage["CATSHORT"]==name]
+def type(name,color,type_name,color_code,pop,data=heritage):
+    typee=data[data["CATSHORT"]==name]
     m.add_points_from_xy(typee,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=[color],icon_colors=[color],add_legend=False)
     legend_dict={type_name:color_code}
     m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
 
 def button_to_true():
     st.session_state.button_click==True
+
+def form_type(data):
+    ct_group=to_df(data,"CATSHORT")
+    ct_group.rename(columns={0:'count'},inplace=True)
+    df_group=pd.DataFrame({"Types":["Cultural","Mixed","Natural"]})
+    ct_group=pd.concat([ct_group,df_group],axis=1)
+    return ct_group
     
 
 
 
 st.title("Analysis")
-option=["Region","Catagory","Inscription Date"]
+option=["Region","Category","Inscription Date"]
 st.session_state
 col3,col4=st.columns([4,1],vertical_alignment="bottom")
 with col3:
@@ -57,6 +64,8 @@ with col2:
     basemap=st.selectbox("Choose the Base Map",bas_options, index)
     if "Region" in st.session_state.modes:
         chbox=st.checkbox("3-D Presentation")
+    if "Category" in st.session_state.modes:
+         types=st.selectbox("Types",["See All","Natural","Cultural","Mixed"])
     if "Inscription Date" in st.session_state.modes:    
         Inscdate=st.slider("Choose the Year",Dateint,Dateend)
     
@@ -65,7 +74,7 @@ with col1:
     if but==True or st.session_state.button_click:
         st.session_state.button_click=True
         if "Region" in st.session_state.modes:
-            if "Catagory" in st.session_state.modes:
+            if "Category" in st.session_state.modes:
                 if"Inscription Date" in st.session_state.modes:
                     st.write("A")
                 else:
@@ -74,15 +83,29 @@ with col1:
                 st.write("C")
             else:
                 st.write("D")
-        elif "Catagory" in st.session_state.modes:
+        elif "Category" in st.session_state.modes:
+            pop=["NAME","DATEINSCRI","COUNTRY","DESCRIPTIO","AREAHA","DANGER","LONGITUDE","LATITUDE"]
+            m=leafmap.Map(center=[40, -100], zoom=4)
+            m.add_geojson(regions, layer_name="Countries",zoom_to_layer=False)
             if"Inscription Date" in st.session_state.modes:
-                st.write("E")
+                Cate_data=heritage[heritage['DATEINSCRI']==Inscdate]
+                time_ct_group=form_type(Cate_data)
+                 if types=="See All":
+                    m.add_points_from_xy(Cate_data,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=['orange','green','red'],icon_colors=['white','green','red'],add_legend=False)
+                    legend_dict={"Cultural":"#FF8000",
+                                 "Natural":"#008000",
+                                 "Mixed":"#ff0000"}
+                    m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
+                elif types=="Natural":
+                    type("N",'green',"Natural","#008000",pop,data=Cate_data)
+                elif types=="Cultural":
+                    type("C","orange","Cultural","#FF8000",pop,data=Cate_data)
+                elif types=="Mixed":
+                    type("C/N","red","Mixed","#ff0000",pop,data=Cate_data)
+                m.add_basemap(basemap)
+                m.to_streamlit(height=700)
+                st.write(time_ct_group)
             else:
-                with col2:
-                    types=st.selectbox("Types",["See All","Natural","Cultural","Mixed"])
-                pop=["NAME","DATEINSCRI","COUNTRY","DESCRIPTIO","AREAHA","DANGER","LONGITUDE","LATITUDE"]
-                m=leafmap.Map(center=[40, -100], zoom=4)
-                m.add_geojson(regions, layer_name="Countries",zoom_to_layer=False)
                 ct_group=to_df(heritage,"CATSHORT")
                 ct_group.rename(columns={0:'count'},inplace=True)
                 df_group=pd.DataFrame({"Types":["Cultural","Mixed","Natural"]})
