@@ -33,6 +33,10 @@ def type(name,color,type_name,color_code,pop):
     legend_dict={type_name:color_code}
     m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
 
+def button_to_true():
+    st.session_state.bot=True
+    
+
 
 
 st.title("Analysis")
@@ -75,7 +79,7 @@ with col1:
                 st.write("E")
             else:
                 with col2:
-                    types=st.selectbox("Types",["See All","Natural","Cultural","Mixed"])
+                    types=st.selectbox("Types",["See All","Natural","Cultural","Mixed"],on_change= button_to_true)
                 pop=["NAME","DATEINSCRI","COUNTRY","DESCRIPTIO","AREAHA","DANGER","LONGITUDE","LATITUDE"]
                 m=leafmap.Map(center=[40, -100], zoom=4)
                 m.add_geojson(regions, layer_name="Countries",zoom_to_layer=False)
