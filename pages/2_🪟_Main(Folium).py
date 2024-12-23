@@ -120,7 +120,7 @@ with col1:
             m.add_geojson(regions, layer_name="Countries",zoom_to_layer=False)
             if"Inscription Date" in st.session_state.modes:
                 Cate_data=heritage[heritage['DATEINSCRI']==Inscdate]
-                time_ct_group=form_type(Cate_data)
+                time_ct_group=form_type(heritage)
                 cm=color_marker(Cate_data)
                 st.write(Cate_data)
                 if types=="See All":
