@@ -24,42 +24,44 @@ if "disable_type" not in st.session_state:
 
 st.title("Analysis")
 option=["Region","Catagory","Inscription Date"]
-mode=st.multiselect("Choose the data to analyze it",option,key="modes")
 st.session_state
-but=st.button("Click it")
+col3,col4=st.columns([4,1])
+with col3:
+    mode=st.multiselect("Choose the data to analyze it",option,key="modes")
+with col4:
+    but=st.button("Click it")
 col1,col2=st.columns([4,1])
+if st.buttom("Rerun"):
+    st.rerun()
 with col2:
     basemap=st.selectbox("Choose the Base Map",bas_options, index)
-    types=st.selectbox("Types",["See All","Natural","Cultural","Mixed"], disabled= st.session_state.disable_type)
-    Inscdate=st.slider("Choose the Year",Dateint,Dateend,disabled=st.session_state.disable_inscdate)
-    chbox=st.checkbox("3-D Presentation",disabled=st.session_state.disable_chbox)
+    if "Region" in st.session_state.modes:
+        types=st.selectbox("Types",["See All","Natural","Cultural","Mixed"])
+    if "Catagory" in st.session_state.modes:
+        Inscdate=st.slider("Choose the Year",Dateint,Dateend)
+    if "Inscription Date" in st.session_state.modes:    
+        chbox=st.checkbox("3-D Presentation",disabled=st.session_state.disable_chbox)
     
 with col1:
     m=leafmap.Map(center=[40, -100], zoom=4)
     if but==True:
         if "Region" in st.session_state.modes:
-            st.session_state.disable_chbox=False
             if "Catagory" in st.session_state.modes:
-                st.session_state.disable_type=False
+                chbox=st.checkbox("3-D Presentation")
                 if"Inscription Date" in st.session_state.modes:
-                    st.session_state.disable_inscdate=False
                     st.write("A")
                 else:
                     st.write("B")
             elif "Inscription Date" in st.session_state.modes:
-                st.session_state.disable_inscdate=False
                 st.write("C")
             else:
                 st.write("D")
         elif "Catagory" in st.session_state.modes:
-            st.session_state.disable_type=False
             if"Inscription Date" in st.session_state.modes:
-                st.session_state.disable_inscdate=False
                 st.write("E")
             else:
                 st.write("F")
         elif "Inscription Date" in st.session_state.modes:
-            st.session_state.disable_inscdate=False
             st.write("G")
         else:
             st.write("Nothing Found")
