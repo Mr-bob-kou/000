@@ -17,10 +17,8 @@ Dateend=heritage['DATEINSCRI'].max()
 bas_options = list(leafmap.basemaps.keys())
 index = bas_options.index("OpenStreetMap")
 
-if "disable_type" not in st.session_state:
-    st.session_state.disable_type=True
-    st.session_state.disable_inscdate=True
-    st.session_state.disable_chbox=True
+if "button_click" not in st.session_state:
+    st.session_state.button_click=False
 
 def to_df(datum,val):
     couda=datum.groupby(val).size()
@@ -34,7 +32,7 @@ def type(name,color,type_name,color_code,pop):
     m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
 
 def button_to_true():
-    st.session_state.bot=True
+    st.session_state.button_click==True
     
 
 
@@ -63,6 +61,10 @@ with col2:
 with col1:
     m=leafmap.Map(center=[40, -100], zoom=4)
     if but==True:
+        st.session_state.button_click=True
+    else:
+        st.session_state.button_click=False
+    if st.session_state.button_click==True
         if "Region" in st.session_state.modes:
             if "Catagory" in st.session_state.modes:
                 chbox=st.checkbox("3-D Presentation")
