@@ -27,7 +27,7 @@ option=["Region","Catagory","Inscription Date"]
 mode=st.multiselect("Choose the data to analyze it",option,key="modes")
 st.session_state
 but=st.button("Click it")
-co1,col2=st.columns([4,1])
+col1,col2=st.columns([4,1])
 with col2:
     basemap=st.selectbox("Choose the Base Map",bas_options, index)
     types=st.selectbox("Types",["See All","Natural","Cultural","Mixed"], disabled= st.session_state.disable_type)
