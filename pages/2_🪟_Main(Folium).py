@@ -25,16 +25,6 @@ def to_df(datum,val):
     couda.to_frame()
     return couda.reset_index()
 
-def type(name,color,type_name,color_code,pop,data=heritage):
-    typee=data[data["CATSHORT"]==name]
-    if typee.empty:
-        legend_dict={type_name:color_code}
-        m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
-    else:
-        m.add_points_from_xy(typee,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=[color],icon_colors=[color],add_legend=False)
-        legend_dict={type_name:color_code}
-        m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
-
 def button_to_true():
     st.session_state.button_click==True
 
@@ -65,6 +55,19 @@ def color_marker(data):
     else:
         color_map= None
     return color_map
+
+def type(name,color,type_name,color_code,pop,data=heritage,inner_activate=False):
+    typee=data[data["CATSHORT"]==name]
+    if inner_activate==True:
+        color=color_marker(typee)
+    if typee.empty:
+        legend_dict={type_name:color_code}
+        m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
+    else:
+        m.add_points_from_xy(typee,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=[color],icon_colors=[color],add_legend=False)
+        legend_dict={type_name:color_code}
+        m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
+
             
         
             
@@ -128,11 +131,11 @@ with col1:
                                  "Mixed":"#ff0000"}
                     m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
                 elif types=="Natural":
-                    type("N",cm,"Natural","#008000",pop,data=Cate_data)
+                    type("N",cm,"Natural","#008000",pop,data=Cate_data,inner_activate=True)
                 elif types=="Cultural":
-                    type("C",cm,"Cultural","#FF8000",pop,data=Cate_data)
+                    type("C",cm,"Cultural","#FF8000",pop,data=Cate_data,inner_activate=True)
                 elif types=="Mixed":
-                    type("C/N",cm,"Mixed","#ff0000",pop,data=Cate_data)
+                    type("C/N",cm,"Mixed","#ff0000",pop,data=Cate_data,inner_activate=True)
                 m.add_basemap(basemap)
                 m.to_streamlit(height=700)
                 st.write(time_ct_group)
