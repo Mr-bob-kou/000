@@ -106,7 +106,7 @@ with col1:
                     charts_cat = alt.Chart(ct_group).mark_bar(size=10).encode(x=alt.X("Types",type='nominal').sort("y"),y=alt.Y("count",type="quantitative"))
                 else:
                     cond=alt.condition(alt.datum.Types==types,alt.value('red'),alt.value('steelblue'))
-                    charts_cat = alt.Chart(ct_group).mark_bar(size=50).encode(x=alt.X("Types",type='nominal').sort("y"),y=alt.Y("count",type="quantitative"),color=cond)
+                    charts_cat = alt.Chart(ct_group).mark_bar(size=20).encode(x=alt.X("Types",type='nominal').sort("y"),y=alt.Y("count",type="quantitative"),color=cond)
                 pie=alt.Chart(ct_group).mark_arc().encode(theta="count",color="Types")
                 col5,col6=st.columns([1,1])
                 with col6:
@@ -114,7 +114,7 @@ with col1:
                 with col5:
                     if se_box=="Bar Chart":
                         st.write("#### Bar Chart")
-                        st.altair_chart(charts_cat)
+                        st.altair_chart(charts_cat,use_container_width=True)
                     elif se_box=="Pie Chart":
                         st.write("#### Pie Chart")
                         st.altair_chart(pie)
