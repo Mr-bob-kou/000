@@ -157,36 +157,36 @@ with col1:
                     st.write(time_ct_group)
                 col7,col8=st.columns([3,1])
                 with col8:
-                        chart_mode=['Line Chart','Bar Chart','Cumulative Line Chart']
-                        Chart_mode=st.selectbox("Select a Mode",chart_mode)
-                        years=to_df(heritage,'DATEINSCRI')
-                        years['aggr']=0
-                        years.rename(columns={0:'count'},inplace=True)
-                        for i in range(Dateint,Dateend):
-                            if i not in years['DATEINSCRI'].values:
-                                Nu_data={'DATEINSCRI':[i],
-                                         'count':[0],
-                                         'aggr':[0]}
-                        years=pd.concat([years,pd.DataFrame(Nu_data)],ignore_index=True)
-                        st.write(years)   
-                        pp=years[years['DATEINSCRI']==Inscdate]
-                        d=pp['count'].to_list()[0]
-                        st.write("Year:",Inscdate)
-                        st.write("Total:",d)
+                    chart_mode=['Line Chart','Bar Chart','Cumulative Line Chart']
+                    Chart_mode=st.selectbox("Select a Mode",chart_mode)
+                    years=to_df(heritage,'DATEINSCRI')
+                    years['aggr']=0
+                    years.rename(columns={0:'count'},inplace=True)
+                    for i in range(Dateint,Dateend):
+                        if i not in years['DATEINSCRI'].values:
+                            Nu_data={'DATEINSCRI':[i],
+                                     'count':[0],
+                                     'aggr':[0]}
+                            years=pd.concat([years,pd.DataFrame(Nu_data)],ignore_index=True)
+                    st.write(years)   
+                    pp=years[years['DATEINSCRI']==Inscdate]
+                    d=pp['count'].to_list()[0]
+                    st.write("Year:",Inscdate)
+                    st.write("Total:",d)
                 with col7:
-                        cuml(years, 'count')
-                        cond=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.value('steelblue'))
-                        line_charts = alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("count",type="quantitative"))
-                        point_charts=alt.Chart(years).mark_point(filled=True,opacity=1).encode(x=alt.X("DATEINSCRI", type='temporal'),y=alt.Y("count", type="quantitative"),color=cond)
-                        charts1=line_charts+point_charts
-                        charts2 = alt.Chart(years).mark_bar(size=10).encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("count",type="quantitative"),color=cond)
-                        charts3= alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("aggr",type="quantitative"))
-                        if Chart_mode=='Line Chart':
-                            st.altair_chart(charts1,use_container_width=True)
-                        if Chart_mode=='Bar Chart':
-                            st.altair_chart(charts2,use_container_width=True)
-                        if Chart_mode=='Cumulative Line Chart':
-                            st.altair_chart(charts3,use_container_width=True)
+                    cuml(years, 'count')
+                    cond=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.value('steelblue'))
+                    line_charts = alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("count",type="quantitative"))
+                    point_charts=alt.Chart(years).mark_point(filled=True,opacity=1).encode(x=alt.X("DATEINSCRI", type='temporal'),y=alt.Y("count", type="quantitative"),color=cond)
+                    charts1=line_charts+point_charts
+                    charts2 = alt.Chart(years).mark_bar(size=10).encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("count",type="quantitative"),color=cond)
+                    charts3= alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("aggr",type="quantitative"))
+                    if Chart_mode=='Line Chart':
+                        st.altair_chart(charts1,use_container_width=True)
+                    if Chart_mode=='Bar Chart':
+                        st.altair_chart(charts2,use_container_width=True)
+                    if Chart_mode=='Cumulative Line Chart':
+                        st.altair_chart(charts3,use_container_width=True)
             else:
                 ct_group=to_df(heritage,"CATSHORT")
                 ct_group.rename(columns={0:'count'},inplace=True)
