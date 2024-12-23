@@ -103,7 +103,7 @@ with col1:
                 m.add_basemap(basemap)
                 m.to_streamlit(height=700)
                 if types=="See All":
-                    charts_cat = alt.Chart(ct_group).mark_bar(size=10).encode(x=alt.X("Types",type='nominal').sort("y"),y=alt.Y("count",type="quantitative"))
+                    charts_cat = alt.Chart(ct_group).mark_bar(size=20).encode(x=alt.X("Types",type='nominal').sort("y"),y=alt.Y("count",type="quantitative"))
                 else:
                     cond=alt.condition(alt.datum.Types==types,alt.value('red'),alt.value('steelblue'))
                     charts_cat = alt.Chart(ct_group).mark_bar(size=20).encode(x=alt.X("Types",type='nominal').sort("y"),y=alt.Y("count",type="quantitative"),color=cond)
