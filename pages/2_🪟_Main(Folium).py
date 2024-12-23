@@ -8,7 +8,7 @@ option=["Region","Catagory","Inscription Date"]
 mode=st.multiselect("Choose the data to analyze it",option,key="modes")
 st.session_state
 but=st.button("Click it")
-if but=="True":
+if but==True:
     if "Region" in st.session_state.modes:
         if "Catagory" in st.session_state.modes:
             if"Inscription Date" in st.session_state.modes:
