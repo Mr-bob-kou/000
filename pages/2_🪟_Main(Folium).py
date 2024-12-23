@@ -56,7 +56,7 @@ if st.button("Rerun"):
 with col2:
     basemap=st.selectbox("Choose the Base Map",bas_options, index)
     if "Region" in st.session_state.modes:
-        chbox=st.checkbox("3-D Presentation",disabled=st.session_state.disable_chbox)
+        chbox=st.checkbox("3-D Presentation")
     if "Inscription Date" in st.session_state.modes:    
         Inscdate=st.slider("Choose the Year",Dateint,Dateend)
     
@@ -66,7 +66,6 @@ with col1:
         st.session_state.button_click=True
         if "Region" in st.session_state.modes:
             if "Catagory" in st.session_state.modes:
-                chbox=st.checkbox("3-D Presentation")
                 if"Inscription Date" in st.session_state.modes:
                     st.write("A")
                 else:
