@@ -42,7 +42,7 @@ col3,col4=st.columns([4,1],vertical_alignment="bottom")
 with col3:
     mode=st.multiselect("Choose the data to analyze it",option,key="modes")
 with col4:
-    but=st.button("Click it")
+    but=st.button("Click it",key="bot")
 
 col1,col2=st.columns([4,1])
 if st.button("Rerun"):
