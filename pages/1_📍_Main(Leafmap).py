@@ -361,7 +361,7 @@ with col1:
             charts_cat = alt.Chart(ct_group).mark_bar(size=10).encode(x=alt.X("Types",type='nominal'),y=alt.Y("count",type="quantitative"),color=cond)
         st.altair_chart(charts_cat)
         
-    elif mode=="Inscription Date":
+    elif mode=="Inscribed Date":
         m=leafmap.Map(center=[40, -100], zoom=4)
         Insc=heritage[heritage['DATEINSCRI']==Inscdate]
         m.add_geojson(regions, layer_name="Countries")
