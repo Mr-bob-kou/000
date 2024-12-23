@@ -14,6 +14,8 @@ regions = "https://raw.githubusercontent.com/Mr-bob-kou/My_Respository/main/worl
 reg_df=gpd.read_file(regions)
 Dateint=heritage['DATEINSCRI'].min()
 Dateend=heritage['DATEINSCRI'].max()
+bas_options = list(leafmap.basemaps.keys())
+index = options.index("OpenStreetMap")
 
 if "disable_type" not in st.session_state:
     st.session_state.disable_type=True
@@ -32,6 +34,7 @@ with col2:
     chbox=st.checkbox("3-D Presentation",disabled=st.session_state.disable_chbox)
     
 with col1:
+    m=leafmap.Map(center=[40, -100], zoom=4)
     if but==True:
         if "Region" in st.session_state.modes:
             st.session_state.disable_chbox=False
@@ -58,5 +61,8 @@ with col1:
             st.session_state.disable_inscdate=False
             st.write("G")
         else:
-            st.write("H")
+            st.write("Nothing Found")
+    else:
+        m.add_basemap(basemap)
+        m.to_streamlit(height=700)
         
