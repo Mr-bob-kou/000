@@ -133,6 +133,7 @@ with col1:
                 if Cate_data.empty:
                     m.add_basemap(basemap)
                     m.to_streamlit(height=700)
+                    time_ct_group=pd.DataFrame({"Types":["Cultural","Mixed","Natural"],"CATSHORT":["C","C/N","N"],"count":[0,0,0]})
                 else:
                     ct_group=to_df(Cate_data,"CATSHORT")
                     ct_group.rename(columns={0:'count'},inplace=True)
@@ -154,13 +155,16 @@ with col1:
                         type("C/N","Mixed","#ff0000",pop,data=Cate_data)
                     m.add_basemap(basemap)
                     m.to_streamlit(height=700)
-                    st.write(time_ct_group)
+                
+                st.write(time_ct_group)
+
                 col7,col8=st.columns([3,1])
                 with col8:
                     chart_mode=['Line Chart','Bar Chart','Cumulative Line Chart']
                     Chart_mode=st.selectbox("Select a Mode",chart_mode)
                     years=to_df(heritage,'DATEINSCRI')
                     years['aggr']=0
+                    years['culture']=
                     years.rename(columns={0:'count'},inplace=True)
                     for i in range(Dateint,Dateend):
                         if i not in years['DATEINSCRI'].values:
