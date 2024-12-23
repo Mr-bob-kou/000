@@ -115,10 +115,10 @@ with col1:
                     se_box=st.selectbox("Select a Chart",["Bar Chart","Pie Chart"])
                 with col5:
                     if se_box=="Bar Chart":
-                        st.write("##Bar Chart")
+                        st.write("#### Bar Chart")
                         st.altair_chart(charts_cat)
                     elif se_box=="Pie Chart":
-                        st.write("##Pie Chart")
+                        st.write("#### Pie Chart")
                         st.altair_chart(pie)
         elif "Inscription Date" in st.session_state.modes:
             st.write("G")
