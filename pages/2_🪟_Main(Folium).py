@@ -64,7 +64,7 @@ with col1:
         st.session_state.button_click=True
     else:
         st.session_state.button_click=False
-    if st.session_state.button_click==True
+    if st.session_state.button_click==True:
         if "Region" in st.session_state.modes:
             if "Catagory" in st.session_state.modes:
                 chbox=st.checkbox("3-D Presentation")
