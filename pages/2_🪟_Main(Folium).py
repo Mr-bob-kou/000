@@ -56,17 +56,11 @@ def color_marker(data):
         color_map= None
     return color_map
 
-def type(name,color,type_name,color_code,pop,data=heritage,inner_activate=False):
+def type(name,color,type_name,color_code,pop,data=heritage):
     typee=data[data["CATSHORT"]==name]
-    if inner_activate==True:
-        color=color_marker(typee)
-    if typee.empty:
-        legend_dict={type_name:color_code}
-        m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
-    else:
-        m.add_points_from_xy(typee,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=[color],icon_colors=[color],add_legend=False)
-        legend_dict={type_name:color_code}
-        m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
+    m.add_points_from_xy(typee,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=[color],icon_colors=[color],add_legend=False)
+    legend_dict={type_name:color_code}
+    m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
 
             
         
