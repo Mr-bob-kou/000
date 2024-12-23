@@ -110,7 +110,7 @@ with col1:
                     charts_cat = alt.Chart(ct_group_sort).mark_bar(size=50).encode(x=alt.X("Types",type='nominal'),y=alt.Y("count",type="quantitative"),color=cond)
                 pie=alt.Chart(ct_group).mark_arc().encode(theta="count",color="Types")
                 col5,col6=st.columns([1,1])
-                 with col6:
+                with col6:
                     se_box=st.selectbox("Select a Chart",["Bar Chart","Pie Chart"])
                 with col5:
                     if se_box=="Bar Chart":
