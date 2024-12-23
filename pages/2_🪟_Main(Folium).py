@@ -46,20 +46,21 @@ def color_marker(data):
     if 'N' in value:
         if 'C' in value:
             if 'C/N' in value:
-                return color_map=['orange','green','red']
+                color_map=['orange','green','red']
             else:
-                return color_map=['orange','green']
+                color_map=['orange','green']
         else:
-            return color_map=['green']
+            color_map=['green']
     elif 'C' in value:
         if 'C/N' in value:
-            return color_map=['orange','red']
+            color_map=['orange','red']
         else:
-            return color_map=['orange']
+            color_map=['orange']
     elif 'C/N' in value:
-        return color_map=['red']
+        color_map=['red']
     else:
-        return color_map= None
+        color_map= None
+    return color_map
             
         
             
