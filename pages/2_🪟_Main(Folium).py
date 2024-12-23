@@ -6,6 +6,7 @@ st.set_page_config(layout="wide")
 st.title("Analysis")
 option=["Region","Catagory","Inscription Date"]
 mode=st.multiselect("Choose the data to analyze it",option,key="modes")
+st.session_state
 but=st.button("Click it")
 if but=="True":
     if "Region" in st.session_state.modes:
