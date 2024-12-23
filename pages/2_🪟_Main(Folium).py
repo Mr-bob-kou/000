@@ -120,7 +120,7 @@ with col1:
                 Cate_data=heritage[heritage['DATEINSCRI']==Inscdate]
                 time_ct_group=form_type(Cate_data)
                 cm=color_marker(Cate_data)
-                a=Cate_data[Cate_data["CATSHORT"]=='C/N'
+                a=Cate_data[Cate_data["CATSHORT"]=='C/N']
                 st.write(a)
                 if types=="See All":
                     m.add_points_from_xy(Cate_data,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=cm,icon_colors=cm,add_legend=False)
