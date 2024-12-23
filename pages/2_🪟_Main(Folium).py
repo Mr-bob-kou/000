@@ -56,11 +56,16 @@ def color_marker(data):
         color_map= None
     return color_map
 
-def type(name,color,type_name,color_code,pop,data=heritage):
+def type(name,type_name,color_code,pop,data=heritage):
     typee=data[data["CATSHORT"]==name]
-    m.add_points_from_xy(typee,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=[color],icon_colors=[color],add_legend=False)
-    legend_dict={type_name:color_code}
-    m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
+    color=color_marker(typee)
+    if typee.empty:
+        legend_dict={type_name:color_code}
+        m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
+    else:
+        m.add_points_from_xy(typee,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=color,icon_colors=color,add_legend=False)
+        legend_dict={type_name:color_code}
+        m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
 
             
         
@@ -125,11 +130,11 @@ with col1:
                                  "Mixed":"#ff0000"}
                     m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
                 elif types=="Natural":
-                    type("N",cm,"Natural","#008000",pop,data=Cate_data)
+                    type("N","Natural","#008000",pop,data=Cate_data)
                 elif types=="Cultural":
-                    type("C",cm,"Cultural","#FF8000",pop,data=Cate_data)
+                    type("C","Cultural","#FF8000",pop,data=Cate_data)
                 elif types=="Mixed":
-                    type("C/N",cm,"Mixed","#ff0000",pop,data=Cate_data)
+                    type("C/N","Mixed","#ff0000",pop,data=Cate_data)
                 m.add_basemap(basemap)
                 m.to_streamlit(height=700)
                 st.write(time_ct_group)
@@ -145,11 +150,11 @@ with col1:
                                  "Mixed":"#ff0000"}
                     m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
                 elif types=="Natural":
-                    type("N",'green',"Natural","#008000",pop)
+                    type("N","Natural","#008000",pop)
                 elif types=="Cultural":
-                    type("C","orange","Cultural","#FF8000",pop)
+                    type("C","Cultural","#FF8000",pop)
                 elif types=="Mixed":
-                    type("C/N","red","Mixed","#ff0000",pop)
+                    type("C/N","Mixed","#ff0000",pop)
                 m.add_basemap(basemap)
                 m.to_streamlit(height=700)
                 if types=="See All":
