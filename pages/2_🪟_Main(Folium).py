@@ -155,8 +155,8 @@ with col1:
                     m.add_basemap(basemap)
                     m.to_streamlit(height=700)
                     st.write(time_ct_group)
-                    col7,col8=st.columns([3,1])
-                    with col7:
+                col7,col8=st.columns([3,1])
+                with col8:
                         chart_mode=['Line Chart','Bar Chart','Cumulative Line Chart']
                         Chart_mode=st.selectbox("Select a Mode",chart_mode)
                         years=to_df(heritage,'DATEINSCRI')
@@ -173,7 +173,7 @@ with col1:
                         d=pp['count'].to_list()[0]
                         st.write("Year:",Inscdate)
                         st.write("Total:",d)
-                    with col8:
+                with col7:
                         cuml(years, 'count')
                         cond=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.value('steelblue'))
                         line_charts = alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("count",type="quantitative"))
