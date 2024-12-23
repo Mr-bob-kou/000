@@ -164,7 +164,6 @@ with col1:
                     Chart_mode=st.selectbox("Select a Mode",chart_mode)
                     years=to_df(heritage,'DATEINSCRI')
                     years['aggr']=0
-                    years['culture']=
                     years.rename(columns={0:'count'},inplace=True)
                     for i in range(Dateint,Dateend):
                         if i not in years['DATEINSCRI'].values:
