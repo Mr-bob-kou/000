@@ -40,6 +40,30 @@ def form_type(data):
     df_group=pd.DataFrame({"Types":["Cultural","Mixed","Natural"]})
     ct_group=pd.concat([ct_group,df_group],axis=1)
     return ct_group
+
+def color_marker(data):
+    value=list(set(data["CATSHORT"]))
+    if 'N' in value:
+        if 'C' in value:
+            if 'C/N' in value:
+                return color_map=['orange','green','red']
+            else:
+                return color_map=['orange','green']
+        else:
+            return color_map=['green']
+    elif 'C' in value:
+        if 'C/N' in value:
+            return color_map=['orange','red']
+        else:
+            return color_map=['orange']
+    elif 'C/N' in value:
+        return color_map=['red']
+    else:
+        return color_map= None
+            
+        
+            
+    
     
 
 
@@ -90,19 +114,20 @@ with col1:
             if"Inscription Date" in st.session_state.modes:
                 Cate_data=heritage[heritage['DATEINSCRI']==Inscdate]
                 time_ct_group=form_type(Cate_data)
+                cm=color_marker(Cate_data)
                 st.write(Cate_data)
                 if types=="See All":
-                    m.add_points_from_xy(Cate_data,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=['orange','green','red'],icon_colors=['white','green','red'],add_legend=False)
+                    m.add_points_from_xy(Cate_data,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=cm,icon_colors=cm,add_legend=False)
                     legend_dict={"Cultural":"#FF8000",
                                  "Natural":"#008000",
                                  "Mixed":"#ff0000"}
                     m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
                 elif types=="Natural":
-                    type("N",'green',"Natural","#008000",pop,data=Cate_data)
+                    type("N",cm,"Natural","#008000",pop,data=Cate_data)
                 elif types=="Cultural":
-                    type("C","orange","Cultural","#FF8000",pop,data=Cate_data)
+                    type("C",cm,"Cultural","#FF8000",pop,data=Cate_data)
                 elif types=="Mixed":
-                    type("C/N","red","Mixed","#ff0000",pop,data=Cate_data)
+                    type("C/N",cm,"Mixed","#ff0000",pop,data=Cate_data)
                 m.add_basemap(basemap)
                 m.to_streamlit(height=700)
                 st.write(time_ct_group)
