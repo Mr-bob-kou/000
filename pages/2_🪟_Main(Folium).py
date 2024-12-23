@@ -37,7 +37,7 @@ def type(name,color,type_name,color_code,pop):
 
 st.title("Analysis")
 option=["Region","Catagory","Inscription Date"]
-#st.session_state
+st.session_state
 col3,col4=st.columns([4,1],vertical_alignment="bottom")
 with col3:
     mode=st.multiselect("Choose the data to analyze it",option,key="modes")
