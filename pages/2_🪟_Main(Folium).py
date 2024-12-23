@@ -36,11 +36,11 @@ if st.button("Rerun"):
 with col2:
     basemap=st.selectbox("Choose the Base Map",bas_options, index)
     if "Region" in st.session_state.modes:
-        types=st.selectbox("Types",["See All","Natural","Cultural","Mixed"])
-    if "Catagory" in st.session_state.modes:
-        Inscdate=st.slider("Choose the Year",Dateint,Dateend)
-    if "Inscription Date" in st.session_state.modes:    
         chbox=st.checkbox("3-D Presentation",disabled=st.session_state.disable_chbox)
+    if "Catagory" in st.session_state.modes:
+        types=st.selectbox("Types",["See All","Natural","Cultural","Mixed"])
+    if "Inscription Date" in st.session_state.modes:    
+        Inscdate=st.slider("Choose the Year",Dateint,Dateend)
     
 with col1:
     m=leafmap.Map(center=[40, -100], zoom=4)
