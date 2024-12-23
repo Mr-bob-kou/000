@@ -123,7 +123,7 @@ with col1:
                 ct_group=to_df(Cate_data,"CATSHORT")
                 ct_group.rename(columns={0:'count'},inplace=True)
                 df_group=pd.DataFrame({"Types":["Cultural","Mixed","Natural"],"CATSHORT":["C","C/N","N"]})
-                time_ct_group=pd.merge(ct_group,df_group,how='outer', on="CATSHORT")
+                time_ct_group=pd.merge(ct_group,df_group,how='outer', on="CATSHORT").fillna(0)
                 cm=color_marker(Cate_data)
                 st.write(Cate_data)
                 if types=="See All":
