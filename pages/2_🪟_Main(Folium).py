@@ -15,7 +15,7 @@ reg_df=gpd.read_file(regions)
 Dateint=heritage['DATEINSCRI'].min()
 Dateend=heritage['DATEINSCRI'].max()
 bas_options = list(leafmap.basemaps.keys())
-index = options.index("OpenStreetMap")
+index = bas_options.index("OpenStreetMap")
 
 if "disable_type" not in st.session_state:
     st.session_state.disable_type=True
@@ -29,6 +29,7 @@ st.session_state
 but=st.button("Click it")
 co1,col2=st.columns([4,1])
 with col2:
+    basemap=st.selesctbox("Choose the Base Map",options, index)
     types=st.selectbox("Types",["See All","Natural","Cultural","Mixed"], disabled= st.session_state.disable_type)
     Inscdate=st.slider("Choose the Year",Dateint,Dateend,disabled=st.session_state.disable_inscdate)
     chbox=st.checkbox("3-D Presentation",disabled=st.session_state.disable_chbox)
