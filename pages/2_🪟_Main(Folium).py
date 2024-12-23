@@ -94,7 +94,7 @@ option=["Region","Category","Inscription Date"]
 st.session_state
 col3,col4=st.columns([4,1],vertical_alignment="bottom")
 with col3:
-    mode=st.multiselect("Choose the data to analyze it",option,key="modes",disable=st.session_state.disable)
+    mode=st.multiselect("Choose the data to analyze it",option,key="modes",disabled=st.session_state.disable)
 with col4:
     but=st.button("Click it",key="bot")
 
