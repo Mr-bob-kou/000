@@ -90,6 +90,7 @@ with col1:
             if"Inscription Date" in st.session_state.modes:
                 Cate_data=heritage[heritage['DATEINSCRI']==Inscdate]
                 time_ct_group=form_type(Cate_data)
+                st.write(Cate_data)
                 if types=="See All":
                     m.add_points_from_xy(Cate_data,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=['orange','green','red'],icon_colors=['white','green','red'],add_legend=False)
                     legend_dict={"Cultural":"#FF8000",
