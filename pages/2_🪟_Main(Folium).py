@@ -130,7 +130,7 @@ with col1:
             m.add_geojson(regions, layer_name="Countries",zoom_to_layer=False)
             if"Inscription Date" in st.session_state.modes:
                 Cate_data=heritage[heritage['DATEINSCRI']==Inscdate]
-                if Cata_data.empty:
+                if Cate_data.empty:
                     m.add_basemap(basemap)
                     m.to_streamlit(height=700)
                 else:
