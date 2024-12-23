@@ -60,11 +60,8 @@ with col2:
     
 with col1:
     m=leafmap.Map(center=[40, -100], zoom=4)
-    if but==True:
+    if but==True or st.session_state.button_click:
         st.session_state.button_click=True
-    else:
-        st.session_state.button_click=False
-    if st.session_state.button_click==True:
         if "Region" in st.session_state.modes:
             if "Catagory" in st.session_state.modes:
                 chbox=st.checkbox("3-D Presentation")
@@ -97,7 +94,6 @@ with col1:
                                  "Mixed":"#ff0000"}
                     m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
                 elif types=="Natural":
-                    st.session_state.button_click=True
                     type("N",'green',"Natural","#008000",pop)
                 elif types=="Cultural":
                     type("C","orange","Cultural","#FF8000",pop)
