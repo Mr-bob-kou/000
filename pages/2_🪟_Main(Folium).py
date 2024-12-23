@@ -4,15 +4,27 @@ import leafmap.foliumap as leafmap
 st.set_page_config(layout="wide")
 
 st.title("Analysis")
-option=["Region","Catagory","Inscription Data"]
+option=["Region","Catagory","Inscription Date"]
 mode=st.multiselect("Choose the data to analyze it",option,key="modes")
-
-with st.expander("See source code"):
-    with st.echo():
-        m = leafmap.Map()
-        m.split_map(
-            left_layer='ESA WorldCover 2020 S2 FCC', right_layer='ESA WorldCover 2020'
-        )
-        m.add_legend(title='ESA Land Cover', builtin_legend='ESA_WorldCover')
-
-m.to_streamlit(height=700)
+but=st.button("Click it")
+if but=="True":
+    if "Region" is in st.session_state.modes:
+        if "Catagory" is in st.session_state.modes:
+            if"Inscription Date" is in st.session_state.modes:
+                st.write("A")
+            else:
+                st.write("B")
+        elif "Inscription Date" is in st.session_state.modes:
+            st.write("C")
+        else:
+            st.write("D")
+    elif "Catagory" is in st.session_state.modes:
+        if"Inscription Date" is in st.session_state.modes:
+            st.write("E")
+        else:
+            st.write("F")
+    elif "Inscription Date"is in st.session_state.modes:
+        st.write("G")
+    else:
+        st.write("H")
+        
