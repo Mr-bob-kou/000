@@ -88,8 +88,6 @@ with col1:
                 ct_group.rename(columns={0:'count'},inplace=True)
                 df_group=pd.DataFrame({"Types":["Cultural","Mixed","Natural"]})
                 ct_group=pd.concat([ct_group,df_group],axis=1)
-                ct_group_sort=ct_group.sort_values(by='count', ascending=True)
-                st.write(ct_group_sort)
                 if types=="See All":
                     m.add_points_from_xy(heritage,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=['orange','green','red'],icon_colors=['white','green','red'],add_legend=False)
                     legend_dict={"Cultural":"#FF8000",
@@ -105,10 +103,10 @@ with col1:
                 m.add_basemap(basemap)
                 m.to_streamlit(height=700)
                 if types=="See All":
-                    charts_cat = alt.Chart(ct_group_sort).mark_bar(size=10).encode(x=alt.X("Types",type='nominal'),y=alt.Y("count",type="quantitative"))
+                    charts_cat = alt.Chart(ct_group).mark_bar(size=10).encode(x=alt.X("Types",type='nominal').sort("y"),y=alt.Y("count",type="quantitative"))
                 else:
                     cond=alt.condition(alt.datum.Types==types,alt.value('red'),alt.value('steelblue'))
-                    charts_cat = alt.Chart(ct_group_sort).mark_bar(size=50).encode(x=alt.X("Types",type='nominal'),y=alt.Y("count",type="quantitative"),color=cond)
+                    charts_cat = alt.Chart(ct_group).mark_bar(size=50).encode(x=alt.X("Types",type='nominal').sort("y"),y=alt.Y("count",type="quantitative"),color=cond)
                 pie=alt.Chart(ct_group).mark_arc().encode(theta="count",color="Types")
                 col5,col6=st.columns([1,1])
                 with col6:
