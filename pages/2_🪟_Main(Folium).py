@@ -86,7 +86,7 @@ with col1:
                 m.add_geojson(regions, layer_name="Countries",zoom_to_layer=False)
                 ct_group=to_df(heritage,"CATSHORT")
                 ct_group.rename(columns={0:'count'},inplace=True)
-                df_group=pd.DataFrame({"Types":["Cultural","Mix","Natural"]})
+                df_group=pd.DataFrame({"Types":["Cultural","Mixed","Natural"]})
                 ct_group=pd.concat([ct_group,df_group],axis=1)
                 st.write(ct_group)
                 if types=="See All":
