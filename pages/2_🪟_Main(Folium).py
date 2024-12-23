@@ -5,7 +5,7 @@ st.set_page_config(layout="wide")
 
 st.title("Analysis")
 option=["Region","Catagory","Inscription Data"]
-mode=st.radio("Choose the data to analyze it",option,key="modes")
+mode=st.multiselect("Choose the data to analyze it",option,key="modes")
 
 with st.expander("See source code"):
     with st.echo():
