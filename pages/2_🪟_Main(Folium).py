@@ -24,15 +24,18 @@ if "disable_type" not in st.session_state:
 
 st.title("Analysis")
 option=["Region","Catagory","Inscription Date"]
-st.session_state
+#st.session_state
 col3,col4=st.columns([4,1])
 with col3:
     mode=st.multiselect("Choose the data to analyze it",option,key="modes")
 with col4:
     but=st.button("Click it")
+
 col1,col2=st.columns([4,1])
 if st.button("Rerun"):
     st.rerun()
+
+
 with col2:
     basemap=st.selectbox("Choose the Base Map",bas_options, index)
     if "Region" in st.session_state.modes:
