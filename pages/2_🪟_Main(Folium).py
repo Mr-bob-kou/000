@@ -8,6 +8,10 @@ import pandas as pd
 
 st.set_page_config(layout="wide")
 
+regions = "https://raw.githubusercontent.com/Mr-bob-kou/My_Respository/main/world-administrative-boundaries.geojson"
+reg_df=gpd.read_file(regions)
+
+
 st.title("Analysis")
 option=["Region","Catagory","Inscription Date"]
 mode=st.multiselect("Choose the data to analyze it",option,key="modes")
