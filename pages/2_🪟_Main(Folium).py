@@ -125,11 +125,11 @@ with col1:
                                  "Mixed":"#ff0000"}
                     m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
                 elif types=="Natural":
-                    type("N",cm,"Natural","#008000",pop,data=Cate_data,inner_activate=True)
+                    type("N",cm,"Natural","#008000",pop,data=Cate_data)
                 elif types=="Cultural":
-                    type("C",cm,"Cultural","#FF8000",pop,data=Cate_data,inner_activate=True)
+                    type("C",cm,"Cultural","#FF8000",pop,data=Cate_data)
                 elif types=="Mixed":
-                    type("C/N",cm,"Mixed","#ff0000",pop,data=Cate_data,inner_activate=True)
+                    type("C/N",cm,"Mixed","#ff0000",pop,data=Cate_data)
                 m.add_basemap(basemap)
                 m.to_streamlit(height=700)
                 st.write(time_ct_group)
