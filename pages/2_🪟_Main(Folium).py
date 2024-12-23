@@ -88,7 +88,7 @@ with col1:
                 ct_group.rename(columns={0:'count'},inplace=True)
                 df_group=pd.DataFrame({"Types":["Cultural","Mixed","Natural"]})
                 ct_group=pd.concat([ct_group,df_group],axis=1)
-                ct_group_sort=ct_group.sort_value(by='count', ascending=True)
+                ct_group_sort=ct_group.sort_values(by='count', ascending=True)
                 if types=="See All":
                     m.add_points_from_xy(heritage,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=['orange','green','red'],icon_colors=['white','green','red'],add_legend=False)
                     legend_dict={"Cultural":"#FF8000",
