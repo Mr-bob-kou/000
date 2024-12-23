@@ -20,6 +20,16 @@ index = bas_options.index("OpenStreetMap")
 if "button_click" not in st.session_state:
     st.session_state.button_click=False
 
+
+def cuml(datum,val):
+    datum['aggr']=0
+    for i in datum.index:
+        if i==0:
+            datum['aggr'][i]=datum[val][i]
+        else:
+            datum['aggr'][i]=datum[val][i]+datum['aggr'][i-1]
+    return datum
+
 def to_df(datum,val):
     couda=datum.groupby(val).size()
     couda.to_frame()
@@ -120,57 +130,61 @@ with col1:
             m.add_geojson(regions, layer_name="Countries",zoom_to_layer=False)
             if"Inscription Date" in st.session_state.modes:
                 Cate_data=heritage[heritage['DATEINSCRI']==Inscdate]
-                ct_group=to_df(Cate_data,"CATSHORT")
-                ct_group.rename(columns={0:'count'},inplace=True)
-                df_group=pd.DataFrame({"Types":["Cultural","Mixed","Natural"],"CATSHORT":["C","C/N","N"]})
-                time_ct_group=pd.merge(ct_group,df_group,how='outer', on="CATSHORT").fillna(0)
-                cm=color_marker(Cate_data)
-                #st.write(Cate_data)
-                if types=="See All":
-                    m.add_points_from_xy(Cate_data,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=cm,icon_colors=cm,add_legend=False)
-                    legend_dict={"Cultural":"#FF8000",
-                                 "Natural":"#008000",
-                                 "Mixed":"#ff0000"}
-                    m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
-                elif types=="Natural":
-                    type("N","Natural","#008000",pop,data=Cate_data)
-                elif types=="Cultural":
-                    type("C","Cultural","#FF8000",pop,data=Cate_data)
-                elif types=="Mixed":
-                    type("C/N","Mixed","#ff0000",pop,data=Cate_data)
-                m.add_basemap(basemap)
-                m.to_streamlit(height=700)
-                st.write(time_ct_group)
-                col7,col8=st.columns([3,1])
-                with col7:
-                    chart_mode=['Line Chart','Bar Chart','Cumulative Line Chart']
-                    Chart_mode=st.selectbox("Select a Mode",chart_mode)
-                    years=to_df(heritage,'DATEINSCRI')
-                    years['aggr']=0
-                    years.rename(columns={0:'count'},inplace=True)
-                    for i in range(Dateint,Dateend):
-                        if i not in years['DATEINSCRI'].values:
-                            Nu_data={'DATEINSCRI':[i],
-                                     'count':[0],
-                                     'aggr':[0]}
-                    years=pd.concat([years,pd.DataFrame(Nu_data)],ignore_index=True)
-                    st.write(years)   
-                    pp=years[years['DATEINSCRI']==Inscdate]
-                    d=pp['count'].to_list()[0]
-                    st.write("Year:",Inscdate)
-                    st.write("Total:",d)
-                with col8:
-                    cuml(years, 'count')
-                    cond=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.value('steelblue'))
-                    line_charts = alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("count",type="quantitative"))
-                    point_charts=alt.Chart(years).mark_point(filled=True,opacity=1).encode(x=alt.X("DATEINSCRI", type='temporal'),y=alt.Y("count", type="quantitative"),color=cond)
-                    charts1=line_charts+point_charts
-                    charts2 = alt.Chart(years).mark_bar(size=10).encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("count",type="quantitative"),color=cond)
-                    charts3= alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("aggr",type="quantitative"))
-                    if Chart_mode=='Line Chart':
-                        st.altair_chart(charts1,use_container_width=True)
-                    if Chart_mode=='Bar Chart':
-                        st.altair_chart(charts2,use_container_width=True)
+                if Cata_data.empty:
+                    m.add_basemap(basemap)
+                    m.to_streamlit(height=700)
+                else:
+                    ct_group=to_df(Cate_data,"CATSHORT")
+                    ct_group.rename(columns={0:'count'},inplace=True)
+                    df_group=pd.DataFrame({"Types":["Cultural","Mixed","Natural"],"CATSHORT":["C","C/N","N"]})
+                    time_ct_group=pd.merge(ct_group,df_group,how='outer', on="CATSHORT").fillna(0)
+                    cm=color_marker(Cate_data)
+                    st.write(Cate_data)
+                    if types=="See All":
+                        m.add_points_from_xy(Cate_data,x="LONGITUDE",y="LATITUDE", popup=pop,color_column='CATSHORT',marker_colors=cm,icon_colors=cm,add_legend=False)
+                        legend_dict={"Cultural":"#FF8000",
+                                     "Natural":"#008000",
+                                     "Mixed":"#ff0000"}
+                        m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
+                    elif types=="Natural":
+                        type("N","Natural","#008000",pop,data=Cate_data)
+                    elif types=="Cultural":
+                        type("C","Cultural","#FF8000",pop,data=Cate_data)
+                    elif types=="Mixed":
+                        type("C/N","Mixed","#ff0000",pop,data=Cate_data)
+                    m.add_basemap(basemap)
+                    m.to_streamlit(height=700)
+                    st.write(time_ct_group)
+                    col7,col8=st.columns([3,1])
+                    with col7:
+                        chart_mode=['Line Chart','Bar Chart','Cumulative Line Chart']
+                        Chart_mode=st.selectbox("Select a Mode",chart_mode)
+                        years=to_df(heritage,'DATEINSCRI')
+                        years['aggr']=0
+                        years.rename(columns={0:'count'},inplace=True)
+                        for i in range(Dateint,Dateend):
+                            if i not in years['DATEINSCRI'].values:
+                                Nu_data={'DATEINSCRI':[i],
+                                         'count':[0],
+                                         'aggr':[0]}
+                        years=pd.concat([years,pd.DataFrame(Nu_data)],ignore_index=True)
+                        st.write(years)   
+                        pp=years[years['DATEINSCRI']==Inscdate]
+                        d=pp['count'].to_list()[0]
+                        st.write("Year:",Inscdate)
+                        st.write("Total:",d)
+                    with col8:
+                        cuml(years, 'count')
+                        cond=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.value('steelblue'))
+                        line_charts = alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("count",type="quantitative"))
+                        point_charts=alt.Chart(years).mark_point(filled=True,opacity=1).encode(x=alt.X("DATEINSCRI", type='temporal'),y=alt.Y("count", type="quantitative"),color=cond)
+                        charts1=line_charts+point_charts
+                        charts2 = alt.Chart(years).mark_bar(size=10).encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("count",type="quantitative"),color=cond)
+                        charts3= alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("aggr",type="quantitative"))
+                        if Chart_mode=='Line Chart':
+                            st.altair_chart(charts1,use_container_width=True)
+                        if Chart_mode=='Bar Chart':
+                            st.altair_chart(charts2,use_container_width=True)
                         if Chart_mode=='Cumulative Line Chart':
                             st.altair_chart(charts3,use_container_width=True)
             else:
