@@ -29,7 +29,7 @@ st.session_state
 but=st.button("Click it")
 co1,col2=st.columns([4,1])
 with col2:
-    basemap=st.selectbox("Choose the Base Map",options, index)
+    basemap=st.selectbox("Choose the Base Map",bas_options, index)
     types=st.selectbox("Types",["See All","Natural","Cultural","Mixed"], disabled= st.session_state.disable_type)
     Inscdate=st.slider("Choose the Year",Dateint,Dateend,disabled=st.session_state.disable_inscdate)
     chbox=st.checkbox("3-D Presentation",disabled=st.session_state.disable_chbox)
