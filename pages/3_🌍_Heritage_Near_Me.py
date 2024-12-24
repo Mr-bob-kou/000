@@ -2,6 +2,7 @@ import streamlit as st
 import leafmap.foliumap as leafmap
 import geopy.distance as distance
 import folium
+import pandas as pd
 from streamlit_folium import st_folium
 from folium.plugins import Draw
 from folium.features import GeoJsonPopup, GeoJsonTooltip
