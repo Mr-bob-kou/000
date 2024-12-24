@@ -113,7 +113,7 @@ with col3:
             zoom1=15
             m = leafmap.Map(center=center1,zoom=zoom1,locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
             m.add_points_from_xy(datum,x=lon,y=lat,popup=['NAME','COUNTRY','REGION','DATEINSCRI'])
-            m.add_marker(home_city_coordinates,color='red')
+            m.add_markers(home_city_coordinates,color='red')
             m.add_basemap(basemap)
             m.to_streamlit(height=700)
             st.write("The Nearest Heritage is:",name )
