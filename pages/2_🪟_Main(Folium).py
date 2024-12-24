@@ -27,6 +27,8 @@ if "Count10" not in st.session_state:
     st.session_state.Count10=None
 if "Count" not in  st.session_state:
     st.session_state.Count=None
+if "dt3" not in  st.session_state:
+    st.session_state.dt3=None
 
 
 legend_dict = {
@@ -238,6 +240,7 @@ def chromap(datum,mp,style_function,ld):
 def cat_crmap(data1,data2,style_function,legend_dict,color_scale,colum="CATSHORT",cat=None):
     data3=count_sj(data1,data2,colum=colum,cat=cat)
     Count=gpd.read_file(data3)
+    st.session_state.dt3=data3
     st.session_state.Count=Count
     Count["elevation"] = Count['count'].apply(calculate_elevation)
     Count["filled_color"]=Count['count'].apply(color_scale)
@@ -303,8 +306,6 @@ with col1:
                         cat_crmap(heritage,reg_df,style_function1,legend_dict1,color_scale1,cat='C/N')
             elif "Inscription Date" in st.session_state.modes:
                 cat_crmap(heritage,reg_df,style_function1,legend_dict1,color_scale1,colum='DATEINSCRI',cat=Inscdate)
-                data=count_sj(heritage,reg_df,colum="DATEINSCRI",cat=Inscdate)
-                st.write(data)
                 
             else:
                 cat_crmap(heritage,reg_df,style_function,legend_dict,color_scale,cat=None)
