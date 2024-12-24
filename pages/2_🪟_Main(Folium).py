@@ -164,6 +164,12 @@ with col1:
                     m.to_streamlit(height=700)
                 
                 st.write(time_ct_group)
+                pivot_tb=heritage.pivot_table(index='DATEINSCRI',                    
+                                     columns='CATSHORT',                                  
+                                     aggfunc='count',                     
+                                     fill_value=0).round(decimals=2)
+                st.write(pivot_tb)
+
 
                 col7,col8=st.columns([3,1])
                 with col8:
