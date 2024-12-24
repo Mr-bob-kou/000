@@ -311,7 +311,7 @@ with col1:
                     charts_select=st.selectbox("Choose the Plot",["Bar Chart(Top 10)","Bar Chart","Pie Chart"])
                     name_number=st.text_input("Country Name")
                     list_country=list(st.session_state.Count['name'])
-                    if name_number in list_number:
+                    if name_number in list_country:
                         pp=st.session_state.Count[st.session_state.Count['name']==name_number]
                         d=pp['count'].to_list()[0]
                     else:
