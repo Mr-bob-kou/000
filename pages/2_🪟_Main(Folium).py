@@ -207,7 +207,9 @@ with col1:
                     cond2=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.Color(alt.repeat("layer"),scale=alt.Scale(domain=['C', 'C/N', 'N'], range=['blue', 'orange', 'green'])))
                     charts1 = alt.Chart(years).mark_line(point=True).encode(x=alt.X("DATEINSCRI",type='temporal'),
                                                                             y=alt.Y(alt.repeat("layer"),type='quantitative',title='count'),
-                                                                            color=alt.Color(alt.repeat("layer"),scale=alt.Scale(domain=['C', 'C/N', 'N'], range=['blue', 'orange', 'green']))).repeat(layer=["C", "C/N","N"])
+                                                                            color=alt.Color(alt.repeat("layer"),
+                                                                                            scale=alt.Scale(domain=["C", "C/N", "N"],
+                                                                                                range=['blue', 'orange', 'green']))).repeat(layer=["C", "C/N","N"])
                     charts2 = alt.Chart(years).mark_bar(size=10).encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("count",type="quantitative"),color=cond)
                     charts3= alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("agrr",type="quantitative"))
                     if Chart_mode=='Line Chart':
