@@ -24,6 +24,102 @@ if "disable" not in st.session_state:
     st.session_state.disable=False
 
 
+legend_dict = {
+    "0":'#FFFFFF',
+    "0-10":'#D2E9FF',
+    "10-20":'#ACD6FF',
+    "20-30": '#46A3FF',
+    "30-40": '#0066CC',
+    "40+": '#003060',
+}
+
+legend_dict1 = {
+    "0":'#FFFFFF',
+    "0-3":'#D2E9FF',
+    "3-7": '#46A3FF',
+    "7-10": '#0066CC',
+    "10+": '#003060',
+}
+
+COLOR_RANGE = [
+    [255, 255, 255],
+    [210, 233, 255],
+    [172, 214, 255],
+    [70, 163, 255],
+    [0, 102, 204],
+    [0, 48, 96]
+]
+BREAKS = [0,10,20,30,40,50]
+
+COLOR_RANGE1 = [
+    [255, 255, 255],
+    [210, 233, 255],
+    [70, 163, 255],
+    [0, 102, 204],
+    [0, 48, 96]
+]
+BREAKS1 = [0,3,7,10,20]
+
+
+def style_function(feature):
+    count = feature['properties']['count']
+    
+    if count > 40:
+        color = '#003060'
+    elif count > 30:
+        color = "#0066CC"
+    elif count > 20:
+        color = '#46A3FF'
+    elif count > 10:
+        color = '#ACD6FF'
+    elif count > 0 :
+        color = '#D2E9FF'
+    else:
+        color='#FFFFFF'
+    
+    return {
+        'fillColor': color,
+        'color':"black",
+        'weight': 2,
+        'fillOpacity': 1
+    }
+
+def style_function1(feature):
+    count = feature['properties']['count']
+    
+    if count > 10:
+        color = '#003060'
+    elif count > 7:
+        color = "#0066CC"
+    elif count > 3:
+        color = '#46A3FF'
+    elif count > 0:
+        color = '#D2E9FF'
+    elif count == 0 :
+        color = '#FFFFFF'
+    
+    return {
+        'fillColor': color,
+        'color':"black",
+        'weight': 2,
+        'fillOpacity': 1
+    }
+
+def color_scale(val):
+    for i, b in enumerate(BREAKS):
+        if val <= b:
+            return COLOR_RANGE[i]
+    return COLOR_RANGE[i]
+
+def color_scale1(val):
+    for i, b in enumerate(BREAKS1):
+        if val <= b:
+            return COLOR_RANGE1[i]
+    return COLOR_RANGE1[i]
+
+
+def calculate_elevation(val):
+    return math.sqrt(val) * 20000
 
 def cuml(datum,val):
     datum['aggr']=0
@@ -90,6 +186,55 @@ def muti_chart(data,column,color):
     chart1=point_chart+line_chart
     return chart1
 
+def count_sj(data,regions,cat=None):
+    if cat==None:
+        data1=data
+    else:
+        data1=data[data["CATSHORT"]==cat]
+    count=gpd.sjoin(data1,regions, how='inner', predicate='within')
+    a=count.groupby("name").size()
+    count_per_polygon = a.rename('count')
+    count=pd.merge(regions, count_per_polygon,how='outer',left_on='name', right_index=True).fillna(0)
+    return count.to_json()
+
+def td_counter(data):
+     deck=pdk.Deck(map_style="light",
+            initial_view_state={
+                "latitude": 0,
+                "longitude": 0,
+                "zoom":0,
+                "pitch": 50,
+            },
+            layers=[
+                pdk.Layer(
+                    "GeoJsonLayer",
+                    data,
+                    id="geojson",
+                    opacity=0.8,
+                    stroked=True,
+                    get_fill_color="filled_color",
+                    get_polygon="geometry",
+                    get_elevation='elevation',
+                    filled=True,
+                    extruded=True,
+                    wireframe=True,
+                    pickable=True
+                ),
+            ],
+        )
+     return st.write(deck)
+
+def cat_crmap(data1,data2,style_function,legend_dict,color_scale,cat=None):
+    data3=count_sj(data1,data2,cat=None)
+    Count=gpd.read_file(data3)
+    count10=Count.sort_values(by='count', ascending=False).head(10)
+    Count["elevation"] = Count['count'].apply(calculate_elevation)
+    Count["filled_color"]=Count['count'].apply(color_scale)
+    if chbox:
+        td_counter(Count)
+    else:
+        chromap(data3,m,style_function,legend_dict) 
+
             
         
             
@@ -123,7 +268,9 @@ with col2:
          types=st.selectbox("Types",["See All","Natural","Cultural","Mixed"])
     if "Inscription Date" in st.session_state.modes:    
         Inscdate=st.slider("Choose the Year",Dateint,Dateend)
-    
+
+
+
 with col1:
     m=leafmap.Map(center=[40, -100], zoom=4)
     if but==True or st.session_state.button_click:
@@ -139,7 +286,7 @@ with col1:
             elif "Inscription Date" in st.session_state.modes:
                 st.write("C")
             else:
-                st.write("D")
+               cat_crmap(heritage,reg_df,style_function,legend_dict,color_scale,cat=None)
 
 
 
