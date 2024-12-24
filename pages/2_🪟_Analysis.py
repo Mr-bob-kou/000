@@ -249,6 +249,35 @@ def cat_crmap(data1,data2,style_function,legend_dict,color_scale,colum="CATSHORT
     else:
         chromap(data3,m,style_function,legend_dict) 
 
+def co_chart(data):
+    col10,col11=st.columns([2,2])
+    count10=data.sort_values(by='count', ascending=False).head(10)
+    with col11:
+        charts_select=st.selectbox("Choose the Plot",["Bar Chart(Top 10)","Bar Chart","Pie Chart"])
+        name_number=st.text_input("Country Name")
+        list_country=list(st.session_state.Count['name'])
+        if name_number in list_country:
+            pp=st.data[data['name']==name_number]
+            d=pp['count'].to_list()[0]
+        else:
+            d=None
+            st.write("Country Name:",name_number)
+            st.write("Number:",d)
+                    
+        with col10: 
+            pie=alt.Chart(data).mark_arc().encode(theta="count",color="name")
+            charts = alt.Chart(count10).mark_bar(size=20).encode(x=alt.X("name",type="nominal").sort("y"),y=alt.Y("count",type="quantitative"))
+            bar_charts = alt.Chart(data).mark_bar(size=20).encode(x=alt.X("name",type="nominal").sort("y"),y=alt.Y("count",type="quantitative"))
+            if charts_select=="Bar Chart(Top 10)":
+                st.write("#### Heritage Count Statistics(Top 10)")
+                st.altair_chart(charts,use_container_width=True)
+            if charts_select=="Bar Chart":
+                st.write("#### Heritage Count Statistics")
+                st.altair_chart(bar_charts,use_container_width=True)
+            elif charts_select=="Pie Chart":
+                st.write("#### Heritage Count Pie Chart")
+                st.altair_chart(pie,use_container_width=True)
+
             
         
             
@@ -294,7 +323,7 @@ with col1:
         if "Region" in st.session_state.modes:
             if "Category" in st.session_state.modes:
                 if"Inscription Date" in st.session_state.modes:
-                    st.write("A")
+                    st.write("Comeing Soon...")
                 else:
                     if types=='See All':
                         cat_crmap(heritage,reg_df,style_function,legend_dict,color_scale,cat=None) 
@@ -304,46 +333,14 @@ with col1:
                         cat_crmap(heritage,reg_df,style_function,legend_dict,color_scale,cat='C')
                     elif types=='Mixed':
                         cat_crmap(heritage,reg_df,style_function1,legend_dict1,color_scale1,cat='C/N')
+                    co_chart(st.session_state.Count)
             elif "Inscription Date" in st.session_state.modes:
                 cat_crmap(heritage,reg_df,style_function1,legend_dict1,color_scale1,colum='DATEINSCRI',cat=Inscdate)
-                st.write(st.session_state.dt3)
+                
                 
             else:
                 cat_crmap(heritage,reg_df,style_function,legend_dict,color_scale,cat=None)
-                
-                pivot_tb=heritage.pivot_table(index='DATEINSCRI',
-                                              columns='CATSHORT',
-                                              values='CRITERIA',
-                                              aggfunc='count',
-                                              fill_value=0).round(decimals=2)
-                col10,col11=st.columns([2,2])
-                count10=st.session_state.Count.sort_values(by='count', ascending=False).head(10)
-                with col11:
-                    charts_select=st.selectbox("Choose the Plot",["Bar Chart(Top 10)","Bar Chart","Pie Chart"])
-                    name_number=st.text_input("Country Name")
-                    list_country=list(st.session_state.Count['name'])
-                    if name_number in list_country:
-                        pp=st.session_state.Count[st.session_state.Count['name']==name_number]
-                        d=pp['count'].to_list()[0]
-                    else:
-                        d=None
-                    st.write("Country Name:",name_number)
-                    st.write("Number:",d)
-                    
-                with col10: 
-                    pie=alt.Chart(st.session_state.Count).mark_arc().encode(theta="count",color="name")
-                    charts = alt.Chart(count10).mark_bar(size=20).encode(x=alt.X("name",type="nominal").sort("y"),y=alt.Y("count",type="quantitative"))
-                    bar_charts = alt.Chart(st.session_state.Count).mark_bar(size=20).encode(x=alt.X("name",type="nominal").sort("y"),y=alt.Y("count",type="quantitative"))
-                    if charts_select=="Bar Chart(Top 10)":
-                        st.write("#### Heritage Count Statistics(Top 10)")
-                        st.altair_chart(charts,use_container_width=True)
-                    if charts_select=="Bar Chart":
-                        st.write("#### Heritage Count Statistics")
-                        st.altair_chart(bar_charts,use_container_width=True)
-                    elif charts_select=="Pie Chart":
-                        st.write("#### Heritage Count Pie Chart")
-                        st.altair_chart(pie,use_container_width=True)
-
+                co_chart(st.session_state.Count)
 
 
 
