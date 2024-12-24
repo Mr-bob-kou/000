@@ -16,13 +16,6 @@ option1=["OpenStreetMap","Cartodb Positron","Cartodb dark_matter"]
 index = options.index("OpenTopoMap")
 muti_options=["The Nearest","Top 5","Top 10","See All"]
 
-if "center" not in st.session_state:
-    st.session_state.center=[0,0]
-
-if "zoom" not in st.session_state:
-    st.session_state.zoom=1
-
-center=st.session_state.center
 
 def calculate_distance(row):
     city_coordinates = (row['LATITUDE'], row['LONGITUDE'])
@@ -52,7 +45,6 @@ if 'chx' not in st.session_state:
 
 
 st.title("Heritage Near Me")
-st.session_state
 col1,col2=st.columns([4,1])
 col3, col4 = st.columns([4, 1])
 
