@@ -83,7 +83,7 @@ def type(name,type_name,color_code,pop,data=heritage):
 
 def muti_chart(data,column,color):
     cond=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.value(color))
-    point_chart=alt.Chart(data).mark_point(filled=True,opacity=1).encode(x=alt.X("DATEINSCRI", type='temporal'),y=alt.Y("count", type="quantitative"),color=cond)
+    point_chart=alt.Chart(data).mark_point(filled=True,opacity=1).encode(x=alt.X("DATEINSCRI", type='temporal'),y=alt.Y(column, type="quantitative"),color=cond)
     line_chart = alt.Chart(data).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),
                                                                  y=alt.Y(column,type='quantitative',title='count'),
                                                                  color=alt.value(color))
