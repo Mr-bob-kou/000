@@ -86,7 +86,7 @@ def muti_chart(data,column,color):
     point_chart=alt.Chart(data).mark_point(filled=True,opacity=1).encode(x=alt.X("DATEINSCRI", type='temporal'),y=alt.Y("count", type="quantitative"),color=cond)
     line_chart = alt.Chart(data).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),
                                                                  y=alt.Y(column,type='quantitative',title='count'),
-                                                                 color=color)
+                                                                 color=alt.value(color))
     chart1=point_chart+line_chart
     return chart1
 
