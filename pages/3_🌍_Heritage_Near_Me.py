@@ -117,9 +117,9 @@ with col3:
             mini_dis=miun["distance_from_home"].to_string(index=False)
             x_c=pd.to_numeric(miun["LONGITUDE"], errors="coerce")
             y_c=pd.to_numeric(miun["LATITUDE"], errors="coerce")
-            center=[x_c,y_c]
-            zoom=15
-            m = leafmap.Map(center=center,zoom=zoom,locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
+            center1=[121,65]
+            zoom1=15
+            m = leafmap.Map(center=center1,zoom=zoom1,locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
             m.add_points_from_xy(datum,x=lon,y=lat,popup=['NAME','COUNTRY','REGION','DATEINSCRI'])
             m.add_basemap(basemap)
             m.to_streamlit(height=700)
