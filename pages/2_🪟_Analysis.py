@@ -301,7 +301,7 @@ col1,col2=st.columns([4,1])
 if st.button("Rerun"):
     st.session_state.button_click=False
     st.session_state.disable=False
-    st.seesion_state.modes=[]
+    st.session_state.modes=[]
     st.rerun()
     
 
