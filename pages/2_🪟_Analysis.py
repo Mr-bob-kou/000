@@ -29,8 +29,7 @@ if "Count" not in  st.session_state:
     st.session_state.Count=None
 if "dt3" not in  st.session_state:
     st.session_state.dt3=None
-if "modes" not in  st.session_state:
-    st.seesion_state.modes=None
+
 
 legend_dict = {
     "0":'#FFFFFF',
@@ -289,7 +288,6 @@ def co_chart(data):
 
 st.title("Analysis")
 option=["Region","Category","Inscription Date"]
-st.session_state
 col3,col4=st.columns([4,1],vertical_alignment="bottom")
 with col3:
     mode=st.multiselect("Choose the data to analyze it",option,key="modes",disabled=st.session_state.disable)
@@ -300,7 +298,6 @@ col1,col2=st.columns([4,1])
 if st.button("Rerun"):
     st.session_state.button_click=False
     st.session_state.disable=False
-    st.session_state.modes=None
     st.rerun()
     
 
