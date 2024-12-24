@@ -185,8 +185,10 @@ with col1:
                                               values='CRITERIA',
                                               aggfunc='count',
                                               fill_value=0).round(decimals=2)
-                st.dataframe(data=pivot_tb)
                 col7,col8=st.columns([3,1])
+                st.write("#### Pivot Table:")
+                st.dataframe(data=pivot_tb,use_container_width=True)
+
 
                 
                 with col8:
