@@ -309,6 +309,16 @@ with col1:
                 count10=st.session_state.Count.sort_values(by='count', ascending=False).head(10)
                 with col11:
                     charts_select=st.selectbox("Choose the Plot",["Bar Chart(Top 10)","Bar Chart","Pie Chart"])
+                    name_number=st.text_input("Country Name")
+                    list_country=list(st.session_state.Count['name'])
+                    if name_number is in list_number:
+                        pp=st.session_state.Count[st.session_state.Count['name']==name_number]
+                        d=pp['count'].to_list()[0]
+                    else:
+                        d=None
+                    st.write("Country Name:",name_number)
+                    st.write("Number:",d)
+                    
                 with col10: 
                     pie=alt.Chart(st.session_state.Count).mark_arc().encode(theta="count",color="name")
                     charts = alt.Chart(count10).mark_bar(size=20).encode(x=alt.X("name",type="nominal").sort("y"),y=alt.Y("count",type="quantitative"))
