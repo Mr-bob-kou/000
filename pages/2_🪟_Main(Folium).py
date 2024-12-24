@@ -81,6 +81,15 @@ def type(name,type_name,color_code,pop,data=heritage):
         legend_dict={type_name:color_code}
         m.add_legend(title="Classification", legend_dict=legend_dict, draggable=False)
 
+def muti_chart(data,column,color):
+    cond=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.value(color))
+    point_chart=alt.Chart(data).mark_point(filled=True,opacity=1).encode(x=alt.X("DATEINSCRI", type='temporal'),y=alt.Y("count", type="quantitative"),color=cond)
+    line_charts = alt.Chart(data).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),
+                                                                 y=alt.Y(column,type='quantitative',title='count'),
+                                                                 color=color)
+    chart1=point_chart+line_chart
+    return chart1
+
             
         
             
@@ -204,12 +213,7 @@ with col1:
                 with col7:
                     cuml(years, 'count')
                     cond=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.value('steelblue'))
-                    cond2=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.Color(alt.repeat("layer"),scale=alt.Scale(domain=['C', 'C/N', 'N'], range=['blue', 'orange', 'green'])))
-                    charts1 = alt.Chart(years).mark_line(point=True).encode(x=alt.X("DATEINSCRI",type='temporal'),
-                                                                            y=alt.Y(alt.repeat("layer"),type='quantitative',title='count'),
-                                                                            color=alt.Color(alt.repeat("layer"),
-                                                                                            scale=alt.Scale(domain=["C", "C/N", "N"],
-                                                                                                range=['blue', 'orange', 'green']))).repeat(layer=["C", "C/N","N"])
+                    charts1=muti_chart(years,'N','green')+muti_chart(years,'C','orange')+muti_chart(year,'C/N','steelblue')
                     charts2 = alt.Chart(years).mark_bar(size=10).encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("count",type="quantitative"),color=cond)
                     charts3= alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("agrr",type="quantitative"))
                     if Chart_mode=='Line Chart':
