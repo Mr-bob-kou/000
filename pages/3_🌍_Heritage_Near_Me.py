@@ -72,7 +72,7 @@ with col3:
             name="Heritage",
             marker=folium.Marker(icon=folium.Icon(icon='info-sign')),
             tooltip=tooltip2).add_to(marker_cluster)
-        output=st_folium(m1, use_container_width=True)
+        output=st_folium(m1, use_container_width=True,return_on_hover=True)
         if output["last_clicked"] is None:
             st.write("Click the map and get latitude and longitude!!")
         else:
