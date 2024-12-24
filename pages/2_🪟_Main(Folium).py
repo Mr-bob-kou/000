@@ -168,7 +168,7 @@ with col1:
                                      columns='CATSHORT',                                  
                                      aggfunc='count',                     
                                      fill_value=0).round(decimals=2)
-                st.write(pivot_tb)
+                st.dataframe(data=pivot_tb)
 
 
                 col7,col8=st.columns([3,1])
