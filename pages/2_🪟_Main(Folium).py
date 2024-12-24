@@ -303,8 +303,43 @@ with col1:
                         cat_crmap(heritage,reg_df,style_function1,legend_dict1,color_scale1,cat='C/N')
             elif "Inscription Date" in st.session_state.modes:
                 cat_crmap(heritage,reg_df,style_function1,legend_dict1,color_scale1,colum='DATEINSCRI',cat=Inscdate)
+                data=count_sj(data,regions,colum="DATEINSCRI",cat=Inscdate)
+                st.write(data)
+                col10,col11=st.columns([2,2])
+                with col11:
+                    charts_select=st.selectbox("Choose the Plot",["Line Chart(Top 10)","Bar Chart","Pie Chart"])
+                    name_number=st.text_input("Country Name")
+                    list_country=list(st.session_state.Count['name'])
+                    if name_number in list_country:
+                        pp=st.session_state.Count[st.session_state.Count['name']==name_number]
+                        d=pp['count'].to_list()[0]
+                    else:
+                        d=None
+                    st.write("Country Name:",name_number)
+                    st.write("Number:",d)
+                    
+                with col10: 
+                    pie=alt.Chart(st.session_state.Count).mark_arc().encode(theta="count",color="name")
+                    #charts = muti_chart(data,column,'steelblue')
+                    bar_charts = alt.Chart(st.session_state.Count).mark_bar(size=20).encode(x=alt.X("name",type="nominal").sort("y"),y=alt.Y("count",type="quantitative"))
+                    if charts_select=="Line Chart":
+                        st.write("#### Heritage Count Statistics(Top 10)")
+                        #st.altair_chart(charts,use_container_width=True)
+                    if charts_select=="Bar Chart":
+                        st.write("#### Heritage Count Statistics")
+                        st.altair_chart(bar_charts,use_container_width=True)
+                    elif charts_select=="Pie Chart":
+                        st.write("#### Heritage Count Pie Chart")
+                        st.altair_chart(pie,use_container_width=True)
+
             else:
                 cat_crmap(heritage,reg_df,style_function,legend_dict,color_scale,cat=None)
+                
+                pivot_tb=heritage.pivot_table(index='DATEINSCRI',
+                                              columns='CATSHORT',
+                                              values='CRITERIA',
+                                              aggfunc='count',
+                                              fill_value=0).round(decimals=2)
                 col10,col11=st.columns([2,2])
                 count10=st.session_state.Count.sort_values(by='count', ascending=False).head(10)
                 with col11:
