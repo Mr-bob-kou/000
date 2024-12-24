@@ -231,7 +231,7 @@ def chromap(datum,mp,style_function,ld):
     return mp.to_streamlit(height=700)
 
 def cat_crmap(data1,data2,style_function,legend_dict,color_scale,cat=None):
-    data3=count_sj(data1,data2,cat=None)
+    data3=count_sj(data1,data2,cat=cat)
     Count=gpd.read_file(data3)
     count10=Count.sort_values(by='count', ascending=False).head(10)
     Count["elevation"] = Count['count'].apply(calculate_elevation)
