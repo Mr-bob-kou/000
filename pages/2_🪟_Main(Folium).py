@@ -164,10 +164,11 @@ with col1:
                     m.to_streamlit(height=700)
                 
                 st.write(time_ct_group)
-                pivot_tb=heritage.pivot_table(index='DATEINSCRI',                    
-                                     columns='CATSHORT',                                  
-                                     aggfunc='count',                     
-                                     fill_value=0).round(decimals=2)
+                pivot_tb=heritage.pivot_table(index='DATEINSCRI',
+                                              columns='CATSHORT',
+                                              values='CRITERIA',
+                                              aggfunc='count',
+                                              fill_value=0).round(decimals=2)
                 st.dataframe(data=pivot_tb)
 
 
