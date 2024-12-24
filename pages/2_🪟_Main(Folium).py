@@ -169,7 +169,6 @@ with col1:
                                               values='CRITERIA',
                                               aggfunc='count',
                                               fill_value=0).round(decimals=2)
-                pivot_tb=pivot_tb.reset.index()
                 st.dataframe(data=pivot_tb)
 
 
