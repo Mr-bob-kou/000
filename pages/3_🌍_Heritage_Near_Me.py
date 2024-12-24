@@ -115,8 +115,8 @@ with col3:
             miun=datum[datum['distance_from_home']==datum['distance_from_home'].min()]
             name=miun["NAME"].to_string(index=False)
             mini_dis=miun["distance_from_home"].to_string(index=False)
-            x_c=pd.to_numeric(miun["LONGITUDE"], errors="coerce")
-            y_c=pd.to_numeric(miun["LATITUDE"], errors="coerce")
+            x_c=float(miun["LONGITUDE"].to_string(index=False))
+            y_c=float(miun["LATITUDE"].to_string(index=False))
             center1=[y_c,x_c]
             st.write(center1)
             zoom1=15
