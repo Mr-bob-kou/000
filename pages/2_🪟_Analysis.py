@@ -323,7 +323,17 @@ with col1:
         if "Region" in st.session_state.modes:
             if "Category" in st.session_state.modes:
                 if"Inscription Date" in st.session_state.modes:
-                    st.write("Comeing Soon...")
+                    a=heritage[heritage["DATEINSCRI"]==Inscdate]
+                    if types=='See All':
+                        cat_crmap(a,reg_df,style_function1,legend_dict1,color_scale1,cat=None) 
+                    elif types=='Natural':
+                        cat_crmap(a,reg_df,style_function1,legend_dict1,color_scale1,cat='N')
+                    elif types=='Cultural':
+                        cat_crmap(a,reg_df,style_function1,legend_dict1,color_scale1,cat='C')
+                    elif types=='Mixed':
+                        cat_crmap(a,reg_df,style_function1,legend_dict1,color_scale1,cat='C/N')
+                    co_chart(st.session_state.Count)
+                    
                 else:
                     if types=='See All':
                         cat_crmap(heritage,reg_df,style_function,legend_dict,color_scale,cat=None) 
@@ -336,6 +346,7 @@ with col1:
                     co_chart(st.session_state.Count)
             elif "Inscription Date" in st.session_state.modes:
                 cat_crmap(heritage,reg_df,style_function1,legend_dict1,color_scale1,colum='DATEINSCRI',cat=Inscdate)
+                co_chart(st.session_state.Count)
                 
                 
             else:
