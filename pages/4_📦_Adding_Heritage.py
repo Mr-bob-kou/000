@@ -44,7 +44,6 @@ def final_ct(a,b):
 
 
 tab1, tab2,tab3=st.tabs(["Add Heritage", "Edit Heritage","Delete Heritage"])
-st.session_state
 with tab1:
     name = st.text_input("Name")
     country= st.text_input("Country")
