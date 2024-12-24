@@ -224,6 +224,12 @@ def td_counter(data):
         )
      return st.write(deck)
 
+def chromap(datum,mp,style_function,ld):
+    mp.add_basemap(basemap)
+    mp.add_geojson(datum,style_callback=style_function) 
+    mp.add_legend(title="Heritage Counts", legend_dict=ld,draggable=False,position="bottomright")
+    return mp.to_streamlit(height=700)
+
 def cat_crmap(data1,data2,style_function,legend_dict,color_scale,cat=None):
     data3=count_sj(data1,data2,cat=None)
     Count=gpd.read_file(data3)
