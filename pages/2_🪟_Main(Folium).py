@@ -288,7 +288,14 @@ with col1:
                 if"Inscription Date" in st.session_state.modes:
                     st.write("A")
                 else:
-                    st.write("B")
+                    if types=='See All':
+                        cat_crmap(heritage,reg_df,style_function,legend_dict,color_scale,cat=None) 
+                    elif types=='Natural':
+                        cat_crmap(heritage,reg_df,style_function1,legend_dict1,color_scale1,cat='N')
+                    elif types=='Cultural':
+                        cat_crmap(heritage,reg_df,style_function,legend_dict,color_scale,cat='C')
+                    elif types=='Cultural':
+                        cat_crmap(heritage,reg_df,style_function,legend_dict,color_scale,cat='C/N')
             elif "Inscription Date" in st.session_state.modes:
                 st.write("C")
             else:
