@@ -162,16 +162,12 @@ with col1:
                         type("C/N","Mixed","#ff0000",pop,data=Cate_data)
                     m.add_basemap(basemap)
                     m.to_streamlit(height=700)
-                
-                st.write(time_ct_group)
                 pivot_tb=heritage.pivot_table(index='DATEINSCRI',
                                               columns='CATSHORT',
                                               values='CRITERIA',
                                               aggfunc='count',
                                               fill_value=0).round(decimals=2)
                 st.dataframe(data=pivot_tb)
-
-
                 col7,col8=st.columns([3,1])
                 with col8:
                     chart_mode=['Line Chart','Bar Chart','Cumulative Line Chart']
@@ -197,7 +193,7 @@ with col1:
                 with col7:
                     cuml(years, 'count')
                     cond=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.value('steelblue'))
-                    line_charts = alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y(alt.repeat("layer"),scale=alt.Scale(reverse=True)), color=alt.datum(alt.repeat("layer"))).repeat(layer=["C", "C/N","N"])
+                    line_charts = alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y(alt.repeat("layer"),type='quantitative',scale=alt.Scale(reverse=True)), color=alt.datum(alt.repeat("layer"))).repeat(layer=["C", "C/N","N"])
                     #point_charts=alt.Chart(years).mark_point(filled=True,opacity=1).encode(x=alt.X("DATEINSCRI", type='temporal'),y=alt.Y(alt.repeat("layer")),color=cond).repeat(layer=["C", "C/N","N"])
                     #charts1=line_charts+point_charts
                     charts2 = alt.Chart(years).mark_bar(size=10).encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("count",type="quantitative"),color=cond)
