@@ -30,8 +30,7 @@ if "Count" not in  st.session_state:
 if "dt3" not in  st.session_state:
     st.session_state.dt3=None
 if "modes" not in  st.session_state:
-    st.seesion_state.modes=[]
-
+    st.seesion_state.modes=None
 
 legend_dict = {
     "0":'#FFFFFF',
@@ -301,7 +300,7 @@ col1,col2=st.columns([4,1])
 if st.button("Rerun"):
     st.session_state.button_click=False
     st.session_state.disable=False
-    st.session_state.modes=[]
+    st.session_state.modes=None
     st.rerun()
     
 
