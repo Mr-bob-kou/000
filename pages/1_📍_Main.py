@@ -9,7 +9,6 @@ from collections import OrderedDict
 
 st.set_page_config(layout="wide",page_title="My World Herritage Website", page_icon="☘️")
 st.title("Main")
-st.session_state
 data="https://raw.githubusercontent.com/Mr-bob-kou/My_Respository/main/point.geojson"
 if 'heritage1' not in st.session_state:
     st.session_state.heritage1 = gpd.read_file(data)
