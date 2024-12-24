@@ -25,7 +25,7 @@ if "disable" not in st.session_state:
     
 if "Count10" not in st.session_state:
     st.session_state.Count10=None
-if Count not in not in st.session_state:
+if "Count" not in  st.session_state:
     st.session_state.Count=None
 
 
