@@ -204,7 +204,7 @@ with col1:
                 with col7:
                     cuml(years, 'count')
                     cond=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.value('steelblue'))
-                    cond2=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.datum(alt.repeat("layer")))
+                    cond2=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),altair.Color(alt.repeat("layer"),scale=alt.Scale(domain=['C', 'C/N', 'N'], range=['blue', 'orange', 'green'])))
                     charts1 = alt.Chart(years).mark_line(point=True).encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y(alt.repeat("layer"),type='quantitative',title='count'), color=cond2).repeat(layer=["C", "C/N","N"])
                     charts2 = alt.Chart(years).mark_bar(size=10).encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("count",type="quantitative"),color=cond)
                     charts3= alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("agrr",type="quantitative"))
