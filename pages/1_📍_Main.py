@@ -80,5 +80,15 @@ with col1:
         m7 = leafmap.Map(center=centers,zoom=15,locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
         pop=["NAME","DATEINSCRI","COUNTRY","DESCRIPTIO","AREAHA","DANGER","LONGITUDE","LATITUDE"]
         Default(heritage,m7, "LONGITUDE","LATITUDE",pop)
+with st.container():
+    if place=="See All":
+        Info("NA","NA","NA")
+    else:
+        s=heritage[heritage['NAME']==place]
+        h_name=s['NAME'].to_string(index=False)
+        h_country=s['COUNTRY'].to_string(index=False)
+        h_des=s['DESCRIPTIO'].to_string(index=False)
+        Info(h_name,h_country,h_des)
+    
 
    
