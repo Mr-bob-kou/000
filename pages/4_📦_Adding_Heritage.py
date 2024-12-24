@@ -6,6 +6,15 @@ import altair as alt
 import ipyleaflet
 import time
 from collections import OrderedDict
+import folium
+from streamlit_folium import st_folium
+from folium.plugins import Draw
+
+
+if 'cordx' not in st.session_state:
+    st.session_state.cordx=0
+if 'cordy' not in st.session_state:
+    st.session_state.cordy=0
 
 st.set_page_config(layout="wide")
 datum=st.session_state.heritage1
@@ -44,13 +53,14 @@ with tab1:
     description=st.text_area("Description","NA")
     co1,co2=st.columns([1,1])
     with co1:
-        x_cord=st.text_input("Longitude",0) 
-        y_cord=st.text_input("Latitude",0)
+        x_cord=st.text_input("Longitude",st.session_state.cordx) 
+        y_cord=st.text_input("Latitude",st.session_state.cordy)
         loct=[y_cord,x_cord]
         type=st.selectbox("Type",tp)
         areha=st.number_input("Area(ha)",min_value=0.00)
         criteria= st.multiselect("Criteria",cre_list,key="multis")
         st.write("For criteria:[See There](https://whc.unesco.org/en/criteria/)") 
+        chx=st.toggle("Activate function A ?(Premium Member Only)",key="chx")
         with st.expander("Optionals"):
             danger = st.radio("Is this Heritage in Danger?", ["Yes", "No"],index=1,key="danger")
             if st.session_state.danger=="Yes":
@@ -62,9 +72,25 @@ with tab1:
             sedate=st.selectbox("Second inscription date",[None]+yr_range)
             tb=st.checkbox("Transboundary?",key="TB") 
     with co2:
-        m=leafmap.Map(center=loct,zoom=15)
-        m.add_marker(loct)
-        m.to_streamlit(width=500, height=500)
+        if chx:
+            m1 = folium.Map(location=[0,0], zoom_start=1,tile=basemap_fol)
+            Draw(export=True).add_to(m1)
+            output=st_folium(m1, use_container_width=True)
+            if output["last_clicked"] is None:
+                st.write("Click the map and get latitude and longitude!!")
+            else:
+                fol_lat=output["last_clicked"]['lat']
+                fol_long=output["last_clicked"]['lng']
+                if fol_long != st.session_state.cordx:
+                    st.session_state.cordx=fol_long
+                    st.rerun()
+                if fol_lat!= st.session_state.cordy:
+                    st.session_state.cordy=fol_lat
+                    st.rerun()
+        else:
+            m=leafmap.Map(center=loct,zoom=15)
+            m.add_marker(loct)
+            m.to_streamlit(width=500, height=500)
    
             
     
