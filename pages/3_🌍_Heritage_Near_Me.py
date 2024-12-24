@@ -110,11 +110,10 @@ with col3:
             x_c=float(miun["LONGITUDE"].to_string(index=False))
             y_c=float(miun["LATITUDE"].to_string(index=False))
             center1=[y_c,x_c]
-            st.write(center1)
             zoom1=15
             m = leafmap.Map(center=center1,zoom=zoom1,locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
             m.add_points_from_xy(datum,x=lon,y=lat,popup=['NAME','COUNTRY','REGION','DATEINSCRI'])
-            m.add_marker(center1,color='red')
+            m.add_marker(home_city_coordinates,color='red')
             m.add_basemap(basemap)
             m.to_streamlit(height=700)
             st.write("The Nearest Heritage is:",name )
