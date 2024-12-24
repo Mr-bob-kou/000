@@ -22,6 +22,9 @@ if "button_click" not in st.session_state:
 
 if "disable" not in st.session_state:
     st.session_state.disable=False
+if "Count10" not in st.session_state:
+    st.session_state.Count10=None
+
 
 
 legend_dict = {
@@ -234,6 +237,7 @@ def cat_crmap(data1,data2,style_function,legend_dict,color_scale,colum="CATSHORT
     data3=count_sj(data1,data2,colum=colum,cat=cat)
     Count=gpd.read_file(data3)
     count10=Count.sort_values(by='count', ascending=False).head(10)
+    st.session_state.Count10=count10
     Count["elevation"] = Count['count'].apply(calculate_elevation)
     Count["filled_color"]=Count['count'].apply(color_scale)
     if chbox:
@@ -300,6 +304,7 @@ with col1:
                 cat_crmap(heritage,reg_df,style_function1,legend_dict1,color_scale1,colum='DATEINSCRI',cat=Inscdate)
             else:
                cat_crmap(heritage,reg_df,style_function,legend_dict,color_scale,cat=None)
+                st.write(st.session_state.Count10)
 
 
 
