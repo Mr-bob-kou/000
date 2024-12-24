@@ -238,9 +238,7 @@ def chromap(datum,mp,style_function,ld):
 def cat_crmap(data1,data2,style_function,legend_dict,color_scale,colum="CATSHORT",cat=None):
     data3=count_sj(data1,data2,colum=colum,cat=cat)
     Count=gpd.read_file(data3)
-    count10=Count.sort_values(by='count', ascending=False).head(10)
-    st.session_state.Count10=count10
-    st.session_state_Count=Count
+    st.session_state.Count=Count
     Count["elevation"] = Count['count'].apply(calculate_elevation)
     Count["filled_color"]=Count['count'].apply(color_scale)
     if chbox:
@@ -308,12 +306,13 @@ with col1:
             else:
                 cat_crmap(heritage,reg_df,style_function,legend_dict,color_scale,cat=None)
                 col10,col11=st.columns([2,2])
+                count10=st.session_state.Count.sort_values(by='count', ascending=False).head(10)
                 with col11:
                     charts_select=st.selectbox("Choose the Plot",["Bar Chart(Top 10)","Bar Chart","Pie Chart"])
                 with col10: 
-                    pie=alt.Chart(st.session_state_Count).mark_arc().encode(theta="count",color="name")
-                    charts = alt.Chart(st.session_state_Count10).mark_bar(size=20).encode(x=alt.X("name",type="nominal").sort("y"),y=alt.Y("count",type="quantitative"))
-                    bar_charts = alt.Chart(st.session_state_Count).mark_bar(size=20).encode(x=alt.X("name",type="nominal").sort("y"),y=alt.Y("count",type="quantitative"))
+                    pie=alt.Chart(st.session_state.Count).mark_arc().encode(theta="count",color="name")
+                    charts = alt.Chart(count10).mark_bar(size=20).encode(x=alt.X("name",type="nominal").sort("y"),y=alt.Y("count",type="quantitative"))
+                    bar_charts = alt.Chart(st.session_state.Count).mark_bar(size=20).encode(x=alt.X("name",type="nominal").sort("y"),y=alt.Y("count",type="quantitative"))
                     if charts_select=="Bar Chart(Top 10)":
                         st.write("#### Heritage Count Statistics(Top 10)")
                         st.altair_chart(charts,use_container_width=True)
