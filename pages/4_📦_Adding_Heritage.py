@@ -73,7 +73,7 @@ with tab1:
             tb=st.checkbox("Transboundary?",key="TB") 
     with co2:
         if chx:
-            m1 = folium.Map(location=[0,0], zoom_start=1,tile=basemap_fol)
+            m1 = folium.Map(location=[0,0], zoom_start=1)
             Draw(export=True).add_to(m1)
             output=st_folium(m1, use_container_width=True)
             if output["last_clicked"] is None:
