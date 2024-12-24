@@ -5,6 +5,7 @@ import altair as alt
 import pydeck as pdk
 import math
 import pandas as pd
+from collections import OrderedDict
 
 st.set_page_config(layout="wide",page_title="My World Herritage Website", page_icon="☘️")
 st.title("Main")
@@ -27,9 +28,8 @@ options = list(leafmap.basemaps.keys())
 index = options.index("OpenStreetMap")
 modes=["Default","Heat Map","Choropleth Map","Inscribed Date","Catagory"]
 modes1="Default"
-opt=["See All"]+list(heritage_sort['NAME'])
-country=["See All"]+list(set(heritage_sort['COUNTRY']))
-pd.options.display.max_colwidth = 200
+country=["See All"]+list(OrderedDict.fromkeys((heritage_sort['COUNTRY'])))
+pd.options.display.max_colwidth = 500
 
 def Default(datum,mp,lon,lat,pop):
     mp.add_geojson(regions, layer_name="Countries",zoom_to_layer=False)
@@ -55,6 +55,11 @@ col1, col2 = st.columns([4, 1])
 with col2:
     basemap = st.selectbox("Select a basemap:", options, index)
     country=st.selectbox("Choose a Country",country)
+    if country=="See All":
+        opt=["See All"]+list(OrderedDict.fromkeys(heritage_sort['NAME']))
+    else:
+        ct=heritage[heritage['COUNTRY']==country]
+        opt=list(OrderedDict.fromkeys(ct['NAME']))
     
     place=st.selectbox("Choose a Place",opt)
     s=heritage[heritage['NAME']==place]
