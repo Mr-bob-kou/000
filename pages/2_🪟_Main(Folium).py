@@ -212,9 +212,9 @@ with col1:
                     st.write("Total:",d)
                 with col7:
                     cuml(years, 'count')
-                    cond=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.value('steelblue'))
+                    cond=alt.condition(alt.datum.Types==types,alt.value('red'),alt.value('steelblue'))
                     charts1=muti_chart(years,'N','green')+muti_chart(years,'C','orange')+muti_chart(years,'C/N','steelblue')
-                    charts2 = alt.Chart(time_ct_group).mark_bar(size=10).encode(x=alt.X("Types",type='nominal'),y=alt.Y("count",type="quantitative"),color=alt.value('steelblue'))
+                    charts2 = alt.Chart(time_ct_group).mark_bar(size=10).encode(x=alt.X("Types",type='nominal'),y=alt.Y("count",type="quantitative"),color=cond)
                     charts3= alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("agrr",type="quantitative"))
                     if Chart_mode=='Line Chart':
                         st.altair_chart(charts1,use_container_width=True)
