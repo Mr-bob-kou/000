@@ -29,6 +29,8 @@ if "Count" not in  st.session_state:
     st.session_state.Count=None
 if "dt3" not in  st.session_state:
     st.session_state.dt3=None
+if "modes" not in  st.session_state:
+    st.seesion_state.modes=[]
 
 
 legend_dict = {
@@ -299,6 +301,7 @@ col1,col2=st.columns([4,1])
 if st.button("Rerun"):
     st.session_state.button_click=False
     st.session_state.disable=False
+    st.seesion_state.modes=[]
     st.rerun()
     
 
