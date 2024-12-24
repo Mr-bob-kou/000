@@ -197,7 +197,7 @@ with col1:
                 with col7:
                     cuml(years, 'count')
                     cond=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.value('steelblue'))
-                    line_charts = alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y(alt.repeat("layer").aggregate("sum")), color=alt.datum(alt.repeat("layer")).repeat(layer=["C", "C/N","N"])
+                    line_charts = alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y(alt.repeat("layer").aggregate("sum")), color=alt.datum(alt.repeat("layer"))).repeat(layer=["C", "C/N","N"])
                     #point_charts=alt.Chart(years).mark_point(filled=True,opacity=1).encode(x=alt.X("DATEINSCRI", type='temporal'),y=alt.Y(alt.repeat("layer")),color=cond).repeat(layer=["C", "C/N","N"])
                     #charts1=line_charts+point_charts
                     charts2 = alt.Chart(years).mark_bar(size=10).encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("count",type="quantitative"),color=cond)
