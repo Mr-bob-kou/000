@@ -52,8 +52,8 @@ with tab1:
     description=st.text_area("Description","NA")
     co1,co2=st.columns([1,1])
     with co1:
-        x_cord=st.text_input("Longitude",st.session_state.cordx) 
-        y_cord=st.text_input("Latitude",st.session_state.cordy)
+        x_cord=st.text_input("Longitude",0) 
+        y_cord=st.text_input("Latitude",0)
         loct=[y_cord,x_cord]
         type=st.selectbox("Type",tp)
         areha=st.number_input("Area(ha)",min_value=0.00)
@@ -71,22 +71,6 @@ with tab1:
             sedate=st.selectbox("Second inscription date",[None]+yr_range)
             tb=st.checkbox("Transboundary?",key="TB") 
     with co2:
-        if chx:
-            m1 = folium.Map(location=[0,0], zoom_start=1)
-            Draw(export=True).add_to(m1)
-            output=st_folium(m1, use_container_width=True)
-            if output["last_clicked"] is None:
-                st.write("Click the map and get latitude and longitude!!")
-            else:
-                fol_lat=output["last_clicked"]['lat']
-                fol_long=output["last_clicked"]['lng']
-                if fol_long != st.session_state.cordx:
-                    st.session_state.cordx=fol_long
-                    st.rerun()
-                if fol_lat!= st.session_state.cordy:
-                    st.session_state.cordy=fol_lat
-                    st.rerun()
-        else:
             m=leafmap.Map(center=loct,zoom=15)
             m.add_marker(loct)
             m.to_streamlit(width=500, height=500)
