@@ -131,13 +131,19 @@ with col1:
                 st.write("C")
             else:
                 st.write("D")
+
+
+
+
+
+        
         elif "Category" in st.session_state.modes:
             pop=["NAME","DATEINSCRI","COUNTRY","DESCRIPTIO","AREAHA","DANGER","LONGITUDE","LATITUDE"]
             m=leafmap.Map(center=[40, -100], zoom=4)
             m.add_geojson(regions, layer_name="Countries",zoom_to_layer=False)
 
 
-            
+
             if"Inscription Date" in st.session_state.modes:
                 Cate_data=heritage[heritage['DATEINSCRI']==Inscdate]
                 if Cate_data.empty:
@@ -172,6 +178,8 @@ with col1:
                                               fill_value=0).round(decimals=2)
                 st.dataframe(data=pivot_tb)
                 col7,col8=st.columns([3,1])
+
+                
                 with col8:
                     chart_mode=['Line Chart','Bar Chart','Cumulative Line Chart']
                     Chart_mode=st.selectbox("Select a Mode",chart_mode)
@@ -196,7 +204,7 @@ with col1:
                 with col7:
                     cuml(years, 'count')
                     cond=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.value('steelblue'))
-                    cond2=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.datum(alt.repeat("layer"))
+                    cond2=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.datum(alt.repeat("layer")))
                     line_charts = alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y(alt.repeat("layer"),type='quantitative',title='count'), color=alt.datum(alt.repeat("layer"))).repeat(layer=["C", "C/N","N"])
                     point_charts=alt.Chart(years).mark_point(filled=True,opacity=1).encode(x=alt.X("DATEINSCRI", type='temporal'),y=alt.Y(alt.repeat("layer"),type='quantitative'),color=cond2).repeat(layer=["C", "C/N","N"])
                     #charts1=line_charts+point_charts
