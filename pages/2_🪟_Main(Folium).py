@@ -312,7 +312,7 @@ with col1:
                     charts_select=st.selectbox("Choose the Plot",["Bar Chart(Top 10)","Bar Chart","Pie Chart"])
                 with col10: 
                     pie=alt.Chart(st.session_state_Count).mark_arc().encode(theta="count",color="name")
-                    charts = alt.Chart(st.session_state_count10).mark_bar(size=20).encode(x=alt.X("name",type="nominal").sort("y"),y=alt.Y("count",type="quantitative"))
+                    charts = alt.Chart(st.session_state_Count10).mark_bar(size=20).encode(x=alt.X("name",type="nominal").sort("y"),y=alt.Y("count",type="quantitative"))
                     bar_charts = alt.Chart(st.session_state_Count).mark_bar(size=20).encode(x=alt.X("name",type="nominal").sort("y"),y=alt.Y("count",type="quantitative"))
                     if charts_select=="Bar Chart(Top 10)":
                         st.write("#### Heritage Count Statistics(Top 10)")
