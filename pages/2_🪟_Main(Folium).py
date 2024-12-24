@@ -303,7 +303,7 @@ with col1:
                         cat_crmap(heritage,reg_df,style_function1,legend_dict1,color_scale1,cat='C/N')
             elif "Inscription Date" in st.session_state.modes:
                 cat_crmap(heritage,reg_df,style_function1,legend_dict1,color_scale1,colum='DATEINSCRI',cat=Inscdate)
-                data=count_sj(heritage,regions,colum="DATEINSCRI",cat=Inscdate)
+                data=count_sj(heritage,reg_df,colum="DATEINSCRI",cat=Inscdate)
                 st.write(data)
                 col10,col11=st.columns([2,2])
                 with col11:
