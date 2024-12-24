@@ -261,8 +261,8 @@ def co_chart(data):
             d=pp['count'].to_list()[0]
         else:
             d=None
-            st.write("Country Name:",name_number)
-            st.write("Number:",d)
+        st.write("Country Name:",name_number)
+        st.write("Number:",d)
                     
         with col10: 
             pie=alt.Chart(data).mark_arc().encode(theta="count",color="name")
