@@ -15,6 +15,14 @@ option1=["OpenStreetMap","Cartodb Positron","Cartodb dark_matter"]
 index = options.index("OpenTopoMap")
 muti_options=["The Nearest","Top 5","Top 10","See All"]
 
+if "center" not in st.session_state:
+    st.session_state.center=[0,0]
+
+if "zoom" not in st.session_state:
+    st.session_state.zoom=1
+
+center=st.session_state.center
+
 def calculate_distance(row):
     city_coordinates = (row['LATITUDE'], row['LONGITUDE'])
     return distance.geodesic(city_coordinates, home_city_coordinates).km
@@ -99,10 +107,6 @@ with col3:
             if button2:
                 st.rerun()
     else:
-        m = leafmap.Map(locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
-        m.add_points_from_xy(datum,x=lon,y=lat,popup=['NAME','COUNTRY','REGION','DATEINSCRI'])
-        m.add_basemap(basemap)
-        m.to_streamlit(height=700)
         if st.session_state.search==True:
             home_city_coordinates =[y_cord,x_cord]
             result= datum.apply(calculate_distance, axis=1)
@@ -110,8 +114,21 @@ with col3:
             miun=datum[datum['distance_from_home']==datum['distance_from_home'].min()]
             name=miun["NAME"].to_string(index=False)
             mini_dis=miun["distance_from_home"].to_string(index=False)
+            x_c=miun["LONGITUDE"].to_numeric(index=False)
+            y_c=minu["LATITUDE"].to_numeric(index=False)
+            center=[x_c,y_c]
+            zoom=15
+            m = leafmap.Map(center=center,zoom=zoom,locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
+            m.add_points_from_xy(datum,x=lon,y=lat,popup=['NAME','COUNTRY','REGION','DATEINSCRI'])
+            m.add_basemap(basemap)
+            m.to_streamlit(height=700)
             st.write("The Nearest Heritage is:",name )
             st.write("The Minimum Distance is:",mini_dis,"km" )
             button2=st.button("Rerun")
             if button2:
                 st.rerun()
+        else:
+            m = leafmap.Map(center=center,zoom=zoom,locate_control=True, latlon_control=True, draw_export=True, minimap_control=True)
+            m.add_points_from_xy(datum,x=lon,y=lat,popup=['NAME','COUNTRY','REGION','DATEINSCRI'])
+            m.add_basemap(basemap)
+            m.to_streamlit(height=700)
