@@ -29,6 +29,7 @@ modes=["Default","Heat Map","Choropleth Map","Inscribed Date","Catagory"]
 modes1="Default"
 opt=["See All"]+list(heritage_sort['NAME'])
 country=["See All"]+list(set(heritage_sort['COUNTRY']))
+pd.options.display.max_colwidth = 200
 
 def Default(datum,mp,lon,lat,pop):
     mp.add_geojson(regions, layer_name="Countries",zoom_to_layer=False)
