@@ -303,7 +303,7 @@ with col1:
             elif "Inscription Date" in st.session_state.modes:
                 cat_crmap(heritage,reg_df,style_function1,legend_dict1,color_scale1,colum='DATEINSCRI',cat=Inscdate)
             else:
-               cat_crmap(heritage,reg_df,style_function,legend_dict,color_scale,cat=None)
+                cat_crmap(heritage,reg_df,style_function,legend_dict,color_scale,cat=None)
                 st.write(st.session_state.Count10)
 
 
