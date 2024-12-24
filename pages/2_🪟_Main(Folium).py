@@ -186,11 +186,11 @@ def muti_chart(data,column,color):
     chart1=point_chart+line_chart
     return chart1
 
-def count_sj(data,regions,cat=None):
+def count_sj(data,regions,colum="CATSHORT",cat=None):
     if cat==None:
         data1=data
     else:
-        data1=data[data["CATSHORT"]==cat]
+        data1=data[data[colum]==cat]
     count=gpd.sjoin(data1,regions, how='inner', predicate='within')
     a=count.groupby("name").size()
     count_per_polygon = a.rename('count')
@@ -230,8 +230,8 @@ def chromap(datum,mp,style_function,ld):
     mp.add_legend(title="Heritage Counts", legend_dict=ld,draggable=False,position="bottomright")
     return mp.to_streamlit(height=700)
 
-def cat_crmap(data1,data2,style_function,legend_dict,color_scale,cat=None):
-    data3=count_sj(data1,data2,cat=cat)
+def cat_crmap(data1,data2,style_function,legend_dict,color_scale,colum="CATSHORT",cat=None):
+    data3=count_sj(data1,data2,colum=colum,cat=cat)
     Count=gpd.read_file(data3)
     count10=Count.sort_values(by='count', ascending=False).head(10)
     Count["elevation"] = Count['count'].apply(calculate_elevation)
@@ -294,10 +294,10 @@ with col1:
                         cat_crmap(heritage,reg_df,style_function1,legend_dict1,color_scale1,cat='N')
                     elif types=='Cultural':
                         cat_crmap(heritage,reg_df,style_function,legend_dict,color_scale,cat='C')
-                    elif types=='Cultural':
-                        cat_crmap(heritage,reg_df,style_function,legend_dict,color_scale,cat='C/N')
+                    elif types=='Mixed':
+                        cat_crmap(heritage,reg_df,style_function1,legend_dict1,color_scale1,cat='C/N')
             elif "Inscription Date" in st.session_state.modes:
-                st.write("C")
+                cat_crmap(heritage,reg_df,style_function1,legend_dict1,color_scale1,colum='DATEINSCRI',cat=Inscdate)
             else:
                cat_crmap(heritage,reg_df,style_function,legend_dict,color_scale,cat=None)
 
