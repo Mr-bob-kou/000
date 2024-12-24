@@ -22,9 +22,11 @@ if "button_click" not in st.session_state:
 
 if "disable" not in st.session_state:
     st.session_state.disable=False
+    
 if "Count10" not in st.session_state:
     st.session_state.Count10=None
-
+if Count not in not in st.session_state:
+    st.session_state.Count=None
 
 
 legend_dict = {
@@ -238,6 +240,7 @@ def cat_crmap(data1,data2,style_function,legend_dict,color_scale,colum="CATSHORT
     Count=gpd.read_file(data3)
     count10=Count.sort_values(by='count', ascending=False).head(10)
     st.session_state.Count10=count10
+    st.session_state_Count=Count
     Count["elevation"] = Count['count'].apply(calculate_elevation)
     Count["filled_color"]=Count['count'].apply(color_scale)
     if chbox:
@@ -304,7 +307,22 @@ with col1:
                 cat_crmap(heritage,reg_df,style_function1,legend_dict1,color_scale1,colum='DATEINSCRI',cat=Inscdate)
             else:
                 cat_crmap(heritage,reg_df,style_function,legend_dict,color_scale,cat=None)
-                st.write(st.session_state.Count10)
+                col10,col11=st.columns([2,2])
+                with col11:
+                    charts_select=st.selectbox("Choose the Plot",["Bar Chart(Top 10)","Bar Chart","Pie Chart"])
+                with coll0: 
+                    pie=alt.Chart(st.session_state_Count).mark_arc().encode(theta="count",color="name")
+                    charts = alt.Chart(st.session_state_count10).mark_bar(size=20).encode(x=alt.X("name",type="nominal").sort("y"),y=alt.Y("count",type="quantitative"))
+                    bar_charts = alt.Chart(st.session_state_Count).mark_bar(size=20).encode(x=alt.X("name",type="nominal").sort("y"),y=alt.Y("count",type="quantitative"))
+                    if charts_select=="Bar Chart(Top 10)":
+                        st.write("#### Heritage Count Statistics(Top 10)")
+                        st.altair_chart(charts,use_container_width=True)
+                    if charts_select=="Bar Chart":
+                        st.write("#### Heritage Count Statistics")
+                        st.altair_chart(bar_charts,use_container_width=True)
+                    elif charts_select=="Pie Chart":
+                        st.write("#### Heritage Count Pie Chart")
+                        st.altair_chart(pie,use_container_width=True)
 
 
 
