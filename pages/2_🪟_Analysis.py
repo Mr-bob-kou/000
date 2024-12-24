@@ -257,7 +257,7 @@ def co_chart(data):
         name_number=st.text_input("Country Name")
         list_country=list(st.session_state.Count['name'])
         if name_number in list_country:
-            pp=st.data[data['name']==name_number]
+            pp=data[data['name']==name_number]
             d=pp['count'].to_list()[0]
         else:
             d=None
