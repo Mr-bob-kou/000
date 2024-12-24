@@ -135,6 +135,9 @@ with col1:
             pop=["NAME","DATEINSCRI","COUNTRY","DESCRIPTIO","AREAHA","DANGER","LONGITUDE","LATITUDE"]
             m=leafmap.Map(center=[40, -100], zoom=4)
             m.add_geojson(regions, layer_name="Countries",zoom_to_layer=False)
+
+
+            
             if"Inscription Date" in st.session_state.modes:
                 Cate_data=heritage[heritage['DATEINSCRI']==Inscdate]
                 if Cate_data.empty:
@@ -193,8 +196,9 @@ with col1:
                 with col7:
                     cuml(years, 'count')
                     cond=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.value('steelblue'))
-                    #line_charts = alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y(alt.repeat("layer"),type='quantitative',title='count'), color=alt.datum(alt.repeat("layer"))).repeat(layer=["C", "C/N","N"])
-                    point_charts=alt.Chart(years).mark_point(filled=True,opacity=1).encode(x=alt.X("DATEINSCRI", type='temporal'),y=alt.Y(alt.repeat("layer"),type='quantitative'),color=cond).repeat(layer=["C", "C/N","N"])
+                    cond2=alt.condition(alt.datum.DATEINSCRI==Inscdate,alt.value('red'),alt.datum(alt.repeat("layer"))
+                    line_charts = alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y(alt.repeat("layer"),type='quantitative',title='count'), color=alt.datum(alt.repeat("layer"))).repeat(layer=["C", "C/N","N"])
+                    point_charts=alt.Chart(years).mark_point(filled=True,opacity=1).encode(x=alt.X("DATEINSCRI", type='temporal'),y=alt.Y(alt.repeat("layer"),type='quantitative'),color=cond2).repeat(layer=["C", "C/N","N"])
                     #charts1=line_charts+point_charts
                     charts2 = alt.Chart(years).mark_bar(size=10).encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("count",type="quantitative"),color=cond)
                     charts3= alt.Chart(years).mark_line().encode(x=alt.X("DATEINSCRI",type='temporal'),y=alt.Y("agrr",type="quantitative"))
@@ -204,6 +208,9 @@ with col1:
                         st.altair_chart(charts2,use_container_width=True)
                     if Chart_mode=='Cumulative Line Chart':
                         st.altair_chart(charts3,use_container_width=True)
+
+
+            
             else:
                 ct_group=to_df(heritage,"CATSHORT")
                 ct_group.rename(columns={0:'count'},inplace=True)
